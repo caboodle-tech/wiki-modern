@@ -12,7 +12,6 @@ require('include/wm-format-post-page.php');
 
 
 require('classes/wm_walker.php');
-require('classes/wm-link-list.php');
 require( 'classes/wm-post-page.php' );
 
 $WM_POST_PAGE = new WM_post_page();
