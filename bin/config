@@ -1,0 +1,29 @@
+/**
+* Theme Settings.
+*
+* Every option should have a value but the following are required:
+*   > copyright-start
+*   > text-domain
+*   > theme-name
+*
+* NOTE: This file will be parsed to remove this comment and be
+* treated as JSON.
+*/
+{
+    "author-uri": "https://caboodle.tech/",
+    "author": "Caboodle Tech Inc.",
+    "copyright-start": "2018",
+    "description": "empty",
+    "license-uri": "https://www.gnu.org/licenses/gpl.html",
+    "license": "GNU General Public License",
+    "tags": [
+        "one-column",
+        "two-columns",
+        "custom-menu",
+        "featured-images"
+    ],
+    "text-domain": "wiki-modern",
+    "theme-name": "Wiki Modern",
+    "theme-text-domain": "wiki-modern",
+    "theme-uri": "https://www.gnu.org/licenses/gpl.html"
+}

@@ -1,0 +1,43 @@
+.appearance(@type: none){
+    -webkit-appearance: @type;
+    -moz-appearance: @type;
+    appearance: @type;
+}
+
+.box-shadow (@string: 0px 1px 3px 1px fade(@wm_pg_border_color_hover, 30%)){
+	-webkit-box-shadow: @string;
+	-moz-box-shadow:    @string;
+	box-shadow:         @string;
+}
+
+.box-shadow-colored (@string, @color){
+    -webkit-box-shadow: @string @color;
+	-moz-box-shadow:    @string @color;
+	box-shadow:         @string @color;
+}
+
+.border-radius (@radius: 5px) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius:    @radius;
+	border-radius:         @radius;
+
+	-moz-background-clip:    padding;
+	-webkit-background-clip: padding-box;
+	background-clip:         padding-box;
+}
+
+.box-sizing (@type: border-box){
+	-webkit-box-sizing: @type;
+	-moz-box-sizing:    @type;
+	box-sizing:         @type;
+}
+
+.valign(){
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    -ms-transform:translateY(-50%); /* IE */
+    -moz-transform:translateY(-50%); /* Firefox */
+    -webkit-transform:translateY(-50%); /* Safari and Chrome */
+    -o-transform:translateY(-50%);
+}

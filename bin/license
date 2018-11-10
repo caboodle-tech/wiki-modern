@@ -1,0 +1,15 @@
+/*
+Author:         {{author}}
+Author URI:     {{author-uri}}
+Description:    {{description}}
+License:        {{license}}
+License URI:    {{license-uri}}
+Tags:           {{tags}}
+Text Domain:    {{text-domain}}
+Theme Name:     {{theme-name}}
+Theme URI:      {{theme-uri}}
+Version:        {{version}}
+
+{{theme-name}} WordPress Theme © {{years}} {{author}}
+{{theme-name}} is distributed under the terms of the {{license}}.
+*/

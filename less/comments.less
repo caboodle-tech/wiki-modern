@@ -1,0 +1,101 @@
+.wm-comment-container {
+    border: 1px solid @wm_pg_border_color;
+    margin: 1rem 0;
+
+    .wm-comment-header {
+        background-color: @wm_saf_bg_color;
+        border-bottom: 1px solid @wm_pg_border_color;
+        color: @wm_saf_color;
+        padding: .5rem;
+
+        .wm-comment-author {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .wm-comment-date {
+            display: block;
+        }
+    }
+
+    .wm-comment-content {
+        padding: .5rem;
+    }
+
+    .wm-comment-footer {
+        padding: .5rem;
+        text-align: right;
+
+        .wm-control-btns {
+            text-decoration: none;
+            margin: .5rem;
+            padding: .25rem 1rem;
+            font-size: 1.25rem;
+        }
+    }
+}
+
+/** Add different left border to replies. */
+.wm-comment-reply {
+    border-left-width: 8px;
+}
+
+/** Push in each successive reply up to 10 levels deep. */
+.wm-comment-reply-level-X (@index) when (@index > 0) {
+    .wm-comment-reply-level-@{index} {
+        margin-left: @index * 10px;
+    }
+    .wm-comment-reply-level-X(@index - 1);
+}
+.wm-comment-reply-level-X (0) {}
+.wm-comment-reply-level-X(10);
+
+#respond {
+
+    #commentform {
+
+        label {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: .5rem;
+        }
+
+        input[type="email"], input[type="number"], input[type="search"], input[type="text"], input[type="tel"], input[type="url"], input[type="password"], input[type="number"], textarea {
+            display: block;
+            overflow-y: auto;
+            resize: none;
+            padding: 0 .5rem;
+            background-color: @wm_pg_bg_color;
+            border: 1px solid darken(@wm_pg_border_color, 10%);
+            box-shadow: none;
+            min-width: 100px;
+            max-width: 700px;
+            width: 80%;
+            -webkit-appearance: none;
+            outline: none;
+            .box-sizing(border-box);
+
+            &:hover {
+                border-color: darken( @wm_pg_border_color_hover, 10%);
+                cursor: pointer;
+            }
+
+            &:focus {
+                border-color: darken( @wm_pg_border_color_hover, 10%);
+            }
+        }
+
+        textarea {
+            padding: .5rem;
+        }
+
+        .wm-control-btns {
+            height: inherit;
+            padding: 0 1rem;
+            -webkit-appearance: none;
+            outline: none;
+        }
+    }
+}
