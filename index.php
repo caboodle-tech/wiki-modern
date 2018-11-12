@@ -5,6 +5,9 @@
 */
 get_header();
 
+// TODO: ADD post_password_required check to block viewing locked post without password.
+// Make sure the sidebar doesn't load anything either except maybe the widget?
+
 /** Output the correct #wm-wrapper div for our page. */
 if( !is_page() && is_singular() ){
     /** This is a Post page. */

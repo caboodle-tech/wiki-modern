@@ -60,7 +60,13 @@ if ( ! class_exists( 'WM_post_page' ) ){
 
         public function get_post_comments(){
 
-            /** Don't show anything if post is password protected and not unlocked. */
+            /**
+            * Don't show anything if post is password protected and not unlocked.
+            *
+            * NOTE: The post page should have already been blocked from loading
+            * this is just a fail safe in case someone is trying to bypass theme
+            * block.
+            */
             $html = '';
             if( !post_password_required() ){
 
