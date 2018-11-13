@@ -73,9 +73,9 @@ if ( ! class_exists( 'WM_post_page' ) ){
                 /** Is there comments to show? */
                 if ( get_comments_number() > 0 ){
                     $post_id = get_post();
-                    // Post Title: get_the_title()
+
                     if( !empty($post_id->ID) ){
-                        $per_page = 1;
+                        $per_page = 4;
 
                         $comments_query = new WP_Comment_Query;
 
@@ -92,13 +92,20 @@ if ( ! class_exists( 'WM_post_page' ) ){
                         $pagination = '';
                         if( $count > $per_page ){
                             $pages = ceil( $count / $per_page );
-                            $pagination .= 'Showing <form><select name=""><option value="volvo">50</option><option value="saab">75</option><option value="opel">100</option><option value="audi">125</option></select></form> comments per page.';
-                            $pagination .= 'Page 1 of ' . $pages . '.';
+                            $pagination .= '<div class="wm-pagination">Showing <form><select name=""><option value="50" selected>50</option><option value="75">75</option><option value="100">100</option><option value="125">125</option><option value="150">150</option></select></form> comments per page. <span class="wm-pagenation-page-numbers">Viewing page <form><select name="">';
+                            for( $x = 1; $x <= $pages; $x++ ){
+                                if( $x > 1 ){
+                                    $pagination .= '<option value="' . $x . '">' . $x .'</option>';
+                                } else {
+                                    $pagination .= '<option value="' . $x . '" selected>' . $x .'</option>';
+                                }
+                            }
+                            $pagination .= '</select></form> of ' . $pages . '.</span></div>';
                         }
 
-                        $html .= $pagination . '<br>';
+                        $html .= $pagination;
                         $html .= wm_format_comments( $post_id->ID, 1, $per_page );
-                        $html .= $pagination . '<br>';
+                        $html .= $pagination;
 
                     }
                 }
@@ -147,6 +154,10 @@ if ( ! class_exists( 'WM_post_page' ) ){
             }
             /** There was no tags found hide the whole Tag section. */
             return '';
+        }
+
+        public function get_post_title(){
+            return '<h1>' . get_the_title() . '</h1>';
         }
 
     /** End Class. */

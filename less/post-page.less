@@ -1,4 +1,20 @@
-.wm-comment-container {
+.wm-pagination {
+    display: block;
+    margin: 2rem 0;
+    font-size: 1.3rem;
+
+    form {
+        display: inline-block;
+        margin: 0 2px;
+    }
+
+    .wm-pagenation-page-numbers {
+        display: inline-block;
+        float: right;
+    }
+}
+
+.wm-comment-wrapper {
     border: 1px solid @wm_pg_border_color;
     margin: 1rem 0;
 
@@ -21,6 +37,11 @@
 
     .wm-comment-content {
         padding: .5rem;
+
+        .wm-comment-moderation-notice {
+            text-align: center;
+            padding: 10px 0;
+        }
     }
 
     .wm-comment-footer {

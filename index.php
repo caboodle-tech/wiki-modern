@@ -30,7 +30,7 @@ get_sidebar('left');
                     <i class="fas fa-bars"></i>
                 </div>
                 <div id="wm-search-wrapper">
-                    <input id="wm-search" type="input" placeholder="Search"><div class="wm-search-icon"><i class="fas fa-search fa-flip-horizontal"></i></div>
+                    <input id="wm-search" type="text" placeholder="Search"><div class="wm-search-icon"><i class="fas fa-search fa-flip-horizontal"></i></div>
                 </div>
                 <div id="wm-hide-right-btn" class="wm-control-btns">
                     <i class="fas fa-info-circle"></i>
@@ -52,7 +52,8 @@ get_sidebar('left');
                     <i class="fas fa-book-reader"></i>
                 </div>
             </header>
-            <article id="wm-post">
+            <article id="wm-post-container">
+                <?php echo $WM_POST_PAGE->get_post_title(); ?>
                 <?php if ( have_posts() ) : while ( have_posts() ) : the_post();
 the_content();
 endwhile; else: ?>
@@ -63,15 +64,15 @@ endwhile; else: ?>
                     //echo $post->post_content;
                 ?>
             </article>
-            <article id="wm-comments">
+            <section id="wm-comments-container">
                 <?php
                     if( !is_page() && is_singular() ){
-                        echo 'This is the comments section (page) that is hidden until the user switches to it.<br>';
+                        echo $WM_POST_PAGE->get_post_title();
                         echo $WM_POST_PAGE->get_post_comments();
                         echo $WM_POST_PAGE->get_post_comment_form();
                     }
                 ?>
-            </article>
+            </section>
             <footer id="wm-article-footer">
                 <div id="wm-next-post-btn" class="wm-control-btns">
                     <i class="fas fa-angle-left wm-larger-icon"></i><span class="wm-mobile-hide"> Next</span>

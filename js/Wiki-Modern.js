@@ -145,7 +145,7 @@ var WikiModern = (function(){
                 window.scrollTo({top: 0, behavior: "smooth"});
             }
             /** Transition. */
-            transition(document.getElementById('wm-post'), document.getElementById('wm-comments'), 0);
+            transition(document.getElementById('wm-post-container'), document.getElementById('wm-comments-container'), 0);
             /** Update dataset and styles. */
             elems[0].dataset.wkActive = true;
             elems[0].classList.add('wm-active');
@@ -173,7 +173,7 @@ var WikiModern = (function(){
                 window.scrollTo({top: 0, behavior: "smooth"});
             }
             /** Transition. */
-            transition(document.getElementById('wm-comments'), document.getElementById('wm-post'), 0);
+            transition(document.getElementById('wm-comments-container'), document.getElementById('wm-post-container'), 0);
             /** Update dataset and styles. */
             elems[0].dataset.wkActive = false;
             elems[0].classList.remove('wm-active');

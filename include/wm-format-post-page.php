@@ -109,9 +109,9 @@ if( !function_exists( 'wm_get_comment_html' ) ){
 
         /** Build the CSS class needed for this comment or reply. */
         if( $level > 0 ){
-            $class = 'wm-comment-container wm-comment-reply wm-comment-reply-level-' . $level;
+            $class = 'wm-comment-wrapper wm-comment-reply wm-comment-reply-level-' . $level;
         } else {
-            $class = 'wm-comment-container';
+            $class = 'wm-comment-wrapper';
         }
 
         /** Do we need to add the comment under moderation CSS class? */

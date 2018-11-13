@@ -415,7 +415,7 @@ body {
         // END: Change to Article or Comments controls row.
 
         // Container for the actual post (article).
-        #wm-post {
+        #wm-post-container {
             overflow: hidden;
             text-align: justify;
             font-size: 1.25rem;
@@ -438,14 +438,14 @@ body {
     // END: Main Page Content.
 
     // START: Comments Section.
-    #wm-comments {
+    #wm-comments-container {
         display: none;
         overflow: hidden;
         font-size: 1.15rem;
         line-height: 1.5rem;
         margin: 1.75rem;
 
-        @import("comments.less");
+        @import("post-page.less");
     }
     // END: Comments Section.
 
