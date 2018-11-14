@@ -364,14 +364,11 @@ body {
   display: block;
   margin: 2rem 0;
   font-size: 1.3rem;
+  text-align: center;
 }
 #wm-wrapper #wm-comments-container .wm-pagination form {
   display: inline-block;
   margin: 0 2px;
-}
-#wm-wrapper #wm-comments-container .wm-pagination .wm-pagenation-page-numbers {
-  display: inline-block;
-  float: right;
 }
 #wm-wrapper #wm-comments-container .wm-comment-wrapper {
   border: 1px solid #EEEEEE;

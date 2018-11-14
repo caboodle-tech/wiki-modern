@@ -21,7 +21,7 @@ if ( !is_page() && is_singular() ){
         </div>
     </div>
     <div id="wm-featured-image-container">
-        <img id="wm-featured-image" src="https://wikiwp.com/wp-content/uploads/dummyImage07-1600x2409.jpg">
+        <!--<img id="wm-featured-image" src="https://wikiwp.com/wp-content/uploads/dummyImage07-1600x2409.jpg">-->
     </div>
     <div class="wm-widget">
         <div class="wm-widget-title">
