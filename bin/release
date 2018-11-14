@@ -14,14 +14,18 @@
 */
 {
     "directories": [
+        ".git",
         "bin",
         "customizer/css",
         "customizer/js",
         "RELEASE"
     ],
     "files": [
+        ".gitignore",
         "customizer/timestamps.json",
         "less/timestamps.json",
+        "LICENSE.md",
+        "README.md",
         "style.css"
     ],
     "save": [
