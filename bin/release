@@ -23,6 +23,7 @@
     "files": [
         ".gitignore",
         "customizer/timestamps.json",
+        "include/kint.phar",
         "less/timestamps.json",
         "LICENSE.md",
         "README.md",

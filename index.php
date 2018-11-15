@@ -68,7 +68,7 @@ endwhile; else: ?>
                 <?php
                     if( !is_page() && is_singular() ){
                         echo $WM_POST_PAGE->get_post_title();
-                        $pagination = $WM_POST_PAGE->get_comment_pagination();
+                        $pagination = $WM_POST_PAGE->get_post_comment_pagination();
                         echo $pagination;
                         echo $WM_POST_PAGE->get_post_comments();
                         echo $pagination;

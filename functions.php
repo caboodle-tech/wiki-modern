@@ -6,9 +6,37 @@
 * @package Wiki Modern Theme
 */
 
+/** When in DEBUG mode load the Kint PHP parser to help debug PHP code. */
+if( !WP_DEBUG ){
+    require( 'include/kint.phar' );
+} else {
+
+    /**
+    * If not in debug mode help the dev out who may have accidently left Kint calls
+    * in the code by catching all calls and ignoring them. REMOVING THIS SOON.
+    */
+    class Kint {
+
+        const static_blackhole = '';
+
+        public function blackhole( $a ){
+            return;
+        }
+
+        public function __call( $m, $a ) {
+            return call_user_func_array( array( $this, $this->blackhole ), $a );
+        }
+
+        public static function __callStatic( $m, $a ) {
+            return self::static_blackhole;
+        }
+    }
+    $kint = new Kint();
+
+}
+
 /** Load custom classes and functions for the Wiki Modern theme. */
-require('include/wm-get-user-ip.php');
-require('include/wm-format-post-page.php');
+require( 'include/wm-get-user-ip.php' );
 
 
 require('classes/wm_walker.php');

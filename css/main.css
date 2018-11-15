@@ -364,9 +364,11 @@ body {
   display: block;
   margin: 2rem 0;
   font-size: 1.3rem;
+  line-height: 2.3rem;
   text-align: center;
 }
 #wm-wrapper #wm-comments-container .wm-pagination form {
+  position: relative;
   display: inline-block;
   margin: 0 2px;
 }
@@ -438,21 +440,31 @@ body {
 #wm-wrapper #wm-comments-container .wm-comment-reply-level-1 {
   margin-left: 10px;
 }
-#wm-wrapper #wm-comments-container #respond #commentform label {
+#wm-wrapper #wm-comments-container #wm-respond {
+  display: block;
+  width: 80%;
+  max-width: 1000px;
+  min-width: 250px;
+  margin: 0 auto;
+}
+#wm-wrapper #wm-comments-container #wm-respond #commentform {
+  width: 100%;
+}
+#wm-wrapper #wm-comments-container #wm-respond #commentform label {
   display: block;
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: .5rem;
 }
-#wm-wrapper #wm-comments-container #respond #commentform input[type="email"],
-#wm-wrapper #wm-comments-container #respond #commentform input[type="number"],
-#wm-wrapper #wm-comments-container #respond #commentform input[type="search"],
-#wm-wrapper #wm-comments-container #respond #commentform input[type="text"],
-#wm-wrapper #wm-comments-container #respond #commentform input[type="tel"],
-#wm-wrapper #wm-comments-container #respond #commentform input[type="url"],
-#wm-wrapper #wm-comments-container #respond #commentform input[type="password"],
-#wm-wrapper #wm-comments-container #respond #commentform input[type="number"],
-#wm-wrapper #wm-comments-container #respond #commentform textarea {
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="email"],
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="number"],
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="search"],
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="text"],
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="tel"],
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="url"],
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="password"],
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="number"],
+#wm-wrapper #wm-comments-container #wm-respond #commentform textarea {
   display: block;
   overflow-y: auto;
   resize: none;
@@ -460,42 +472,40 @@ body {
   background-color: #FFFFFF;
   border: 1px solid #d5d5d5;
   box-shadow: none;
-  min-width: 100px;
-  max-width: 700px;
-  width: 80%;
+  width: 100%;
   -webkit-appearance: none;
   outline: none;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-#wm-wrapper #wm-comments-container #respond #commentform input[type="email"]:hover,
-#wm-wrapper #wm-comments-container #respond #commentform input[type="number"]:hover,
-#wm-wrapper #wm-comments-container #respond #commentform input[type="search"]:hover,
-#wm-wrapper #wm-comments-container #respond #commentform input[type="text"]:hover,
-#wm-wrapper #wm-comments-container #respond #commentform input[type="tel"]:hover,
-#wm-wrapper #wm-comments-container #respond #commentform input[type="url"]:hover,
-#wm-wrapper #wm-comments-container #respond #commentform input[type="password"]:hover,
-#wm-wrapper #wm-comments-container #respond #commentform input[type="number"]:hover,
-#wm-wrapper #wm-comments-container #respond #commentform textarea:hover {
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="email"]:hover,
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="number"]:hover,
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="search"]:hover,
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="text"]:hover,
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="tel"]:hover,
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="url"]:hover,
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="password"]:hover,
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="number"]:hover,
+#wm-wrapper #wm-comments-container #wm-respond #commentform textarea:hover {
   border-color: #d5d5d5;
   cursor: pointer;
 }
-#wm-wrapper #wm-comments-container #respond #commentform input[type="email"]:focus,
-#wm-wrapper #wm-comments-container #respond #commentform input[type="number"]:focus,
-#wm-wrapper #wm-comments-container #respond #commentform input[type="search"]:focus,
-#wm-wrapper #wm-comments-container #respond #commentform input[type="text"]:focus,
-#wm-wrapper #wm-comments-container #respond #commentform input[type="tel"]:focus,
-#wm-wrapper #wm-comments-container #respond #commentform input[type="url"]:focus,
-#wm-wrapper #wm-comments-container #respond #commentform input[type="password"]:focus,
-#wm-wrapper #wm-comments-container #respond #commentform input[type="number"]:focus,
-#wm-wrapper #wm-comments-container #respond #commentform textarea:focus {
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="email"]:focus,
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="number"]:focus,
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="search"]:focus,
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="text"]:focus,
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="tel"]:focus,
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="url"]:focus,
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="password"]:focus,
+#wm-wrapper #wm-comments-container #wm-respond #commentform input[type="number"]:focus,
+#wm-wrapper #wm-comments-container #wm-respond #commentform textarea:focus {
   border-color: #d5d5d5;
 }
-#wm-wrapper #wm-comments-container #respond #commentform textarea {
+#wm-wrapper #wm-comments-container #wm-respond #commentform textarea {
   padding: .5rem;
 }
-#wm-wrapper #wm-comments-container #respond #commentform .wm-control-btns {
+#wm-wrapper #wm-comments-container #wm-respond #commentform .wm-control-btns {
   height: inherit;
   padding: 0 1rem;
   -webkit-appearance: none;

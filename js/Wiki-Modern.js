@@ -6,50 +6,153 @@ var WikiModern = (function(){
         'laptop': false
     };
 
+    /**
+    * Check if a string, number, array, or object is empty.
+    *
+    * NOTE: This correctly handles the built-in typeOf null equals object bug because a
+    * custom typeOf function. Example: http://2ality.com/2013/10/typeof-null.html
+    *
+    * @author Stack Overflow Community
+    * @author Christopher Keers <source@caboodle.tech>
+    * @return boolean True if empty, null, 0, false, or of length 0 otherwise false is returned.
+    */
+    var empty = function( unknown ) {
+
+        /** Don't waste time. */
+        if (unknown==null || unknown=='undefined'){ return true; }
+
+        /**
+        * Fast way to get variables datatype. Original code: https://stackoverflow.com/a/7390612/3193156
+        * Altered with Lily Finley's RegEx in the comments.
+        */
+        var type = typeOf(unknown);
+        switch (type){
+            case 'ARRAY':
+                /** If the array is 0 it's empty. */
+                if(unknown.length<1){ return true; }
+                /** See if there is anything saved inside. */
+                var tmp;
+                for (var index in unknown) {
+                    tmp = typeOf(unknown[index]);
+                    if(tmp=='ARRAY' || tmp=='OBJECT'){
+                        if(!empty(unknown[index])){ return false; }
+                    } else {
+                        if(unknown[index].length>0){ return false; }
+                    }
+                }
+                return true;
+                break;
+            case 'NUMBER':
+                if(unknown<0 || unknown>0){ return false; }
+                return true;
+                break;
+                case 'FILE':
+                /** If this is a true file object it should have a file size. */
+                if (unknown.size>0){ return false; }
+                return true;
+                break;
+            case 'OBJECT':
+                /**
+                * Original Code: https://stackoverflow.com/a/4994244/3193156
+                */
+                /** Assume if it has a length property with a non-zero value that that property is correct. */
+                if (unknown.length > 0){ return false; }
+                if (unknown.length === 0){ return true; }
+                /**
+                * Otherwise, does it have any properties of its own?
+                * This doesn't handle toString and valueOf enumeration bugs in IE < 9
+                */
+                for (var key in unknown) {
+                   if (hasOwnProperty.call(unknown, key)){ return false; }
+                }
+                return true;
+                break;
+            case 'STRING':
+                /** Catch null that was cast as a string. */
+                if(unknown.toLowerCase()=='null'){ return true; }
+                /** Check that a empty string or number is not sneaking by. */
+                if(unknown.length>0&&parseInt(unknown)!=0){ return false; }
+                return true;
+                break;
+            case 'UNDEFINED':
+            default:
+                return true;
+        }
+    }
+
     var attachEvents = function(){
-        /** Watch the window for resizing. */
-        window.addEventListener('resize', recordResize);
-        /** Handle button clicks that effect the page. */
-        var elem = document.getElementById('wm-hide-left-btn');
-        if(elem){
-            elem.addEventListener('click', toggleVisibility.bind(null, 'wm-left-sidebar'));
+
+        /**
+        * Shorten the code by adding events via loop.
+        * 0 => Where to attach event to: window (w) or document (d).
+        * 1 => Element to get by ID and attach this event to. Only valid when 0 => d
+        * 2 => The type of event to listen for.
+        * 3 => Function to call when the event happens.
+        * 4 => Paramater to bind to (pass into) this function call.
+        */
+        var events = [
+            [ 'w', null, 'resize', recordResize, null ],
+            [ 'd', 'wm-hide-left-btn', 'click', toggleVisibility, 'wm-left-sidebar' ],
+            [ 'd', 'wm-hide-left-laptop-btn', 'click', toggleVisibility, 'wm-left-sidebar' ],
+            [ 'd', 'wm-hide-right-btn', 'click', toggleVisibility, 'wm-right-sidebar' ],
+            [ 'd', 'wm-hide-right-laptop-btn', 'click', toggleVisibility, 'wm-right-sidebar' ],
+            [ 'd', 'wm-reading-btn', 'click', toggleReadingMode, null ],
+            [ 'd', 'wm-toggle-article-top-btn', 'click', toggleArticle, false ],
+            [ 'd', 'wm-toggle-comments-top-btn', 'click', toggleComments, false ],
+            [ 'd', 'wm-toggle-article-bottom-btn', 'click', toggleArticle, true ],
+            [ 'd', 'wm-toggle-comments-bottom-btn', 'click', toggleComments, true ],
+            [ 'd', 'wm-print-btn', 'click', printerStart, null ],
+            [ 'd', 'wm-pagination-comment', 'change', handleCommentPagination, null ],
+            [ 'd', 'wm-pagination-sort', 'change', handleCommentPagination, null ],
+            [ 'd', 'wm-pagination-page', 'change', handleCommentPagination, null ],
+        ];
+
+        var len = events.length;
+        var elem = '';
+        for( var x = 0; x < len; x++ ){
+
+            /** Get the element if this is one to get. */
+            if( !empty( events[x][1] ) ){
+                elem = document.getElementById( events[x][1] );
+            }
+
+            /** Attach the current event. */
+            switch( events[x][0] ){
+                case 'w':
+                case 'W':
+                case 'window':
+                    window.addEventListener( events[x][2], events[x][3].bind( null, events[x][4] ) );
+                    break;
+                case 'd':
+                case 'D':
+                case 'document':
+                    if( elem ){
+                        elem.addEventListener( events[x][2], events[x][3].bind( null, events[x][4] ) );
+                    }
+                    break;
+            }
+
+            /** Reset any reference saved in elem. */
+            elem = '';
         }
-        elem = document.getElementById('wm-hide-left-laptop-btn');
-        if(elem){
-            elem.addEventListener('click', toggleVisibility.bind(null, 'wm-left-sidebar'));
+    };
+
+    var handleCommentPagination = function(){
+        var elems = [ 'wm-pagination-comment', 'wm-pagination-sort', 'wm-pagination-page' ];
+        var flag = false;
+        for( var x = 0; x < 3; x++ ){
+            elems[x] = document.getElementById( elems[x] );
+            if( elems[x] ){
+                elems[x] = elems[x].value;
+            } else {
+                flag = true;
+                break;
+            }
         }
-        elem = document.getElementById('wm-hide-right-btn');
-        if(elem){
-            elem.addEventListener('click', toggleVisibility.bind(null, 'wm-right-sidebar'));
-        }
-        elem = document.getElementById('wm-hide-right-laptop-btn');
-        if(elem){
-            elem.addEventListener('click', toggleVisibility.bind(null, 'wm-right-sidebar'));
-        }
-        elem = document.getElementById('wm-reading-btn');
-        if(elem){
-            elem.addEventListener('click', toggleReadingMode);
-        }
-        elem = document.getElementById('wm-toggle-article-top-btn');
-        if(elem){
-            elem.addEventListener('click', toggleArticle.bind(null, false));
-        }
-        elem = document.getElementById('wm-toggle-comments-top-btn');
-        if(elem){
-            elem.addEventListener('click', toggleComments.bind(null, false));
-        }
-        elem = document.getElementById('wm-toggle-article-bottom-btn');
-        if(elem){
-            elem.addEventListener('click', toggleArticle.bind(null, true));
-        }
-        elem = document.getElementById('wm-toggle-comments-bottom-btn');
-        if(elem){
-            elem.addEventListener('click', toggleComments.bind(null, true));
-        }
-        /** Handle printing. */
-        elem = document.getElementById('wm-print-btn');
-        if(elem){
-            elem.addEventListener('click', printerStart);
+        if( !flag ){
+            console.log( elems );
+        } else {
+            // TODO: Show WARNING
         }
     };
 
