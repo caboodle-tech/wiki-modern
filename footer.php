@@ -65,6 +65,8 @@
 </footer>
 <!-- Close #wm-wrapper div. -->
 </div>
+<!-- Record the root URL to the theme directory for Wiki-Modern.js -->
+<div id="wm-template-directory" data-wm-template-directory="<?php echo get_template_directory_uri(); ?>" style="display:none;"></div>
 <!-- Load scripts & close page. -->
 <?php wp_footer(); ?>
 </body>

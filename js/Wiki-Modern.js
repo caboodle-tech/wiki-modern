@@ -6,6 +6,8 @@ var WikiModern = (function(){
         'laptop': false
     };
 
+    var theme_url = '';
+
     /**
     * Check if a string, number, array, or object is empty.
     *
@@ -150,7 +152,46 @@ var WikiModern = (function(){
             }
         }
         if( !flag ){
-            console.log( elems );
+            /*
+            jQuery.post(
+                my_foobar_client.ajaxurl,
+                {
+                    'action': 'foobar',
+                    'foobar_id':   123
+                },
+                function(response) {
+                    console.log('The server responded: ', response);
+                }
+            );
+            */
+            var elem = document.getElementById('wm-post-id');
+            if( elem ){
+                elems.unshift( elem.dataset.wmPostId );
+                var data = {'options': elems };
+                console.log(data);
+                var xmlhttp;
+                // compatible with IE7+, Firefox, Chrome, Opera, Safari
+                //var url = theme_url + '/forms/wm-comment-pagination.php';
+                var url = 'http://local.com/WORDPRESS/wp-admin/admin-ajax.php'
+                xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function(){
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                        var data = xmlhttp.responseText.split('||||');
+                        var elem = '';
+                        elem = document.getElementById('wm-comment-pagination-top-controls');
+                        elem.innerHTML = data[0];
+                        elem = document.getElementById('wm-comment-pagination-bottom-controls');
+                        elem.innerHTML = data[0];
+                        elem = document.getElementById('wm-comment-display-wrapper');
+                        elem.innerHTML = data[1];
+
+                        // WILL NEED TO RESET ALL EVENT LISTENERS. So far just the pagination controls.
+                    }
+                }
+                xmlhttp.open("POST", url, true);
+                xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xmlhttp.send('action=wm_comment_pagination&data='+JSON.stringify(data));
+            }
         } else {
             // TODO: Show WARNING
         }
@@ -210,7 +251,7 @@ var WikiModern = (function(){
                     elem.style.removeAttribute('display');
                     elem.style.removeAttribute('left');
                 }
-                elem.dataset.wkOriginalWidth = elem.clientWidth;
+                elem.dataset.wmOriginalWidth = elem.clientWidth;
             }
             elem = document.getElementById('wm-right-sidebar');
             if(elem){
@@ -225,7 +266,7 @@ var WikiModern = (function(){
                     elem.style.removeAttribute('display');
                     elem.style.removeAttribute('right');
                 }
-                elem.dataset.wkOriginalWidth = elem.clientWidth;
+                elem.dataset.wmOriginalWidth = elem.clientWidth;
             }
         } else {
             /** Fatal error we need the browsers width! */
@@ -240,20 +281,30 @@ var WikiModern = (function(){
             document.getElementById('wm-toggle-article-bottom-btn'),
             document.getElementById('wm-toggle-comments-bottom-btn')
         ];
-        var active = JSON.parse(elems[0].dataset.wkActive.toLowerCase());
+        var active = JSON.parse(elems[0].dataset.wmActive.toLowerCase());
         /** If already active ignore the button press. */
         if(!active){
             /** If at the bottom move to the top. */
             if(bottom){
                 window.scrollTo({top: 0, behavior: "smooth"});
+                /** Calculate how long to delay the transition. */
+                var top = window.pageYOffset || document.documentElement.scrollTop;
+                if( top && top > 1000 ){
+                    top = parseInt( top * .10, 10);
+                } else {
+                    top = 0;
+                }
+                /** Transition with delay. */
+                transition(document.getElementById('wm-post-container'), document.getElementById('wm-comments-container'), 0, top);
+            } else {
+                /** Transition now. */
+                transition(document.getElementById('wm-post-container'), document.getElementById('wm-comments-container'), 0, 0);
             }
-            /** Transition. */
-            transition(document.getElementById('wm-post-container'), document.getElementById('wm-comments-container'), 0);
             /** Update dataset and styles. */
-            elems[0].dataset.wkActive = true;
+            elems[0].dataset.wmActive = true;
             elems[0].classList.add('wm-active');
             elems[2].classList.add('wm-active');
-            elems[1].dataset.wkActive = false;
+            elems[1].dataset.wmActive = false;
             elems[1].classList.remove('wm-active');
             elems[3].classList.remove('wm-active');
         }
@@ -268,20 +319,30 @@ var WikiModern = (function(){
             document.getElementById('wm-toggle-article-bottom-btn'),
             document.getElementById('wm-toggle-comments-bottom-btn')
         ];
-        var active = JSON.parse(elems[1].dataset.wkActive.toLowerCase());
+        var active = JSON.parse(elems[1].dataset.wmActive.toLowerCase());
         /** If already active ignore the button press. */
         if(!active){
             /** If at the bottom move to the top. */
             if(bottom){
                 window.scrollTo({top: 0, behavior: "smooth"});
+                /** Calculate how long to delay the transition. */
+                var top = window.pageYOffset || document.documentElement.scrollTop;
+                if( top && top > 1000 ){
+                    top = parseInt( top * .10, 10);
+                } else {
+                    top = 0;
+                }
+                /** Transition. */
+                transition(document.getElementById('wm-comments-container'), document.getElementById('wm-post-container'), 0, top);
+            } else {
+                /** Transition. */
+                transition(document.getElementById('wm-comments-container'), document.getElementById('wm-post-container'), 0, 0);
             }
-            /** Transition. */
-            transition(document.getElementById('wm-comments-container'), document.getElementById('wm-post-container'), 0);
             /** Update dataset and styles. */
-            elems[0].dataset.wkActive = false;
+            elems[0].dataset.wmActive = false;
             elems[0].classList.remove('wm-active');
             elems[2].classList.remove('wm-active');
-            elems[1].dataset.wkActive = true;
+            elems[1].dataset.wmActive = true;
             elems[1].classList.add('wm-active');
             elems[3].classList.add('wm-active');
         }
@@ -289,33 +350,46 @@ var WikiModern = (function(){
         elems = null;
     };
 
-    var transition = function(inElem, outElem, step){
-        switch(step){
-            case 0:
-                outElem.style.opacity = 1;
-                inElem.style.opacity = -.20;
-                break;
-            case 5:
-                outElem.style.display = 'none';
-                inElem.style.display = 'block';
-                break;
-            case 10:
-                inElem.style.opacity = 1;
-                break;
-            default:
-                outElem.style.opacity = parseFloat(outElem.style.opacity) - .10;
-                inElem.style.opacity = parseFloat(inElem.style.opacity) + .10;
-                break;
+    var transition = function(inElem, outElem, step, delay){
+
+        var block = false;
+        if( !empty(delay) ){
+            if( delay > 0 ){
+                block = true;
+                setTimeout(function(){
+                    transition(inElem, outElem, step, delay-950);
+                }, 950);
+            }
         }
-        if(step<10){
-            setTimeout(function(){
-                transition(inElem, outElem, step+1);
-            }, 100);
-        } else {
-            /** Force garbage collection. */
-            inElem = null;
-            outElem = null;
-            step = null;
+
+        if( !block ){
+            switch(step){
+                case 0:
+                    outElem.style.opacity = 1;
+                    inElem.style.opacity = -.20;
+                    break;
+                case 5:
+                    outElem.style.display = 'none';
+                    inElem.style.display = 'block';
+                    break;
+                case 10:
+                    inElem.style.opacity = 1;
+                    break;
+                default:
+                    outElem.style.opacity = parseFloat(outElem.style.opacity) - .10;
+                    inElem.style.opacity = parseFloat(inElem.style.opacity) + .10;
+                    break;
+            }
+            if(step<10){
+                setTimeout(function(){
+                    transition(inElem, outElem, step+1, 0);
+                }, 100);
+            } else {
+                /** Force garbage collection. */
+                inElem = null;
+                outElem = null;
+                step = null;
+            }
         }
     };
 
@@ -328,7 +402,7 @@ var WikiModern = (function(){
                     setTimeout(toggleProgress.bind(null, toggleFlag, stopWidth, elem, false), 16);
                 } else {
                     elem.style.width = stopWidth+'px';
-                    elem.dataset.wkToggleBlock = 0;
+                    elem.dataset.wmToggleBlock = 0;
                 }
             } else {
                 /** Open via slide out overlay. */
@@ -338,7 +412,7 @@ var WikiModern = (function(){
                     setTimeout(toggleProgress.bind(null, toggleFlag, stopWidth, elem, slide), 12);
                 } else {
                     elem.style[slide] = '0px';
-                    elem.dataset.wkToggleBlock = 0;
+                    elem.dataset.wmToggleBlock = 0;
                 }
             }
         } else {
@@ -350,7 +424,7 @@ var WikiModern = (function(){
                 } else {
                     elem.style.width = stopWidth+'px';
                     elem.style.display = 'none';
-                    elem.dataset.wkToggleBlock = 0;
+                    elem.dataset.wmToggleBlock = 0;
                 }
             } else {
                 /** Close via sliding out the overlay. */
@@ -360,7 +434,7 @@ var WikiModern = (function(){
                     setTimeout(toggleProgress.bind(null, toggleFlag, stopWidth, elem, slide), 12);
                 } else {
                     elem.style[slide] = stopWidth+'px';
-                    elem.dataset.wkToggleBlock = 0;
+                    elem.dataset.wmToggleBlock = 0;
                     elem.style.opacity = 0;
                 }
             }
@@ -402,7 +476,7 @@ var WikiModern = (function(){
                     if(elem.style.left){
                         if(parseInt(elem.style.left)==0){
                             /** Close. */
-                            var width = parseInt('-'+elem.dataset.wkOriginalWidth);
+                            var width = parseInt('-'+elem.dataset.wmOriginalWidth);
                             toggleProgress(false, width, elem, 'left');
                             return;
                         }
@@ -413,7 +487,7 @@ var WikiModern = (function(){
                         if(leftSide.style.left){
                             if(parseInt(leftSide.style.left)==0){
                                 /** Close.
-                                var width = parseInt('-'+leftSide.dataset.wkOriginalWidth);
+                                var width = parseInt('-'+leftSide.dataset.wmOriginalWidth);
                                 toggleProgress(false, width, leftSide, 'left');
                             }
                         }
@@ -422,7 +496,7 @@ var WikiModern = (function(){
                     /** Open. */
                     elem.style.opacity = 0;
                     elem.style.display = "block";
-                    elem.dataset.wkOriginalWidth = elem.clientWidth;
+                    elem.dataset.wmOriginalWidth = elem.clientWidth;
                     elem.style.left = '-'+elem.clientWidth+'px';
                     elem.style.opacity = 1;
                     toggleProgress(true, 0, elem, 'left');
@@ -435,7 +509,7 @@ var WikiModern = (function(){
                     if(elem.style.left){
                         if(parseInt(elem.style.left)==0){
                             /** Close. */
-                            var width = parseInt('-'+elem.dataset.wkOriginalWidth);
+                            var width = parseInt('-'+elem.dataset.wmOriginalWidth);
                             toggleProgress(false, width, elem, 'left');
                             return;
                         }
@@ -447,7 +521,7 @@ var WikiModern = (function(){
                             if(rightSide.style.right){
                                 if(parseInt(rightSide.style.right)==0){
                                     /** Close. */
-                                    var width = parseInt('-'+rightSide.dataset.wkOriginalWidth);
+                                    var width = parseInt('-'+rightSide.dataset.wmOriginalWidth);
                                     toggleProgress(false, width, rightSide, 'right');
                                 }
                             }
@@ -456,7 +530,7 @@ var WikiModern = (function(){
                     /** Open. */
                     elem.style.opacity = 0;
                     elem.style.display = "block";
-                    elem.dataset.wkOriginalWidth = elem.clientWidth;
+                    elem.dataset.wmOriginalWidth = elem.clientWidth;
                     elem.style.left = '-'+elem.clientWidth+'px';
                     elem.style.opacity = 1;
                     toggleProgress(true, 0, elem, 'left');
@@ -469,7 +543,7 @@ var WikiModern = (function(){
                         if(elem.style.right){
                             if(parseInt(elem.style.right)==0){
                                 /** Close. */
-                                var width = parseInt('-'+elem.dataset.wkOriginalWidth);
+                                var width = parseInt('-'+elem.dataset.wmOriginalWidth);
                                 toggleProgress(false, width, elem, 'right');
                                 return;
                             }
@@ -480,7 +554,7 @@ var WikiModern = (function(){
                             if(leftSide.style.left){
                                 if(parseInt(leftSide.style.left)==0){
                                     /** Close. */
-                                    var width = parseInt('-'+leftSide.dataset.wkOriginalWidth);
+                                    var width = parseInt('-'+leftSide.dataset.wmOriginalWidth);
                                     toggleProgress(false, width, leftSide, 'left');
                                 }
                             }
@@ -488,7 +562,7 @@ var WikiModern = (function(){
                         /** Open. */
                         elem.style.opacity = 0;
                         elem.style.display = "block";
-                        elem.dataset.wkOriginalWidth = elem.clientWidth;
+                        elem.dataset.wmOriginalWidth = elem.clientWidth;
                         elem.style.right = '-'+elem.clientWidth+'px';
                         elem.style.opacity = 1;
                         toggleProgress(true, 0, elem, 'right');
@@ -498,18 +572,18 @@ var WikiModern = (function(){
                 return;
             }
             /** Dektop mode toggle normally. */
-            if(typeOf(elem.dataset.wkToggleBlock)=='UNDEFINED'){
-                elem.dataset.wkToggleBlock = 0;
+            if(typeOf(elem.dataset.wmToggleBlock)=='UNDEFINED'){
+                elem.dataset.wmToggleBlock = 0;
             }
-            if(elem.dataset.wkToggleBlock!=1){
-                elem.dataset.wkToggleBlock = 1;
+            if(elem.dataset.wmToggleBlock!=1){
+                elem.dataset.wmToggleBlock = 1;
                 if(elem.clientWidth>0){
                     /** Close side. */
-                    elem.dataset.wkOriginalWidth = elem.clientWidth;
+                    elem.dataset.wmOriginalWidth = elem.clientWidth;
                     toggleProgress(false, 0, elem, false);
                 } else {
                     /** Open side. */
-                    var width = elem.dataset.wkOriginalWidth;
+                    var width = elem.dataset.wmOriginalWidth;
                     if (elem.style.removeProperty) {
                         elem.style.removeProperty('display');
                     } else {
@@ -541,11 +615,11 @@ var WikiModern = (function(){
         /** If on a post page activate the article, comments are hidden. */
         var elem = document.getElementById('wm-toggle-article-top-btn');
         if(elem){
-            elem.dataset.wkActive = true;
+            elem.dataset.wmActive = true;
         }
         elem = document.getElementById('wm-toggle-comments-top-btn');
         if(elem){
-            elem.dataset.wkActive = false;
+            elem.dataset.wmActive = false;
         }
     };
 
@@ -559,10 +633,15 @@ var WikiModern = (function(){
     var recordPage = function(){
         var elem = document.getElementById('wm-wrapper');
         if(elem){
-            var page = elem.dataset.wkPage;
+            var page = elem.dataset.wmPage;
             if(typeOf(page)!='UNDEFINED'){
                 status.page = JSON.parse(page.toLowerCase());
             }
+        }
+
+        var elem = document.getElementById('wm-template-directory');
+        if(elem){
+            theme_url = elem.dataset.wmTemplateDirectory;
         }
     };
 

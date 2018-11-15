@@ -37,8 +37,6 @@ if( !WP_DEBUG ){
 
 /** Load custom classes and functions for the Wiki Modern theme. */
 require( 'include/wm-get-user-ip.php' );
-
-
 require('classes/wm_walker.php');
 require( 'classes/wm-post-page.php' );
 
@@ -86,4 +84,7 @@ function wm_disable_self_ping( &$links ) {
     }
 }
 add_action( 'pre_ping', 'wm_disable_self_ping' );
+
+/** Add all AJAX form handlers. */
+require( 'forms/wm-comment-pagination.php' );
 ?>

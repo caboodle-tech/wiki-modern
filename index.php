@@ -67,11 +67,14 @@ endwhile; else: ?>
             <section id="wm-comments-container">
                 <?php
                     if( !is_page() && is_singular() ){
+                        global $post;
+                        echo '<!-- Record the post ID for Wiki-Modern.js -->';
+                        echo '<div id="wm-post-id" data-wm-post-id="' . $post->ID . '" style="display:none;"></div>';
                         echo $WM_POST_PAGE->get_post_title();
                         $pagination = $WM_POST_PAGE->get_post_comment_pagination();
-                        echo $pagination;
-                        echo $WM_POST_PAGE->get_post_comments();
-                        echo $pagination;
+                        echo '<div id="wm-comment-pagination-top-controls">' . $pagination . '</div>';
+                        echo '<div id="wm-comment-display-wrapper">' . $WM_POST_PAGE->get_post_comments() . '</div>';
+                        echo '<div id="wm-comment-pagination-bottom-controls">' . $pagination . '</div>';
                         echo $WM_POST_PAGE->get_post_comment_form();
                     }
                 ?>

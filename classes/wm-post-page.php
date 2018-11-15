@@ -9,7 +9,10 @@ if ( !class_exists( 'WM_post_page' ) ){
         private $_aacp = false;
 
         public function __construct () {
+            add_action( 'wp_ajax_wm_comment_pagination', 'wm_comment_pagination' );
+            add_action( 'wp_ajax_nopriv_wm_comment_pagination', 'wm_comment_pagination' );
             /** Check if the Wiki Modern Authors and Contributors plugin is active. */
+
         }
 
         /**
@@ -22,9 +25,7 @@ if ( !class_exists( 'WM_post_page' ) ){
         * @param    string $sort       How to sort the comments ASC (oldest) or DESC (newest). Default DESC.
         * @return   string The HTML for all comments and replies for this post or a simple message if none were found.
         */
-        private function format_comments( $post_id, $page = 1, $per_page = 50, $sort = 'DESC' ){
-
-            // TODO: Validate $sort and all variables? We may allow access to this private function.
+        private function format_comments( $post_id, $sort, $per_page, $page ){
 
             /** Page is used for offset math so go down by 1. */
             $page--;
@@ -291,7 +292,18 @@ if ( !class_exists( 'WM_post_page' ) ){
         *
         * @return   string The HTML for all comments and replies, a simple message if none were found, or a message if this is a locked post.
         */
-        public function get_post_comments(){
+        public function get_post_comments( $post_id = null, $sort = null, $per_page = null, $page = null ){
+
+            /** If we were not given a post ID see if we can find it. */
+            if( empty($post_id) ){
+                global $post;
+                if ( $post ){
+                    $post_id = $post->ID;
+                } else {
+                    /** Return empty now, this was called in a bad context and we can't find a post ID. */
+                    return '';
+                }
+            }
 
             /**
             * Don't show anything if post is password protected and not unlocked.
@@ -301,21 +313,37 @@ if ( !class_exists( 'WM_post_page' ) ){
             * block.
             */
             $html = '';
-            if( !post_password_required() ){
+            if( !post_password_required( $post_id ) ){
 
                 /** Is there comments to show? */
-                if ( get_comments_number() > 0 ){
+                if ( get_comments_number( $post_id ) > 0 ){
 
-                    /** Make sure we have a post ID. */
-                    global $post;
-                    if( !empty($post->ID) ){
+                    // TODO: Make cookies to store this in and check from.
 
-                        // TODO: Make cookies to store this in and check from.
-                        $sort = 'DESC';
-                        $per_page = 4;
-
-                        $html .= $this->format_comments( $post->ID, 1, $per_page, $sort );
+                    /** Validate $sort. */
+                    switch( $sort ){
+                        case 'ASC':
+                        case 'asc':
+                            $sort = 'ASC';
+                            break;
+                        case 'DESC':
+                        case 'desc':
+                        default:
+                            $sort = 'DESC';
+                            break;
                     }
+
+                    /** Validate $per_page. */
+                    if( !is_int( $per_page + 0 ) || $per_page < 50 || $per_page > 150 ){
+                        $per_page = 50;
+                    }
+
+                    /** Validate $page_number. */
+                    if( !is_int( $page + 0 ) ){
+                        $page = 1;
+                    }
+
+                    $html .= $this->format_comments( $post->ID, $sort, $per_page, $page );
                 }
             }
             return $html;
@@ -349,61 +377,99 @@ if ( !class_exists( 'WM_post_page' ) ){
         }
 
         /**
-        * Determine if pagination is needed for post comments and build if needed.
+        * Build the pagination for post comments.
         *
-        * @return   string  The HTML for the comment pagination controls or an empty string if it was not needed.
+        * TODO: Add params
+        *
+        * @return   string  The HTML for the comment pagination controls.
         */
-        public function get_post_comment_pagination(){
+        public function get_post_comment_pagination( $post_id = null, $sort = null, $per_page = null ){
 
-            // TODO: Make cookies to store this in and check from.
-            $per_page = 4;
-            global $post;
+            /** If we were not given a post ID see if we can find it. */
+            if( empty($post_id) ){
+                global $post;
+                if ( $post ){
+                    $post_id = $post->ID;
+                } else {
+                    /** Return empty now, this was called in a bad context and we can't find a post ID. */
+                    return '';
+                }
+            }
+
+            /** Validate $sort. */
+            switch( $sort ){
+                case 'ASC':
+                case 'asc':
+                    $sort = 'ASC';
+                    break;
+                case 'DESC':
+                case 'desc':
+                default:
+                    $sort = 'DESC';
+                    break;
+            }
+
+            /** Validate $per_page. */
+            if( !is_int( $per_page + 0 ) || $per_page < 50 || $per_page > 150 ){
+                $per_page = 50;
+            }
 
             /** How many top level comments are there? */
             $comments_query = new WP_Comment_Query;
             $args = array(
                 'count' => true,
                 'parent' => 0,
-                'post_id' => $post->ID,
+                'post_id' => $post_id,
                 'status' => 'all'
             );
             $count = $comments_query->query( $args );
 
-            /** Build pagination if we need it. */
+            /** Build the pagination HTML. */
             $html = '';
-            if( $count > $per_page ){
 
-                /** How many pages do we need? */
-                $pages = ceil( $count / $per_page );
+            /** How many pages do we need? */
+            $pages = ceil( $count / $per_page );
 
-                /** The pagenation HTML template. */
-                $html = '<div class="wm-pagination">Showing <form><select name="" id="wm-pagination-comment"><option value="50" selected="">50</option><option value="75">75</option><option value="100">100</option><option value="125">125</option><option value="150">150</option></select></form> comments per page. <form><select name="" id="wm-pagination-sort">{{sort-options}}</select></form> comments are shown first and this is page <form><select name="" id="wm-pagination-page">{{page-options}}</select></form> of {{page-count}}.</div>';
+            /** The pagenation HTML template. */
+            $html = '<div class="wm-pagination">Showing <select id="wm-pagination-comment">{{comment-options}}</select> comments per page. <select id="wm-pagination-sort">{{sort-options}}</select> comments are shown first and this is page <select id="wm-pagination-page">{{page-options}}</select> of {{page-count}}.</div>';
 
-                /** Replace the various template parts with their actual values. */
-                $html = str_replace( '{{page-count}}', $pages, $html );
-                $replacement = '';
+            /** Replace the various template parts with their actual values. */
+            $html = str_replace( '{{page-count}}', $pages, $html );
+            $replacement = '';
 
-                /** Page options. */
-                for( $x = 1; $x <= $pages; $x++ ){
-                    if( $x > 1 ){
-                        $replacement .= '<option value="' . $x . '">' . $x .'</option>';
-                    } else {
-                        $replacement .= '<option value="' . $x . '" selected>' . $x .'</option>';
-                    }
+            /** Display X comments per page. */
+            for( $x = 0; $x < 5; $x++ ){
+                $count = 50 + $x * 25;
+                if( $count == $per_page ){
+                    $replacement .= '<option value="' . $count . '" selected="">' . $count . '</option>';
+                } else {
+                    $replacement .= '<option value="' . $count . '">' . $count . '</option>';
                 }
-                $html = str_replace( '{{page-options}}', $replacement, $html );
-
-                /** Sort options. */
-                switch( $sort ){
-                    case 'DESC':
-                        $replacement = '<option value="ASC">Newest</option><option value="DESC" selected>Oldest</option>';
-                        break;
-                    default:
-                        $replacement = '<option value="ASC" selected>Newest</option><option value="DESC">Oldest</option>';
-                        break;
-                }
-                $html = str_replace( '{{sort-options}}', $replacement, $html );
             }
+            $html = str_replace( '{{comment-options}}', $replacement, $html );
+            $replacement = '';
+
+            /** Page options. */
+            for( $x = 1; $x <= $pages; $x++ ){
+                if( $x > 1 ){
+                    $replacement .= '<option value="' . $x . '">' . $x .'</option>';
+                } else {
+                    $replacement .= '<option value="' . $x . '" selected="">' . $x .'</option>';
+                }
+            }
+            $html = str_replace( '{{page-options}}', $replacement, $html );
+            $replacement = '';
+
+            /** Sort options. */
+            switch( $sort ){
+                case 'DESC':
+                    $replacement = '<option value="DESC" selected>Newest</option><option value="ASC">Oldest</option>';
+                    break;
+                default:
+                    $replacement = '<option value="DESC">Newest</option><option value="ASC" selected="">Oldest</option>';
+                    break;
+            }
+            $html = str_replace( '{{sort-options}}', $replacement, $html );
 
             return $html;
         }
