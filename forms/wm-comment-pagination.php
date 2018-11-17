@@ -16,7 +16,7 @@ if( !function_exists( 'wm_comment_pagination' ) ){
             // 1 => Number of comments to display.
             // 2 => How to sort comments.
             // 3 => Page number.
-            $pagination = $WM_POST_PAGE->get_post_comment_pagination( $options[0], $options[2], $options[1] );
+            $pagination = $WM_POST_PAGE->get_post_comment_pagination( $options[0], $options[2], $options[1], $options[3] );
 
             $comments = $WM_POST_PAGE->get_post_comments( $options[0], $options[2], $options[1], $options[3] );
 

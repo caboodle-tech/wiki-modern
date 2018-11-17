@@ -383,7 +383,7 @@ if ( !class_exists( 'WM_post_page' ) ){
         *
         * @return   string  The HTML for the comment pagination controls.
         */
-        public function get_post_comment_pagination( $post_id = null, $sort = null, $per_page = null ){
+        public function get_post_comment_pagination( $post_id = null, $sort = null, $per_page = null, $page = null ){
 
             /** If we were not given a post ID see if we can find it. */
             if( empty($post_id) ){
@@ -412,6 +412,11 @@ if ( !class_exists( 'WM_post_page' ) ){
             /** Validate $per_page. */
             if( !is_int( $per_page + 0 ) || $per_page < 50 || $per_page > 150 ){
                 $per_page = 50;
+            }
+
+            /** Validate $page_number. */
+            if( !is_int( $page + 0 ) ){
+                $page = 1;
             }
 
             /** How many top level comments are there? */
@@ -451,7 +456,7 @@ if ( !class_exists( 'WM_post_page' ) ){
 
             /** Page options. */
             for( $x = 1; $x <= $pages; $x++ ){
-                if( $x > 1 ){
+                if( $x > $page ){
                     $replacement .= '<option value="' . $x . '">' . $x .'</option>';
                 } else {
                     $replacement .= '<option value="' . $x . '" selected="">' . $x .'</option>';
