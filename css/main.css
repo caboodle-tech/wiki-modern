@@ -8,6 +8,7 @@ body {
 }
 body {
   font-size: 62.5%;
+  font-family: "Open Sans", sans-serif;
 }
 .wm-control-btns {
   height: 3rem;
@@ -15,9 +16,9 @@ body {
   font-size: 1.5rem;
   text-align: center;
   vertical-align: middle;
-  color: #2487d7;
+  color: #2487D7;
   border: 1px solid #EEEEEE;
-  background-color: #f9f9f9;
+  background-color: #F9F9F9;
   z-index: 5;
   -webkit-box-shadow: 0px 1px 3px 1px rgba(238,238,238,0.3);
   -moz-box-shadow: 0px 1px 3px 1px rgba(238,238,238,0.3);
@@ -26,7 +27,7 @@ body {
 .wm-control-btns:hover {
   cursor: pointer;
   border-color: #EEEEEE;
-  background-color: #f9f9f9;
+  background-color: #F9F9F9;
 }
 .wm-control-btns .wm-larger-icon {
   font-size: 2rem;
@@ -45,13 +46,13 @@ body {
 #wm-wrapper #wm-left-sidebar {
   grid-column: left;
   grid-row: top;
-  background-color: #f9f9f9;
+  background-color: #F9F9F9;
   width: 280px;
   overflow-x: hidden;
   color: #000000;
 }
 #wm-wrapper #wm-left-sidebar a {
-  color: #2487d7;
+  color: #2487D7;
   text-decoration: none;
 }
 #wm-wrapper #wm-left-sidebar a:hover {
@@ -97,17 +98,17 @@ body {
 #wm-wrapper #wm-left-sidebar #wm-nav-container .wm-nav .wm-nav-item {
   display: block;
   padding: 5px 10px;
-  color: #2487d7;
+  color: #2487D7;
 }
 #wm-wrapper #wm-left-sidebar #wm-nav-container .wm-nav .wm-nav-item:hover {
-  background-color: #e5e5e5;
+  background-color: #E5E5E5;
   cursor: pointer;
 }
 #wm-wrapper #wm-left-sidebar #wm-nav-container .wm-nav .wm-active > .wm-nav-item {
   position: relative;
   overflow: hidden;
-  background-color: #e5e5e5;
-  border-right: 4px solid #2487d7;
+  background-color: #E5E5E5;
+  border-right: 4px solid #2487D7;
 }
 #wm-wrapper #wm-left-sidebar #wm-nav-container .wm-nav .wm-active > .wm-nav-item:before {
   content: " ";
@@ -118,7 +119,7 @@ body {
   width: 0;
   position: absolute;
   border-color: rgba(0,0,0,0);
-  border-right-color: #2487d7;
+  border-right-color: #2487D7;
   border-width: 1rem;
   margin-top: -1rem;
 }
@@ -236,7 +237,7 @@ body {
   vertical-align: middle;
   background-color: #FFFFFF;
   z-index: 15;
-  color: #2487d7;
+  color: #2487D7;
   cursor: pointer;
 }
 #wm-wrapper #wm-page-content #wm-search-row #wm-hide-right-btn {
@@ -341,24 +342,30 @@ body {
   text-align: justify;
   font-size: 1.25rem;
   line-height: 1.75rem;
-  margin: 1.75rem;
+  margin: 2.5rem 2rem;
 }
 #wm-wrapper #wm-page-content #wm-post-container p {
   margin: 1rem 0;
 }
 #wm-wrapper #wm-page-content #wm-post-container blockquote {
   display: block;
-  margin: 0;
+  width: 90%;
+  margin: 0 auto;
   padding: 0 1rem;
   background-color: #F8F9FA;
   border: 1px solid #EAECF0;
+}
+#wm-wrapper #wm-page-content #wm-post-container cite {
+  display: block;
+  text-align: right;
+  padding-bottom: .6rem;
 }
 #wm-wrapper #wm-comments-container {
   display: none;
   overflow: hidden;
   font-size: 1.15rem;
   line-height: 1.5rem;
-  margin: 1.75rem;
+  margin: 2.5rem 2rem;
 }
 #wm-wrapper #wm-comments-container .wm-pagination {
   display: block;
@@ -377,7 +384,7 @@ body {
   margin: 1rem 0;
 }
 #wm-wrapper #wm-comments-container .wm-comment-wrapper .wm-comment-header {
-  background-color: #f9f9f9;
+  background-color: #F9F9F9;
   border-bottom: 1px solid #EEEEEE;
   color: #000000;
   padding: .5rem;
@@ -514,13 +521,13 @@ body {
 #wm-wrapper #wm-right-sidebar {
   grid-column: right;
   grid-row: top;
-  background-color: #f9f9f9;
+  background-color: #F9F9F9;
   width: 280px;
   overflow-x: hidden;
   color: #000000;
 }
 #wm-wrapper #wm-right-sidebar a {
-  color: #2487d7;
+  color: #2487D7;
   text-decoration: none;
 }
 #wm-wrapper #wm-right-sidebar a:hover {
@@ -571,7 +578,7 @@ body {
   padding-left: 15px;
 }
 #wm-wrapper #wm-right-sidebar .wm-widget .wm-widget-info .wm-tags {
-  color: #2487d7;
+  color: #2487D7;
 }
 #wm-wrapper.wm-page #wm-page-content #wm-article-footer {
   display: none;
@@ -598,11 +605,11 @@ body {
 #wm-wrapper #wm-footer {
   grid-column: 1/4;
   grid-row: bottom;
-  background-color: #f9f9f9;
+  background-color: #F9F9F9;
   color: #000000;
 }
 #wm-wrapper #wm-footer a {
-  color: #2487d7;
+  color: #2487D7;
   text-decoration: none;
 }
 #wm-wrapper #wm-footer a:hover {

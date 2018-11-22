@@ -12,7 +12,7 @@ get_header();
 if( !is_page() && is_singular() ){
     /** This is a Post page. */
     echo '<div id="wm-wrapper" class="wm-post" role="main" data-wm-page="false">';
-    global $WM_POST_PAGE;
+    global $WM_posts;
 } else {
     /** This is an actual website Page. */
     echo '<div id="wm-wrapper" class="wm-page" role="main" data-wm-page="true">';
@@ -53,15 +53,16 @@ get_sidebar('left');
                 </div>
             </header>
             <article id="wm-post-container">
-                <?php echo $WM_POST_PAGE->get_post_title(); ?>
-                <?php if ( have_posts() ) : while ( have_posts() ) : the_post();
-the_content();
-endwhile; else: ?>
-<p>Sorry, no posts matched your criteria.</p>
-<?php endif; ?>
                 <?php
-                    //$post = get_post();
-                    //echo $post->post_content;
+                    if( !is_page() && is_singular() ){
+                        /** This is a post page. */
+                        echo $WM_posts->get_post_title();
+                        echo $WM_posts->get_post_page_content();
+                    } else {
+                        /** This is the home page or another page with multiple post on it. */
+                        echo $WM_posts->get_posts();
+                    }
+
                 ?>
             </article>
             <section id="wm-comments-container">
@@ -70,12 +71,13 @@ endwhile; else: ?>
                         global $post;
                         echo '<!-- Record the post ID for Wiki-Modern.js -->';
                         echo '<div id="wm-post-id" data-wm-post-id="' . $post->ID . '" style="display:none;"></div>';
-                        echo $WM_POST_PAGE->get_post_title();
-                        $pagination = $WM_POST_PAGE->get_post_comment_pagination();
-                        echo '<div id="wm-comment-pagination-top-controls">' . $pagination . '</div>';
-                        echo '<div id="wm-comment-display-wrapper">' . $WM_POST_PAGE->get_post_comments() . '</div>';
-                        echo '<div id="wm-comment-pagination-bottom-controls">' . $pagination . '</div>';
-                        echo $WM_POST_PAGE->get_post_comment_form();
+                        echo $WM_posts->get_post_title();
+                        // TODO:: ADD BACK IN POST CONTENT.
+                        $pagination = $WM_posts->get_post_page_comment_pagination();
+                        echo '<div id="wm-comment-pagination-top-controls">' . $pagination[0] . '</div>';
+                        echo '<div id="wm-comment-display-wrapper">' . $WM_posts->get_post_page_comments() . '</div>';
+                        echo '<div id="wm-comment-pagination-bottom-controls">' . $pagination[1] . '</div>';
+                        echo $WM_posts->get_post_page_comment_form();
                     }
                 ?>
             </section>

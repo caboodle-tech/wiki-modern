@@ -1,96 +1,28 @@
-var WikiModern = (function(){
+var WikiModern = ( function() {
 
+    /** Run code in strict mode. */
+    "use strict";
+
+    /** Declare all Wiki Modern variables. */
     var status = {
         'tablet': false,
         'page': true,
         'laptop': false
     };
-
     var theme_url = '';
 
     /**
-    * Check if a string, number, array, or object is empty.
-    *
-    * NOTE: This correctly handles the built-in typeOf null equals object bug because a
-    * custom typeOf function. Example: http://2ality.com/2013/10/typeof-null.html
-    *
-    * @author Stack Overflow Community
-    * @author Christopher Keers <source@caboodle.tech>
-    * @return boolean True if empty, null, 0, false, or of length 0 otherwise false is returned.
+    * Attach all event listeners needed for Wiki Modern.
     */
-    var empty = function( unknown ) {
-
-        /** Don't waste time. */
-        if (unknown==null || unknown=='undefined'){ return true; }
-
-        /**
-        * Fast way to get variables datatype. Original code: https://stackoverflow.com/a/7390612/3193156
-        * Altered with Lily Finley's RegEx in the comments.
-        */
-        var type = typeOf(unknown);
-        switch (type){
-            case 'ARRAY':
-                /** If the array is 0 it's empty. */
-                if(unknown.length<1){ return true; }
-                /** See if there is anything saved inside. */
-                var tmp;
-                for (var index in unknown) {
-                    tmp = typeOf(unknown[index]);
-                    if(tmp=='ARRAY' || tmp=='OBJECT'){
-                        if(!empty(unknown[index])){ return false; }
-                    } else {
-                        if(unknown[index].length>0){ return false; }
-                    }
-                }
-                return true;
-                break;
-            case 'NUMBER':
-                if(unknown<0 || unknown>0){ return false; }
-                return true;
-                break;
-                case 'FILE':
-                /** If this is a true file object it should have a file size. */
-                if (unknown.size>0){ return false; }
-                return true;
-                break;
-            case 'OBJECT':
-                /**
-                * Original Code: https://stackoverflow.com/a/4994244/3193156
-                */
-                /** Assume if it has a length property with a non-zero value that that property is correct. */
-                if (unknown.length > 0){ return false; }
-                if (unknown.length === 0){ return true; }
-                /**
-                * Otherwise, does it have any properties of its own?
-                * This doesn't handle toString and valueOf enumeration bugs in IE < 9
-                */
-                for (var key in unknown) {
-                   if (hasOwnProperty.call(unknown, key)){ return false; }
-                }
-                return true;
-                break;
-            case 'STRING':
-                /** Catch null that was cast as a string. */
-                if(unknown.toLowerCase()=='null'){ return true; }
-                /** Check that a empty string or number is not sneaking by. */
-                if(unknown.length>0&&parseInt(unknown)!=0){ return false; }
-                return true;
-                break;
-            case 'UNDEFINED':
-            default:
-                return true;
-        }
-    }
-
     var attachEvents = function(){
 
         /**
-        * Shorten the code by adding events via loop.
+        * Shorten the code needed by adding all events from templates (arrays) in a loop.
         * 0 => Where to attach event to: window (w) or document (d).
         * 1 => Element to get by ID and attach this event to. Only valid when 0 => d
         * 2 => The type of event to listen for.
         * 3 => Function to call when the event happens.
-        * 4 => Paramater to bind to (pass into) this function call.
+        * 4 => Paramater(s) to bind to (pass into) this function call. Multiple paramaters should be sent via a single array.
         */
         var events = [
             [ 'w', null, 'resize', recordResize, null ],
@@ -104,16 +36,20 @@ var WikiModern = (function(){
             [ 'd', 'wm-toggle-article-bottom-btn', 'click', toggleArticle, true ],
             [ 'd', 'wm-toggle-comments-bottom-btn', 'click', toggleComments, true ],
             [ 'd', 'wm-print-btn', 'click', printerStart, null ],
-            [ 'd', 'wm-pagination-comment', 'change', handleCommentPagination, null ],
-            [ 'd', 'wm-pagination-sort', 'change', handleCommentPagination, null ],
-            [ 'd', 'wm-pagination-page', 'change', handleCommentPagination, null ],
+            [ 'd', 'wm-pagination-comment', 'change', handle_comment_pagination, false ],
+            [ 'd', 'wm-pagination-sort', 'change', handle_comment_pagination, false ],
+            [ 'd', 'wm-pagination-page', 'change', handle_comment_pagination, false ],
+            [ 'd', 'wm-pagination-comment-bottom', 'change', handle_comment_pagination, true ],
+            [ 'd', 'wm-pagination-sort-bottom', 'change', handle_comment_pagination, true ],
+            [ 'd', 'wm-pagination-page-bottom', 'change', handle_comment_pagination, true ]
         ];
 
+        /** Loop through our array of events and add each one. */
         var len = events.length;
         var elem = '';
         for( var x = 0; x < len; x++ ){
 
-            /** Get the element if this is one to get. */
+            /** Get the element if there is one to get. */
             if( !empty( events[x][1] ) ){
                 elem = document.getElementById( events[x][1] );
             }
@@ -123,11 +59,13 @@ var WikiModern = (function(){
                 case 'w':
                 case 'W':
                 case 'window':
+                    /** Add event to the main window. */
                     window.addEventListener( events[x][2], events[x][3].bind( null, events[x][4] ) );
                     break;
                 case 'd':
                 case 'D':
                 case 'document':
+                    /** If the element exists attach the event to it. */
                     if( elem ){
                         elem.addEventListener( events[x][2], events[x][3].bind( null, events[x][4] ) );
                     }
@@ -139,8 +77,13 @@ var WikiModern = (function(){
         }
     };
 
-    var handleCommentPagination = function(){
-        var elems = [ 'wm-pagination-comment', 'wm-pagination-sort', 'wm-pagination-page' ];
+    var handle_comment_pagination = function( bottom ){
+        // TODO: ADD SCROLL TO TOP IF BOTTOM.
+        if( bottom ){
+            var elems = [ 'wm-pagination-comment-bottom', 'wm-pagination-sort-bottom', 'wm-pagination-page-bottom' ];
+        } else {
+            var elems = [ 'wm-pagination-comment', 'wm-pagination-sort', 'wm-pagination-page' ];
+        }
         var flag = false;
         for( var x = 0; x < 3; x++ ){
             elems[x] = document.getElementById( elems[x] );
@@ -168,7 +111,6 @@ var WikiModern = (function(){
             if( elem ){
                 elems.unshift( elem.dataset.wmPostId );
                 var data = {'options': elems };
-                console.log(data);
                 var xmlhttp;
                 // compatible with IE7+, Firefox, Chrome, Opera, Safari
                 //var url = theme_url + '/forms/wm-comment-pagination.php';
@@ -181,11 +123,12 @@ var WikiModern = (function(){
                         elem = document.getElementById('wm-comment-pagination-top-controls');
                         elem.innerHTML = data[0];
                         elem = document.getElementById('wm-comment-pagination-bottom-controls');
-                        elem.innerHTML = data[0];
-                        elem = document.getElementById('wm-comment-display-wrapper');
                         elem.innerHTML = data[1];
+                        elem = document.getElementById('wm-comment-display-wrapper');
+                        elem.innerHTML = data[2];
 
-                        // WILL NEED TO RESET ALL EVENT LISTENERS. So far just the pagination controls.
+                        /** Re-attach event listeners. */
+                        attachEvents();
                     }
                 }
                 xmlhttp.open("POST", url, true);
@@ -203,22 +146,97 @@ var WikiModern = (function(){
 
     /**
     * Vanilla Javascript DOM Ready function supporting IE 8+.
+    *
     * @param {function} fn A function to call when the DOM is ready.
     * @see {@link http://youmightnotneedjquery.com/>}
     * @author adamfschwartz
     * @author zackbloom
     */
-    var domReady = function(fn) {
-        if (document.readyState != 'loading'){
+    var domReady = function( fn ) {
+        if ( document.readyState != 'loading' ){
             fn();
-        } else if (document.addEventListener) {
-            document.addEventListener('DOMContentLoaded', fn);
+        } else if ( document.addEventListener ) {
+            document.addEventListener( 'DOMContentLoaded', fn );
         } else {
-            document.attachEvent('onreadystatechange', function(){
-                if (document.readyState != 'loading'){
+            document.attachEvent( 'onreadystatechange', function(){
+                if ( document.readyState != 'loading' ){
                     fn();
                 }
             });
+        }
+    };
+
+    /**
+    * Check if a string, number, array, or object is empty.
+    *
+    * NOTE: This correctly handles the built-in typeOf null equals object bug because a
+    * custom typeOf function. Example: http://2ality.com/2013/10/typeof-null.html
+    *
+    * @author Stack Overflow Community
+    * @author Christopher Keers <source@caboodle.tech>
+    * @return boolean True if empty, null, 0, false, or of length 0 otherwise false is returned.
+    */
+    var empty = function( unknown ) {
+
+        /** Don't waste time. */
+        if ( unknown == null || unknown == 'undefined' ){ return true; }
+
+        /**
+        * Fast way to get variables datatype. Original code: https://stackoverflow.com/a/7390612/3193156
+        * Altered with Lily Finley's RegEx in the comments.
+        */
+        var type = typeOf( unknown );
+        switch ( type ){
+            case 'ARRAY':
+                /** If the array is 0 it's empty. */
+                if( unknown.length < 1 ){ return true; }
+                /** See if there is anything saved inside. */
+                var tmp;
+                for ( var index in unknown ) {
+                    tmp = typeOf(unknown[index]);
+                    if( tmp== 'ARRAY' || tmp == 'OBJECT' ){
+                        if( !empty( unknown[index] ) ){ return false; }
+                    } else {
+                        if( unknown[index].length > 0 ){ return false; }
+                    }
+                }
+                return true;
+                break;
+            case 'NUMBER':
+                if( unknown < 0 || unknown > 0 ){ return false; }
+                return true;
+                break;
+            case 'FILE':
+                /** If this is a true file object it should have a file size. */
+                if ( unknown.size > 0 ){ return false; }
+                return true;
+                break;
+            case 'OBJECT':
+                /**
+                * Original Code: https://stackoverflow.com/a/4994244/3193156
+                * Assume if it has a length property with a non-zero value that that property is correct.
+                */
+                if ( unknown.length > 0){ return false; }
+                if ( unknown.length === 0){ return true; }
+                /**
+                * Otherwise, does it have any properties of its own?
+                * This doesn't handle toString and valueOf enumeration bugs in IE < 9
+                */
+                for ( var key in unknown ) {
+                   if ( hasOwnProperty.call( unknown, key ) ){ return false; }
+                }
+                return true;
+                break;
+            case 'STRING':
+                /** Catch null that was cast as a string. */
+                if( unknown.toLowerCase() == 'null' ){ return true; }
+                /** Check that a empty string or number is not sneaking by. */
+                if( unknown.length > 0 && parseInt( unknown ) != 0){ return false; }
+                return true;
+                break;
+            case 'UNDEFINED':
+            default:
+                return true;
         }
     };
 

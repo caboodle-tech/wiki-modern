@@ -1,22 +1,31 @@
 <?php
-if ( !class_exists( 'WM_post_page' ) ){
+if ( !class_exists( 'WM_posts' ) ){
 
     /**
     * Responsible for everything shown on a post page.
     */
-	class WM_post_page {
+	class WM_posts {
 
         private $_aacp = false;
+        private $_admin = false;
 
         public function __construct () {
+
+            /** Is the active user an Admin or Editor? */
+            $user = wp_get_current_user();
+            if( array_intersect( array('editor', 'administrator'), $user->roles ) ){
+                $_admin = true;
+            }
+
+            /** */
             add_action( 'wp_ajax_wm_comment_pagination', 'wm_comment_pagination' );
             add_action( 'wp_ajax_nopriv_wm_comment_pagination', 'wm_comment_pagination' );
-            /** Check if the Wiki Modern Authors and Contributors plugin is active. */
 
+            /** Check if the Wiki Modern Authors and Contributors plugin is active. */
         }
 
         /**
-        * Gathers all top level comments and starts the comment loop {@see WM_post_page::format_comments_loop}
+        * Gathers all top level comments and starts the comment loop {@see WM_posts::format_post_comments_loop}
         * which will generate the HTML for all comments and replies to this post.
         *
         * @param    int    $post_id    What is the ID of post to get comments for.
@@ -25,7 +34,7 @@ if ( !class_exists( 'WM_post_page' ) ){
         * @param    string $sort       How to sort the comments ASC (oldest) or DESC (newest). Default DESC.
         * @return   string The HTML for all comments and replies for this post or a simple message if none were found.
         */
-        private function format_comments( $post_id, $sort, $per_page, $page ){
+        private function format_post_comments( $post_id, $sort, $per_page, $page ){
 
             /** Page is used for offset math so go down by 1. */
             $page--;
@@ -54,13 +63,6 @@ if ( !class_exists( 'WM_post_page' ) ){
             /** Loop through all the comments; AKA The Comment Loop. */
             if ( !empty( $comments ) ) {
 
-                /** Is the current user an admin? */
-                $user = wp_get_current_user();
-                $admin = false;
-                if( array_intersect( array('editor', 'administrator'), $user->roles ) ){
-                    $admin = true;
-                }
-
                 /** Loop through each top level comment we found. */
                 foreach ( $comments as $comment ) {
                     /**
@@ -73,7 +75,7 @@ if ( !class_exists( 'WM_post_page' ) ){
                     * is a simple workaround instead of having to extend the
                     * WP_Comment_Query and WP_Comment classes to add a getter.
                     */
-                    $html .= $this->format_comments_loop( $comment->to_array(), 0, $admin, wm_get_user_ip() );
+                    $html .= $this->format_post_comments_loop( $comment->to_array(), 0, $this->_admin, wm_get_user_ip() );
                 }
             } else {
                 /** No comments were found. */
@@ -95,7 +97,7 @@ if ( !class_exists( 'WM_post_page' ) ){
         * @param    string $ip         The current users ip address.
         * @return   string The HTML for the current comment or reply to add to the final HTML output.
         */
-        private function format_comments_loop( $comment, $level, $admin, $ip ){
+        private function format_post_comments_loop( $comment, $level, $admin, $ip ){
 
             /** Determine if the comment under moderation notice should been shown on this comment. */
             $show_moderation_notice = false;
@@ -212,7 +214,7 @@ if ( !class_exists( 'WM_post_page' ) ){
                     * is a simple workaround instead of having to extend the
                     * WP_Comment_Query and WP_Comment classes to add a getter.
                     */
-                    $html .= $this->format_comments_loop( $child->to_array(), $level + 1, $admin, $ip );
+                    $html .= $this->format_post_comments_loop( $child->to_array(), $level + 1, $admin, $ip );
                 }
             }
 
@@ -228,7 +230,7 @@ if ( !class_exists( 'WM_post_page' ) ){
         *
         * @return   string  The HTML for the Author section or the HTML for the uthors, Co-Authors, and Contributors sections.
         */
-        public function get_post_authors() {
+        public function get_post_page_authors() {
 
             $html = '<tr class="wm-widget-sub-title"><td>{{author-title}}:</td></tr>';
 
@@ -259,7 +261,7 @@ if ( !class_exists( 'WM_post_page' ) ){
         *
         * @return   string  The HTML for the categories section with all categories shown in a comma seperated list.
         */
-        public function get_post_categories(){
+        public function get_post_page_categories(){
 
             $html = '<tr class="wm-widget-sub-title"><td>{{categories-title}}:</td></tr><tr class="wm-widget-info"><td>';
 
@@ -287,12 +289,12 @@ if ( !class_exists( 'WM_post_page' ) ){
         /**
         * Start the process of loading and building the HTML for this posts comments.
         * After checking the post is unlocked and gathering needed information this
-        * will call {@see WP_post_page::format_comments} which in turn will call
-        * {@see WP_post_page::format_comments_loop} to build the needed HTML.
+        * will call {@see WP_post_page::format_post_comments} which in turn will call
+        * {@see WP_post_page::format_post_comments_loop} to build the needed HTML.
         *
         * @return   string The HTML for all comments and replies, a simple message if none were found, or a message if this is a locked post.
         */
-        public function get_post_comments( $post_id = null, $sort = null, $per_page = null, $page = null ){
+        public function get_post_page_comments( $post_id = null, $sort = null, $per_page = null, $page = null ){
 
             /** If we were not given a post ID see if we can find it. */
             if( empty($post_id) ){
@@ -315,8 +317,28 @@ if ( !class_exists( 'WM_post_page' ) ){
             $html = '';
             if( !post_password_required( $post_id ) ){
 
+                /** How many top level comments are there? */
+                $comments_query = new WP_Comment_Query;
+                if( $this->_admin ){
+                    $args = array(
+                        'count' => true,
+                        'parent' => 0,
+                        'post_id' => $post_id,
+                        'status' => 'all'
+                    );
+                } else {
+                    $args = array(
+                        'count' => true,
+                        'parent' => 0,
+                        'post_id' => $post_id,
+                        'status' => 1
+                    );
+                }
+                $count = $comments_query->query( $args );
+
                 /** Is there comments to show? */
-                if ( get_comments_number( $post_id ) > 0 ){
+                if ( $count > 0 ){
+                    /** Yes. */
 
                     // TODO: Make cookies to store this in and check from.
 
@@ -343,7 +365,11 @@ if ( !class_exists( 'WM_post_page' ) ){
                         $page = 1;
                     }
 
-                    $html .= $this->format_comments( $post->ID, $sort, $per_page, $page );
+                    $html .= $this->format_post_comments( $post->ID, $sort, $per_page, $page );
+
+                } else {
+                    /** No. Show no comments message. */
+                    $html = '<p>There are no comments for this post.</p>';
                 }
             }
             return $html;
@@ -355,7 +381,7 @@ if ( !class_exists( 'WM_post_page' ) ){
         *
         * @return   string  The modified HTML for the WordPress comment form.
         */
-        public function get_post_comment_form(){
+        public function get_post_page_comment_form(){
 
             /** Capture the default Word Press form. */
             ob_start();
@@ -381,9 +407,9 @@ if ( !class_exists( 'WM_post_page' ) ){
         *
         * TODO: Add params
         *
-        * @return   string  The HTML for the comment pagination controls.
+        * @return   array  The HTML for the comment pagination controls, index 0 is for the top of the page and index 1 is for the bottom.
         */
-        public function get_post_comment_pagination( $post_id = null, $sort = null, $per_page = null, $page = null ){
+        public function get_post_page_comment_pagination( $post_id = null, $sort = null, $per_page = null, $page = null ){
 
             /** If we were not given a post ID see if we can find it. */
             if( empty($post_id) ){
@@ -421,62 +447,100 @@ if ( !class_exists( 'WM_post_page' ) ){
 
             /** How many top level comments are there? */
             $comments_query = new WP_Comment_Query;
-            $args = array(
-                'count' => true,
-                'parent' => 0,
-                'post_id' => $post_id,
-                'status' => 'all'
-            );
+            if( $this->_admin ){
+                $args = array(
+                    'count' => true,
+                    'parent' => 0,
+                    'post_id' => $post_id,
+                    'status' => 'all'
+                );
+            } else {
+                $args = array(
+                    'count' => true,
+                    'parent' => 0,
+                    'post_id' => $post_id,
+                    'status' => 1
+                );
+            }
             $count = $comments_query->query( $args );
 
-            /** Build the pagination HTML. */
-            $html = '';
+            /** Is there comments to show? */
+            if( $count > 0 ){
 
-            /** How many pages do we need? */
-            $pages = ceil( $count / $per_page );
+                /** Yes. Build the pagination HTML. */
+                $html = array();
 
-            /** The pagenation HTML template. */
-            $html = '<div class="wm-pagination">Showing <select id="wm-pagination-comment">{{comment-options}}</select> comments per page. <select id="wm-pagination-sort">{{sort-options}}</select> comments are shown first and this is page <select id="wm-pagination-page">{{page-options}}</select> of {{page-count}}.</div>';
+                /** How many pages do we need? */
+                $pages = ceil( $count / $per_page );
 
-            /** Replace the various template parts with their actual values. */
-            $html = str_replace( '{{page-count}}', $pages, $html );
-            $replacement = '';
+                /** The pagenation HTML templates. */
+                $html[0] = '<div class="wm-pagination">Showing <select id="wm-pagination-comment">{{comment-options}}</select> comments per page. <select id="wm-pagination-sort">{{sort-options}}</select> comments are shown first and this is page <select id="wm-pagination-page">{{page-options}}</select> of {{page-count}}.</div>';
+                $html[1] = '<div class="wm-pagination">Showing <select id="wm-pagination-comment-bottom">{{comment-options}}</select> comments per page. <select id="wm-pagination-sort-bottom">{{sort-options}}</select> comments are shown first and this is page <select id="wm-pagination-page-bottom">{{page-options}}</select> of {{page-count}}.</div>';
 
-            /** Display X comments per page. */
-            for( $x = 0; $x < 5; $x++ ){
-                $count = 50 + $x * 25;
-                if( $count == $per_page ){
-                    $replacement .= '<option value="' . $count . '" selected="">' . $count . '</option>';
-                } else {
-                    $replacement .= '<option value="' . $count . '">' . $count . '</option>';
+                /** Replace the various template parts with their actual values. */
+                $html[0] = str_replace( '{{page-count}}', $pages, $html[0] );
+                $html[1] = str_replace( '{{page-count}}', $pages, $html[1] );
+                $replacement = '';
+
+                /** Display X comments per page. */
+                for( $x = 0; $x < 5; $x++ ){
+                    $count = 50 + $x * 25;
+                    if( $count == $per_page ){
+                        $replacement .= '<option value="' . $count . '" selected="">' . $count . '</option>';
+                    } else {
+                        $replacement .= '<option value="' . $count . '">' . $count . '</option>';
+                    }
                 }
-            }
-            $html = str_replace( '{{comment-options}}', $replacement, $html );
-            $replacement = '';
+                $html[0] = str_replace( '{{comment-options}}', $replacement, $html[0] );
+                $html[1] = str_replace( '{{comment-options}}', $replacement, $html[1] );
+                $replacement = '';
 
-            /** Page options. */
-            for( $x = 1; $x <= $pages; $x++ ){
-                if( $x > $page ){
-                    $replacement .= '<option value="' . $x . '">' . $x .'</option>';
-                } else {
-                    $replacement .= '<option value="' . $x . '" selected="">' . $x .'</option>';
+                /** Page options. */
+                for( $x = 1; $x <= $pages; $x++ ){
+                    if( $x > $page ){
+                        $replacement .= '<option value="' . $x . '">' . $x .'</option>';
+                    } else {
+                        $replacement .= '<option value="' . $x . '" selected="">' . $x .'</option>';
+                    }
                 }
-            }
-            $html = str_replace( '{{page-options}}', $replacement, $html );
-            $replacement = '';
+                $html[0] = str_replace( '{{page-options}}', $replacement, $html[0] );
+                $html[1] = str_replace( '{{page-options}}', $replacement, $html[1] );
+                $replacement = '';
 
-            /** Sort options. */
-            switch( $sort ){
-                case 'DESC':
-                    $replacement = '<option value="DESC" selected>Newest</option><option value="ASC">Oldest</option>';
-                    break;
-                default:
-                    $replacement = '<option value="DESC">Newest</option><option value="ASC" selected="">Oldest</option>';
-                    break;
+                /** Sort options. */
+                switch( $sort ){
+                    case 'DESC':
+                        $replacement = '<option value="DESC" selected>Newest</option><option value="ASC">Oldest</option>';
+                        break;
+                    default:
+                        $replacement = '<option value="DESC">Newest</option><option value="ASC" selected="">Oldest</option>';
+                        break;
+                }
+
+                $html[0] = str_replace( '{{sort-options}}', $replacement, $html[0] );
+                $html[1] = str_replace( '{{sort-options}}', $replacement, $html[1] );
+
+            } else {
+                /** No. Don't show any pagination. */
+                $html = array( '', '' );
             }
-            $html = str_replace( '{{sort-options}}', $replacement, $html );
 
             return $html;
+        }
+
+        public function get_post_page_content( $post_id = null ){
+
+            if( empty($post_id) ){
+                global $post;
+            } else {
+                $post = the_post( $post_id );
+            }
+
+            if ( $post ){
+                return apply_filters( 'the_content', $post->post_content );
+            }
+
+            return '';
         }
 
         /**
@@ -484,7 +548,7 @@ if ( !class_exists( 'WM_post_page' ) ){
         *
         * @return   string  The HTML for the Publised Date and Last Updated section formated according to the sites settings.
         */
-        public function get_post_dates(){
+        public function get_post_page_dates(){
 
             $html = '<tr class="wm-widget-sub-title"><td>Published:</td></tr><tr class="wm-widget-info"><td>';
             $html .= get_the_date() . '</td></tr>';
@@ -502,7 +566,7 @@ if ( !class_exists( 'WM_post_page' ) ){
         *
         * @return   string  The HTML for the Tags section with all tags shown in a comma seperated list.
         */
-        public function get_post_tags(){
+        public function get_post_page_tags(){
 
             $html = '<tr class="wm-widget-sub-title"><td>{{tag-title}}:</td></tr><tr class="wm-widget-info"><td>';
 
@@ -533,8 +597,100 @@ if ( !class_exists( 'WM_post_page' ) ){
         *
         * @return   string  The HTML for the post's title.
         */
-        public function get_post_title(){
-            return '<h1>' . get_the_title() . '</h1>';
+        public function get_post_title( $post_id = null ){
+
+            /** If we were not given a post ID see if we can find it. */
+            if( empty($post_id) ){
+                global $post;
+                if ( $post ){
+                    $post_id = $post->ID;
+                } else {
+                    /** Return empty now, this was called in a bad context and we can't find a post ID. */
+                    return '';
+                }
+            }
+
+            return '<h1>' . apply_filters( 'the_title', $post->post_title ) . '</h1>';
+        }
+
+        public function get_posts(){
+
+            // https://developer.wordpress.org/reference/functions/get_posts/
+            // https://developer.wordpress.org/reference/classes/wp_post/
+            // https://codex.wordpress.org/Class_Reference/WP_Query#Status_Parameters
+
+            $args = array(
+                'numberposts' => 6,
+                'post_status' => array( 'publish', 'pending', 'private' )
+            );
+
+            $latest_posts = get_posts( $args );
+
+            $html = '';
+
+            foreach( $latest_posts as $post ){
+
+                /** Grab the correct post summary. */
+                $post_summary = '';
+                if( !empty( $post->post_excerpt ) ){
+                    /** Use the posts excerpt. */
+                    $post_summary = $post->post_excerpt;
+                } else {
+                    /** Does this post have a read more marker? */
+                    if( strpos( $post->post_content, '<!--more-->' ) !== false ){
+                        /** Yes. Pull any text and basic HTML from above it. */
+                        $tmp = substr( $post->post_content, 0, strpos( $post->post_content, '<!--more-->' ) );
+                        $tmp = trim_html_tags( $tmp, array( 'comments', 'img', 'div', 'pre' ) );
+                        $tmp = preg_split('/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/', $tmp, null, PREG_SPLIT_NO_EMPTY);
+                        /** Wrap correctly in P tags. */
+                        foreach( $tmp as $part ){
+                            if( strpos( $part, '<blockquote>' ) === 0 ){ $post_summary .= $part; continue; }
+                            if( strpos( $part, '<figure>' ) === 0 ){ $post_summary .= $part; continue; }
+                            if( strpos( $part, '<p>' ) === 0 ){ $post_summary .= $part; continue; }
+                            $post_summary .= '<p>' . $part . '</p>';
+                        }
+                    } else {
+                        /** No. Grab a few lines of text. */
+                        $tmp = trim_html_tags( $post->post_content, array( 'comments', 'img', 'div', 'pre' ) );
+                        $tmp = preg_split('/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/', $tmp, null, PREG_SPLIT_NO_EMPTY);
+                        /** Wrap correctly in P tags. */
+                        $counter = 1;
+                        foreach( $tmp as $part ){
+                            if( $counter > 3 ){ break; }
+                            if( strpos( $part, '<blockquote>' ) === 0 ){ $post_summary .= $part; $counter++; continue; }
+                            if( strpos( $part, '<figure>' ) === 0 ){ $post_summary .= $part; $counter++; continue; }
+                            if( strpos( $part, '<p>' ) === 0 ){ $post_summary .= $part; $counter++; continue; }
+                            $post_summary .= '<p>' . $part . '</p>';
+                            $counter++;
+                        }
+                    }
+                }
+                $html .= $post_summary . '<hr>';
+
+                /** Get cover photos in post. */
+                preg_match_all('/<!-- wp:cover[^>]+-->/i', $post->post_content, $results);
+                foreach( $results[0] as $src ){
+                    preg_match('/url":"([^,]+)"/i', $src, $match);
+                    if( count($match) > 1 ){
+                        //$html .= $match[1].' [Cover Photo]<br>';
+                    }
+                }
+
+                /** Get images (minus emojis) in post. */
+                preg_match_all('/<img[^>]+>/i', $post->post_content, $results);
+                foreach( $results[0] as $src ){
+                    if( strpos( $src, 'emoji') === false ){
+                        preg_match('/src="([^"]+)/i', $src, $match);
+                        if( count($match) > 1 ){
+                            //$html .= $match[1].' [Normal Photo]<br>';
+                        }
+                    }
+                }
+            }
+
+            Kint::dump( $latest_posts );
+
+            return $html;
         }
 
     /** End Class. */

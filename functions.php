@@ -37,10 +37,12 @@ if( !WP_DEBUG ){
 
 /** Load custom classes and functions for the Wiki Modern theme. */
 require( 'include/wm-get-user-ip.php' );
+require( 'include/trim-html-tags.php' );
 require('classes/wm_walker.php');
-require( 'classes/wm-post-page.php' );
+require( 'classes/wm_post_page.php' );
+require( 'classes/simple_html_dom.php' );
 
-$WM_POST_PAGE = new WM_post_page();
+$WM_posts = new WM_posts();
 
 require('customizer/customizer.php');
 

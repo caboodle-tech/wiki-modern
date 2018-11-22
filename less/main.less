@@ -11,6 +11,7 @@ html, body {
 
 body {
     font-size: 62.5%;
+    font-family: "Open Sans", sans-serif;
 }
 
 // Style for the buttons in the header of the Page Content area.
@@ -420,7 +421,7 @@ body {
             text-align: justify;
             font-size: 1.25rem;
             line-height: 1.75rem;
-            margin: 1.75rem;
+            margin: 2.5rem 2rem;
 
             p {
                 margin: 1rem 0;
@@ -428,10 +429,17 @@ body {
 
             blockquote {
                 display: block;
-                margin: 0;
+                width: 90%;
+                margin: 0 auto;
                 padding: 0 1rem;
                 background-color: #F8F9FA;
                 border: 1px solid #EAECF0;
+            }
+
+            cite {
+                display: block;
+                text-align: right;
+                padding-bottom: .6rem;
             }
         }
     }
@@ -443,7 +451,7 @@ body {
         overflow: hidden;
         font-size: 1.15rem;
         line-height: 1.5rem;
-        margin: 1.75rem;
+        margin: 2.5rem 2rem;
 
         @import("post-page.less");
     }

@@ -12,7 +12,7 @@
 /** Show the right sidebar only if on a Post page. */
 if ( !is_page() && is_singular() ){
     /** Reference the global class for Post pages. */
-    global $WM_POST_PAGE;
+    global $WM_posts;
 ?>
 <aside id="wm-right-sidebar">
     <div id="wm-right-laptop-controls">
@@ -30,10 +30,10 @@ if ( !is_page() && is_singular() ){
         <div class="wm-widget-content">
             <table>
                 <?php
-                    echo $WM_POST_PAGE->get_post_dates();
-                    echo $WM_POST_PAGE->get_post_authors();
-                    echo $WM_POST_PAGE->get_post_categories();
-                    echo $WM_POST_PAGE->get_post_tags();
+                    echo $WM_posts->get_post_page_dates();
+                    echo $WM_posts->get_post_page_authors();
+                    echo $WM_posts->get_post_page_categories();
+                    echo $WM_posts->get_post_page_tags();
                 ?>
             </table>
         </div>

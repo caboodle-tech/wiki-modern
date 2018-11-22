@@ -10,17 +10,17 @@ if( !function_exists( 'wm_comment_pagination' ) ){
 
         if( $options && count($options) == 4 ){
 
-            $WM_POST_PAGE = new WM_post_page();
+            $WM_posts = new WM_posts();
 
             // 0 => The post ID.
             // 1 => Number of comments to display.
             // 2 => How to sort comments.
             // 3 => Page number.
-            $pagination = $WM_POST_PAGE->get_post_comment_pagination( $options[0], $options[2], $options[1], $options[3] );
+            $pagination = $WM_posts->get_post_page_comment_pagination( $options[0], $options[2], $options[1], $options[3] );
 
-            $comments = $WM_POST_PAGE->get_post_comments( $options[0], $options[2], $options[1], $options[3] );
+            $comments = $WM_posts->get_post_page_comments( $options[0], $options[2], $options[1], $options[3] );
 
-            echo $pagination . '||||' . $comments;
+            echo $pagination[0] . '||||' . $pagination[1] . '||||' . $comments;
         }
         echo '';
         /** Close connection otherwise a 0 is added to our response. */
