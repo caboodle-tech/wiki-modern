@@ -43,7 +43,7 @@ body {
 #wm-wrapper {
     position: relative;
     display: grid;
-    grid-template-columns: [left] auto [center] 1fr [right] auto;
+    grid-template-columns: [left] auto [center] minmax(1%, 100%) [right] auto;
     grid-template-rows: [top] 1fr [bottom] minmax(50px, auto);
     width: 100%;
     min-height: 100%;
@@ -441,6 +441,8 @@ body {
                 text-align: right;
                 padding-bottom: .6rem;
             }
+
+            @import("posts.less");
         }
     }
     // END: Main Page Content.
@@ -586,7 +588,7 @@ body {
 
     // START: Footer.
     #wm-footer {
-        grid-column: ~ "1/4";
+        grid-column: ~"1/4";
         grid-row: bottom;
         background-color: @wm_saf_bg_color;
         color: @wm_saf_color;

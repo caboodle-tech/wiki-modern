@@ -52,19 +52,21 @@ get_sidebar('left');
                     <i class="fas fa-book-reader"></i>
                 </div>
             </header>
-            <article id="wm-post-container">
-                <?php
-                    if( !is_page() && is_singular() ){
-                        /** This is a post page. */
-                        echo $WM_posts->get_post_title();
-                        echo $WM_posts->get_post_page_content();
-                    } else {
-                        /** This is the home page or another page with multiple post on it. */
-                        echo $WM_posts->get_posts();
-                    }
+            <?php
+                if( !is_page() && is_singular() ){
+                    /** This is a post page. */
+                    echo '<article id="wm-post-container">';
+                    echo $WM_posts->get_post_title();
+                    echo $WM_posts->get_post_page_content();
+                    echo '</article>';
+                } else {
+                    /** This is the home page or another page with multiple post on it. */
+                    echo '<section id="wm-post-container">';
+                    echo $WM_posts->get_posts();
+                    echo '</section>';
+                }
 
-                ?>
-            </article>
+            ?>
             <section id="wm-comments-container">
                 <?php
                     if( !is_page() && is_singular() ){

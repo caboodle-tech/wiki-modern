@@ -29,7 +29,7 @@ function trim_html_tags( $html, $tags ){
         * warnings if it encounters HTML5 tags so just ignore them.
         */
         $dom = new DOMDocument();
-        @$dom->loadHTML( $html );
+        @$dom->loadHTML( '<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $html . '</body></html>' );
 
         /** Remove each requested tag. */
         foreach( $tags as $tag ){
@@ -51,14 +51,30 @@ function trim_html_tags( $html, $tags ){
         }
 
         /** Get the cleaned HTML. */
-        $html = utf8_decode( $dom->saveHTML( $dom->documentElement ) );
+        $html = $dom->saveHTML( $dom->documentElement );
+        //$html = utf8_decode( $dom->saveHTML( $dom->documentElement ) );
 
         /** Should we remove comments as well? */
         $comment_tags = array( 'comment', 'COMMENT', 'COMMENTS', 'comments', '<!', '<!>', '<!-', '<!---->');
         if( array_intersect( $tags, $comment_tags ) ){
             /** Yes. Remove all HTML comments. */
-            $html = preg_replace('/<!--([^>]+)>/i', '', $html);
+            $html = preg_replace( '/<!--([^>]+)>/i', '', $html );
         }
+
+        /** Remove HTML and BODY tags that were added. */
+        $remove = array(
+            '<html>',
+            '</html>',
+            '<head>',
+            '</head>',
+            '<body>',
+            '</body>',
+            '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">'
+        );
+        $html = str_ireplace( $remove, '', $html);
+
+        /** Remove any empty P tags. */
+        $html = preg_replace('/<p[^>]*><\\/p[^>]*>/', '', $html);
 
     } else {
         /** No. Use regex and send back something useful. */

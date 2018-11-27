@@ -613,83 +613,165 @@ if ( !class_exists( 'WM_posts' ) ){
             return '<h1>' . apply_filters( 'the_title', $post->post_title ) . '</h1>';
         }
 
+        private function format_posts_loop( $post, $template ){
+
+            // TODO: Check if post is password protected and hide everything but the title.
+
+            /** Grab the correct post summary. */
+            $post_summary = '';
+            if( !empty( $post->post_excerpt ) ){
+                /** Use the posts excerpt. */
+                $post_summary = $post->post_excerpt;
+            } else {
+                /** Does this post have a read more marker? */
+                if( strpos( $post->post_content, '<!--more-->' ) !== false ){
+                    /** Yes. Pull any text and basic HTML from above it. */
+                    $tmp = substr( $post->post_content, 0, strpos( $post->post_content, '<!--more-->' ) );
+                    $tmp = trim_html_tags( $tmp, array( 'comments', 'img', 'div', 'pre' ) );
+                    $tmp = preg_split('/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/', $tmp, null, PREG_SPLIT_NO_EMPTY); // Split on each line
+                    /** Wrap correctly in P tags. */
+                    foreach( $tmp as $part ){
+                        if( strpos( $part, '<blockquote>' ) === 0 ){ $post_summary .= $part; continue; }
+                        if( strpos( $part, '<figure>' ) === 0 ){ $post_summary .= $part; continue; }
+                        if( strpos( $part, '<p>' ) === 0 ){ $post_summary .= $part; continue; }
+                        if( strlen( $part ) > 6 ){ $post_summary .= '<p>' . $part . '</p>'; }
+                    }
+                } else {
+                    /** No. Grab a few (2) lines of text. */
+                    $tmp = trim_html_tags( $post->post_content, array( 'comments', 'img', 'div', 'pre' ) );
+                    $tmp = preg_split('/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/', $tmp, null, PREG_SPLIT_NO_EMPTY);
+                    /** Wrap correctly in P tags. */
+                    $lines = 1;
+                    foreach( $tmp as $part ){
+                        if( $lines > 2 ){ break; }
+                        if( strpos( $part, '<blockquote>' ) === 0 ){ $post_summary .= $part; $lines++; continue; }
+                        if( strpos( $part, '<figure>' ) === 0 ){ $post_summary .= $part; $lines++; continue; }
+                        if( strpos( $part, '<p>' ) === 0 ){ $post_summary .= $part; $lines++; continue; }
+                        if( strlen( $part ) > 6 ){ $post_summary .= '<p>' . $part . '</p>'; $lines++; }
+                    }
+                }
+            }
+
+            /** Build a list of images in the post. */
+            $post_images = array();
+
+            /** Get cover photos in post. */
+            preg_match_all('/<!-- wp:cover[^>]+-->/i', $post->post_content, $results);
+            foreach( $results[0] as $src ){
+                preg_match('/url":"([^,]+)"/i', $src, $match);
+                if( count($match) > 1 ){
+                    $post_images[] = $match[1];
+                }
+            }
+
+            /** Get images (minus emojis) in post. */
+            preg_match_all('/<img[^>]+>/i', $post->post_content, $results);
+            foreach( $results[0] as $src ){
+                if( strpos( $src, 'emoji') === false ){
+                    preg_match('/src="([^"]+)/i', $src, $match);
+                    if( count($match) > 1 ){
+                        $post_images[] = $match[1];
+                    }
+                }
+            }
+
+            $image = '';
+            if( count( $post_images ) > 0 ){
+                $image .= '<img src="' . $post_images[0] . '">';
+            }
+
+            /** Change post dates to correct format. */
+            if( strtotime( $post->post_date ) != strtotime( $post->post_modified ) ){
+                $post->post_modified = date( get_option( 'date_format' ), strtotime( $post->post_modified ) );
+            } else {
+                $post->post_modified = '';
+            }
+            $post->post_date = date( get_option( 'date_format' ), strtotime( $post->post_date ) );
+
+            /** Build the template and return it. */
+            $template = str_replace( '{{post-title}}', $post->post_title, $template );
+            $template = str_replace( '{{post-author}}', $post->post_author, $template );
+            $template = str_replace( '{{post-date}}', $post->post_date, $template );
+            $template = str_replace( '{{post-update}}', $post->post_modified, $template );
+            $template = str_replace( '{{post-image}}', $image, $template );
+            $template = str_replace( '{{post-summary}}', $post_summary, $template );
+            return $template;
+        }
+
         public function get_posts(){
 
             // https://developer.wordpress.org/reference/functions/get_posts/
             // https://developer.wordpress.org/reference/classes/wp_post/
             // https://codex.wordpress.org/Class_Reference/WP_Query#Status_Parameters
 
-            $args = array(
-                'numberposts' => 6,
-                'post_status' => array( 'publish', 'pending', 'private' )
-            );
-
-            $latest_posts = get_posts( $args );
-
+            $post_limit = 20;
             $html = '';
 
-            foreach( $latest_posts as $post ){
+            /** Load and build the correct post HTML. */
+            // {{post-title}}
+            // {{post-author}}
+            // {{post-date}}
+            // {{post-update}}
+            // {{post-summary}}
+            $template = '<article class="wm-post-block"><div class="wm-post-title">{{post-title}}</div><div class="wm-post-meta"><span class="wm-post-meta-author">{{post-author}}</span><span class="wm-post-meta-date">{{post-date}}</span><span class="wm-post-meta-update">{{post-update}}</span></div><div class="wm-post-image">{{post-image}}</div><div class="wm-post-summary">{{post-summary}}</div></article>';
 
-                /** Grab the correct post summary. */
-                $post_summary = '';
-                if( !empty( $post->post_excerpt ) ){
-                    /** Use the posts excerpt. */
-                    $post_summary = $post->post_excerpt;
-                } else {
-                    /** Does this post have a read more marker? */
-                    if( strpos( $post->post_content, '<!--more-->' ) !== false ){
-                        /** Yes. Pull any text and basic HTML from above it. */
-                        $tmp = substr( $post->post_content, 0, strpos( $post->post_content, '<!--more-->' ) );
-                        $tmp = trim_html_tags( $tmp, array( 'comments', 'img', 'div', 'pre' ) );
-                        $tmp = preg_split('/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/', $tmp, null, PREG_SPLIT_NO_EMPTY);
-                        /** Wrap correctly in P tags. */
-                        foreach( $tmp as $part ){
-                            if( strpos( $part, '<blockquote>' ) === 0 ){ $post_summary .= $part; continue; }
-                            if( strpos( $part, '<figure>' ) === 0 ){ $post_summary .= $part; continue; }
-                            if( strpos( $part, '<p>' ) === 0 ){ $post_summary .= $part; continue; }
-                            $post_summary .= '<p>' . $part . '</p>';
-                        }
-                    } else {
-                        /** No. Grab a few lines of text. */
-                        $tmp = trim_html_tags( $post->post_content, array( 'comments', 'img', 'div', 'pre' ) );
-                        $tmp = preg_split('/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/', $tmp, null, PREG_SPLIT_NO_EMPTY);
-                        /** Wrap correctly in P tags. */
-                        $counter = 1;
-                        foreach( $tmp as $part ){
-                            if( $counter > 3 ){ break; }
-                            if( strpos( $part, '<blockquote>' ) === 0 ){ $post_summary .= $part; $counter++; continue; }
-                            if( strpos( $part, '<figure>' ) === 0 ){ $post_summary .= $part; $counter++; continue; }
-                            if( strpos( $part, '<p>' ) === 0 ){ $post_summary .= $part; $counter++; continue; }
-                            $post_summary .= '<p>' . $part . '</p>';
-                            $counter++;
-                        }
-                    }
-                }
-                $html .= $post_summary . '<hr>';
+            /* Get all Sticky Posts if any, sort them newest to oldest, and only return up to our limit. */
+            $sticky_posts = get_option( 'sticky_posts' );
+            rsort( $sticky_posts );
+            $sticky_posts = array_slice( $sticky_posts, 0, $post_limit );
+            $sticky_posts = new WP_Query( array( 'post__in' => $sticky_posts, 'ignore_sticky_posts' => 1 ) );
+            $sticky_posts_ID = array();
 
-                /** Get cover photos in post. */
-                preg_match_all('/<!-- wp:cover[^>]+-->/i', $post->post_content, $results);
-                foreach( $results[0] as $src ){
-                    preg_match('/url":"([^,]+)"/i', $src, $match);
-                    if( count($match) > 1 ){
-                        //$html .= $match[1].' [Cover Photo]<br>';
-                    }
-                }
+            /** Are there sticky posts? */
+            if( $sticky_posts->post_count > 0 ){
 
-                /** Get images (minus emojis) in post. */
-                preg_match_all('/<img[^>]+>/i', $post->post_content, $results);
-                foreach( $results[0] as $src ){
-                    if( strpos( $src, 'emoji') === false ){
-                        preg_match('/src="([^"]+)/i', $src, $match);
-                        if( count($match) > 1 ){
-                            //$html .= $match[1].' [Normal Photo]<br>';
-                        }
+                /** Yes. Get all the WP_post objects for these sticky posts. */
+                $sticky_posts = $sticky_posts->posts;
+
+                /** Loop through and build each post. */
+                foreach( $sticky_posts as $sticky ){
+
+                    /** If this sticky post is published show it. */
+                    if( $sticky->post_status == 'publish' ){
+                        $post_limit--;
+                        $sticky_posts_ID[] = $sticky->ID;
+                        $html .= $this->format_posts_loop( $sticky, $template );
                     }
                 }
             }
 
-            Kint::dump( $latest_posts );
+            /** Do we still need more posts to hit our display limit? */
+            if( $post_limit > 0 ){
 
+                /** Show only published post if the user is not an admin. */
+                if( $this->_admin ){
+                    $args = array(
+                        'numberposts' => $post_limit + count( $sticky_posts_ID ),
+                        'post_status' => array( 'publish', 'private' )
+                    );
+                } else {
+                    $args = array(
+                        'numberposts' => $post_limit + count( $sticky_posts_ID ),
+                        'post_status' => array( 'publish' )
+                    );
+                }
+                $latest_posts = get_posts( $args );
+
+                /** Loop through each post found. */
+                foreach( $latest_posts as $post ){
+
+                    /** If we've reached our limit stop. */
+                    if( $post_limit < 1 ){ break; }
+
+                    /** Skip this post if it was a sticky post already shown. */
+                    if( !in_array( $post->ID, $sticky_posts_ID ) ){
+                        $post_limit--;
+                        $html .= $this->format_posts_loop( $post, $template );
+                    }
+                }
+            }
+
+            /** Return the HTML for the posts. */
             return $html;
         }
 
