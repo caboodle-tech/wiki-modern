@@ -6,6 +6,8 @@
 * @package Wiki Modern Theme
 */
 
+define('WP_DEBUG', true);
+
 /** When in DEBUG mode load the Kint PHP parser to help debug PHP code. */
 if( !WP_DEBUG ){
     require( 'include/kint.phar' );
@@ -35,13 +37,43 @@ if( !WP_DEBUG ){
 
 }
 
+Kint::dump(  );
+
 /** Load custom classes and functions for the Wiki Modern theme. */
 require( 'include/wm-get-user-ip.php' );
 require( 'include/trim-html-tags.php' );
-require('classes/wm_walker.php');
+require( 'classes/mobile_detect.php' );
+require( 'classes/wm_cookies.php' );
+require( 'classes/wm_page_manager.php' );
 require( 'classes/wm_post_page.php' );
+require('classes/wm_walker.php');
 
+$WM_cookies = new WM_cookies();
+$WM_device = new Mobile_Detect();
+$WM_page_manager = new WM_page_manager();
 $WM_posts = new WM_posts();
+
+//$WM_cookies->delete( 'wm_user_device', '', '', false, true );
+
+/** Record device types now. */
+if( $WM_cookies->get('wm_user_device') ){
+    $WM_device_meta = json_decode( str_replace( '\\', '', $WM_cookies->get('wm_user_device') ) );
+} else {
+    // Determine device type.
+    $desktop = false;
+    $mobile = $WM_device->isMobile();
+    $tablet = $WM_device->isTablet();
+    if( !$mobile && !$tablet ){
+        $desktop = true;
+    }
+    // Record device meta data.
+    $WM_device_meta = array( 'desktop' => $desktop, 'tablet' => $tablet, 'mobile' => $mobile );
+    // Set a cookie so we can load faster next time.
+    // TODO: Change false (HTTPS) if site is in https mode
+    $WM_cookies->create( 'wm_user_device', json_encode( $WM_device_meta ), '+30days', '', '', false, true );
+}
+
+//Kint::dump( $WM_device_meta );
 
 require('customizer/customizer.php');
 
@@ -63,12 +95,21 @@ function wm_enqueue_assets() {
     wp_enqueue_style( 'wm-main-css' , get_template_directory_uri() . '/css/main.css', array(), $ctime);
 
     /** Wiki Modern's primary JavaScript files. */
-    $ctime = filemtime( get_template_directory() . '/js/Wiki-Modern.js' );
-    wp_enqueue_script( 'wm-main-js' , get_template_directory_uri() . '/js/Wiki-Modern.js' , array() , $ctime, true);
+    $ctime = filemtime( get_template_directory() . '/js/WikiModern.js' );
+    wp_enqueue_script( 'wm-main-js' , get_template_directory_uri() . '/js/WikiModern.js' , array() , $ctime, true);
     $ctime = filemtime( get_template_directory() . '/js/fontawesome.min.js' );
     wp_enqueue_script( 'wm-font-awesome-js' , get_template_directory_uri() . '/js/fontawesome.min.js' , array() , $ctime, true);
 }
 add_action( 'wp_enqueue_scripts', 'wm_enqueue_assets' );
+
+// TODO: Chnage this to default menu???
+// MENU HELP: http://justintadlock.com/archives/2010/06/01/goodbye-headaches-hello-menus
+
+/** Register the Primary Menu. */
+function wm_register_primary_menu() {
+	register_nav_menu( 'primary-menu', __( 'Primary Menu' ) );
+}
+add_action( 'init', 'wm_register_primary_menu' );
 
 /**
 * Register the fact that we want to allow a custom logo.
@@ -85,6 +126,12 @@ function wm_disable_self_ping( &$links ) {
     }
 }
 add_action( 'pre_ping', 'wm_disable_self_ping' );
+
+// Remove the read more link completely from the theme
+function wm_remove_read_more_link() {
+    return '';
+}
+add_filter( 'the_content_more_link', 'wm_remove_read_more_link' );
 
 /** Add all AJAX form handlers. */
 require( 'forms/wm-comment-pagination.php' );

@@ -164,26 +164,28 @@ function compile_customizer( $options ){
     /** Read through the directories. */
     foreach( $dirs as $dir ){
         // TODO: Force / in path with a function to clean $file
-        $files = scandir($dir);
-        foreach( $files as $file ){
+        if( file_exists( $dir ) ){
+            $files = scandir($dir);
+            foreach( $files as $file ){
 
-            $fullpath = $dir . '/' . $file;
+                $fullpath = $dir . '/' . $file;
 
-            /** Only process files not in the ignore list. */
-            if( !in_array( $file, $ignore ) ){
+                /** Only process files not in the ignore list. */
+                if( !in_array( $file, $ignore ) ){
 
-                /**
-                * Check if this file has changed. As soon as one file is found
-                * changed stop checking because a full recompile is needed.
-                */
-                if( $compile_flag == false && @$last_updated[ make_key( $fullpath ) ] ){
-                    if( $last_updated[ make_key( $fullpath ) ] != filemtime($fullpath) ){
-                        $compile_flag = true;
+                    /**
+                    * Check if this file has changed. As soon as one file is found
+                    * changed stop checking because a full recompile is needed.
+                    */
+                    if( $compile_flag == false && @$last_updated[ make_key( $fullpath ) ] ){
+                        if( $last_updated[ make_key( $fullpath ) ] != filemtime($fullpath) ){
+                            $compile_flag = true;
+                        }
                     }
-                }
 
-                /** Record the last updated time of each file. */
-                $timestamps[ make_key( $fullpath ) ] = filemtime($fullpath);
+                    /** Record the last updated time of each file. */
+                    $timestamps[ make_key( $fullpath ) ] = filemtime($fullpath);
+                }
             }
         }
     }

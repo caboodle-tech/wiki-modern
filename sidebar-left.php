@@ -10,33 +10,41 @@
  */
 ?>
 <header id="wm-left-sidebar">
-    <div id="wm-left-laptop-controls">
-        <div id="wm-hide-left-laptop-btn" class="wm-control-btns">
-            <i class="fas fa-times"></i> close
+    <div class="wm-mobile-controls">
+        <div class="wm-align-center" onclick="WikiModern.toggle('left-sidebar');">
+            <div class="wm-control-btn wm-control-text-btn">
+                <i class="far fa-times"></i> Close
+            </div>
         </div>
     </div>
-    <div id="wm-logo-container">
-<?php
-if ( function_exists( 'the_custom_logo' ) ) {
-    the_custom_logo();
-}
-include('include/title-and-tag.php');
-?>
+    <div id="wm-identity-container">
+        <?php
+            /** Show the sites logo if the user uploaded one. */
+            if ( function_exists( 'the_custom_logo' ) ) {
+                the_custom_logo();
+            }
+            /** Show the site title and tagline if not empty and set to show. */
+            include('include/title-and-tag.php');
+        ?>
     </div>
+    <!-- Navigation -->
     <span class="wm-nav-separator" aria-hidden="true"></span>
-    <nav id="wm-nav-container" role="navigation">
-<?php
-if (has_nav_menu('primary')){
-    echo 'P';
-} else {
-    echo 'No main menu! Generate a simple default one and warn the user.';
-    wp_nav_menu( array(
-		'theme_location' => 'primary',
-		'walker' => new wm_Walker()
-	 ) );
-}
-?>
-        <!-- wp_nav_menu(); -->
+    <nav id="wm-nav-container">
+        <?php
+            /*
+            if ( has_nav_menu('primary') ){
+                echo 'Primary Menu';
+            } else {
+                echo 'No main menu! Generate a simple default one and warn the user.';
+                wp_nav_menu( array(
+            		'theme_location' => 'primary',
+            		'walker' => new wm_Walker()
+            	 ) );
+            }
+            */
+            wp_nav_menu( array( 'theme_location' => 'primary-menu' ) );
+        ?>
+        <!-- DELETE THIS EXAMPLE IN PRODUCTION -->
         <ul class="wm-nav">
             <li class="wm-active">
                 <span class="wm-nav-item">Home</span>
@@ -45,28 +53,28 @@ if (has_nav_menu('primary')){
                 <span class="wm-nav-item">About Us</span>
                 <ul>
                     <li>
-                        <span class="wm-nav-item">Home</span>
+                        <span class="wm-nav-item">Level 1</span>
                     </li>
                     <li>
-                        <span class="wm-nav-item">About Us</span>
+                        <span class="wm-nav-item">Level 1</span>
                         <ul>
                             <li>
-                                <span class="wm-nav-item">Home</span>
+                                <span class="wm-nav-item">Level 2</span>
                             </li>
                             <li>
-                                <span class="wm-nav-item">About Us</span>
+                                <span class="wm-nav-item">Level 2</span>
                             </li>
                             <li>
-                                <span class="wm-nav-item">Contact Us</span>
+                                <span class="wm-nav-item">Level 2</span>
                                 <ul>
                                     <li>
-                                        <span class="wm-nav-item">Home</span>
+                                        <span class="wm-nav-item">Level 3</span>
                                     </li>
                                     <li>
-                                        <span class="wm-nav-item">About Us</span>
+                                        <span class="wm-nav-item">Level 3</span>
                                     </li>
                                     <li>
-                                        <span class="wm-nav-item">Contact Us</span>
+                                        <span class="wm-nav-item">Level 3</span>
                                     </li>
                                 </ul>
                             </li>
@@ -83,5 +91,5 @@ if (has_nav_menu('primary')){
         </ul>
     </nav>
     <span class="wm-nav-separator" aria-hidden="true"></span>
-<!-- WIDGETS: https://www.wpblog.com/how-to-add-custom-widget-area-to-wordpress-themes/ -->
+    <!-- WIDGETS: https://www.wpblog.com/how-to-add-custom-widget-area-to-wordpress-themes/ -->
 </header>

@@ -1,0 +1,37 @@
+#wm-print-wrapper {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    min-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #fff;
+
+    .wm-control-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        display: inline-block;
+        height: 3rem;
+        min-width: 3rem;
+        line-height: 3rem;
+        font-size: 1.5rem;
+        text-align: center;
+        vertical-align: middle;
+        color: @wm_pg_btn;
+        border: 1px solid @wm_pg_border_color;
+        background-color: @wm_saf_bg_color;
+        z-index: 5;
+
+        .box-shadow();
+
+        &:hover {
+            cursor: pointer;
+            border-color: @wm_pg_border_color_hover;
+            background-color: @wm_pg_btn_bg_color;
+        }
+    }
+}

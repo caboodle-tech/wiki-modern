@@ -7,6 +7,8 @@
  *
  * @package Wiki Modern Theme
  */
+
+ // TODO: Change language to the sites language.
 ?>
 <!doctype html>
 <html lang="en">
@@ -16,4 +18,14 @@
     <title><?php wp_title('&vert;', true, 'right'); ?></title>
     <?php wp_head(); ?>
 </head>
-<body>
+<?php
+/** Output the correct body tag for the page. */
+if( is_single() ){
+    /** This is a post (article) page. */
+    echo '<body id="wm-page-wrapper" role="main">';
+    global $WM_posts;
+} else {
+    /** This is an actual website page. */
+    echo '<body id="wm-page-wrapper" class="wm-page" role="main">';
+}
+?>

@@ -14,5 +14,5 @@ if( !empty($title) && get_theme_mod('wm_toggle_site_title') ){
 }
 
 if( !empty($tagline) && get_theme_mod('wm_toggle_tagline') ){
-    echo '<div id="wm-tagline">' . $tagline . '</div>';
+    echo '<div id="wm-site-tagline">' . $tagline . '</div>';
 }

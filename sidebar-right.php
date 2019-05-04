@@ -9,21 +9,28 @@
  * @package Wiki Modern Theme
  */
 
-/** Show the right sidebar only if on a Post page. */
-if ( !is_page() && is_singular() ){
-    /** Reference the global class for Post pages. */
-    global $WM_posts;
-?>
+ // TODO: Don't load post image either when not on a post page.
+ ?>
 <aside id="wm-right-sidebar">
-    <div id="wm-right-laptop-controls">
-        <div id="wm-hide-right-laptop-btn" class="wm-control-btns">
-            <i class="fas fa-times"></i> close
+    <div class="wm-mobile-controls">
+        <div class="wm-align-center" onclick="WikiModern.toggle('right-sidebar');">
+            <div class="wm-control-btn wm-control-text-btn">
+                <i class="far fa-times"></i> Close
+            </div>
         </div>
     </div>
     <div id="wm-featured-image-container">
         <!--<img id="wm-featured-image" src="https://wikiwp.com/wp-content/uploads/dummyImage07-1600x2409.jpg">-->
     </div>
     <div class="wm-widget">
+        <?php
+            /** Show the post meta information only on actual post pages. */
+            if ( !is_page() && is_singular() ){
+                /** Reference the global class for Post pages. */
+                global $WM_posts;
+
+                // TODO: Change hard coded Post Information to site language.
+        ?>
         <div class="wm-widget-title">
             Post Information
         </div>
@@ -37,9 +44,9 @@ if ( !is_page() && is_singular() ){
                 ?>
             </table>
         </div>
+        <?php
+            /** Close if. */
+            }
+        ?>
     </div>
 </aside>
-<?php
-/** Close if. */
-}
-?>

@@ -1,1030 +1,453 @@
-@import "colors.less";
 @import "mixins.less";
+@import "colors.less";
 
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
     min-width: 320px;
-    height: 100%;
+    text-rendering: optimizeLegibility;
+    overflow: auto;
 }
 
 body {
+    height: 100%;
+    overflow-x: hidden;
     font-size: 62.5%;
     font-family: "Open Sans", sans-serif;
 }
 
-// Style for the buttons in the header of the Page Content area.
-.wm-control-btns {
-    height: 3rem;
-    line-height: 3rem;
-    font-size: 1.5rem;
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+.wm-float-left {
+    float: left;
+}
+
+.wm-float-right {
+    float: right;
+}
+
+.wm-align-left {
+    text-align: left;
+}
+
+.wm-align-center {
     text-align: center;
-    vertical-align: middle;
-    color: @wm_pg_btn;
-    border: 1px solid @wm_pg_border_color;
-    background-color: @wm_saf_bg_color;
-    z-index: 5;
+}
 
-    .box-shadow();
+.wm-align-right {
+    text-align: right;
+}
 
-    &:hover {
-        cursor: pointer;
-        border-color: @wm_pg_border_color_hover;
-        background-color: @wm_pg_btn_bg_color;
-    }
+#wm-scrollbar-check-outter {
+    position: absolute;
+    top: 0;
+    left: -150px;
+    width: 100px;
+    overflow-y: scroll;
 
-    .wm-larger-icon {
-        font-size: 2rem;
-        margin-bottom: -.25rem;
+    #wm-scrollbar-check-inner {
+        height: 50px;
+        border: 1px solid;
     }
 }
 
-#wm-wrapper {
-    position: relative;
-    display: grid;
-    grid-template-columns: [left] auto [center] minmax(1%, 100%) [right] auto;
-    grid-template-rows: [top] 1fr [bottom] minmax(50px, auto);
-    width: 100%;
-    min-height: 100%;
+#wm-page-wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     overflow-x: hidden;
-    font-size: 1rem;
 
-    // START: Left Sidebar
-    #wm-left-sidebar {
-        grid-column: left;
-        grid-row: top;
-        background-color: @wm_saf_bg_color;
-        width: 280px;
-        overflow-x: hidden;
-        color: @wm_saf_color;
+    @import "controls.less";
 
-        a {
-            color: @wm_saf_a;
-            text-decoration: none;
+    #wm-content-outter-wrapper {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-flex: 1 0 auto;
+        -webkit-flex: 1 0 auto;
+        -ms-flex: 1 0 auto;
+        flex: 1 0 auto;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        font-size: 1rem;
 
-            &:hover {
-                text-decoration: underline;
-                cursor: pointer;
+        #wm-content-inner-wrapper {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            display: flex;
+            max-width: 100%;
+            min-height: 100vh;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            border-bottom: 1px solid @wm_pg_border_color;
+
+            #wm-top-controls {
+                width: 100%;
+                padding: 15px 0;
+
+                .wm-top-row {
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -webkit-box-flex: 1 0 auto;
+                    -webkit-flex: 1 0 auto;
+                    -ms-flex: 1 0 auto;
+                    flex: 1 0 auto;
+                    -webkit-box-orient: horizontal;
+                    -webkit-box-direction: normal;
+                    -webkit-flex-direction: row;
+                    -ms-flex-direction: row;
+                    flex-direction: row;
+
+                    .wm-left-column {
+                        text-align: left;
+                        -webkit-box-flex: 0;
+                        -webkit-flex: 0 0 8rem;
+                        -ms-flex: 0 0 8rem;
+                        flex: 0 0 8rem;
+                        margin: 15px;
+                    }
+
+                    .wm-middle-column {
+                        -webkit-flex-direction: column;
+                        -ms-flex-direction: column;
+                        flex-direction: column;
+                        flex: 1;
+                        max-width: 650px;
+                        margin: 15px auto;
+                    }
+
+                    .wm-right-column {
+                        text-align: right;
+                        -webkit-box-flex: 0;
+                        -webkit-flex: 0 0 8rem;
+                        -ms-flex: 0 0 8rem;
+                        flex: 0 0 8rem;
+                        margin: 15px;
+                    }
+                }
+
+                .wm-bottom-row {
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -webkit-box-flex: 1 0 auto;
+                    -webkit-flex: 1 0 auto;
+                    -ms-flex: 1 0 auto;
+                    flex: 1 0 auto;
+                    -webkit-box-orient: horizontal;
+                    -webkit-box-direction: normal;
+                    -webkit-flex-direction: row;
+                    -ms-flex-direction: row;
+                    flex-direction: row;
+
+                    .wm-left-column {
+                        text-align: left;
+                        -webkit-box-flex: 0;
+                        -webkit-flex: 0 0 8rem;
+                        -ms-flex: 0 0 8rem;
+                        flex: 0 0 8rem;
+                        margin: 15px;
+                    }
+
+                    .wm-middle-column {
+                        -webkit-flex-direction: column;
+                        -ms-flex-direction: column;
+                        flex-direction: column;
+                        flex: 1;
+                        max-width: 650px;
+                        margin: 15px auto;
+                    }
+
+                    .wm-right-column {
+                        text-align: right;
+                        -webkit-box-flex: 0;
+                        -webkit-flex: 0 0 5rem;
+                        -ms-flex: 0 0 8rem;
+                        flex: 0 0 8rem;
+                        margin: 15px;
+                    }
+                }
+
+                @media ( max-width: 949px ) {
+
+                    .wm-bottom-row {
+
+                        .wm-right-column {
+
+                            .wm-control-btn {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            #wm-main-content {
+                position: relative;
+                flex: 1;
+                margin: 15px;
+
+                @import "containers.less";
+            }
+
+            #wm-bottom-controls {
+                width: 100%;
+                padding: 15px 0;
+
+                .wm-top-row {
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -webkit-box-flex: 1 0 auto;
+                    -webkit-flex: 1 0 auto;
+                    -ms-flex: 1 0 auto;
+                    flex: 1 0 auto;
+                    -webkit-box-orient: horizontal;
+                    -webkit-box-direction: normal;
+                    -webkit-flex-direction: row;
+                    -ms-flex-direction: row;
+                    flex-direction: row;
+
+                    .wm-left-column {
+                        -webkit-box-flex: 0;
+                        -webkit-flex: 0 0 11rem;
+                        -ms-flex: 0 0 11rem;
+                        flex: 0 0 11rem;
+                        margin: 15px;
+                    }
+
+                    .wm-middle-column {
+                        -webkit-flex-direction: column;
+                        -ms-flex-direction: column;
+                        flex-direction: column;
+                        flex: 1;
+                        max-width: 650px;
+                        margin: 15px auto;
+                    }
+
+                    .wm-right-column {
+                        -webkit-box-flex: 0;
+                        -webkit-flex: 0 0 11rem;
+                        -ms-flex: 0 0 11rem;
+                        flex: 0 0 11rem;
+                        margin: 15px;
+                    }
+                }
             }
         }
 
-        // Close button shown on smaller devices only.
-        #wm-left-laptop-controls {
-            display: none;
-            text-align: center;
-            padding: 1rem 0 0 0;
-
-            #wm-hide-left-laptop-btn {
-                display: inline-block;
-                padding: 0 10px;
-                text-transform: capitalize;
-            }
-        }
-
-        // Logo, site title, and tagline container.
-        #wm-logo-container {
-            display: block;
+        #wm-left-sidebar {
+            order: -1; /** Move to the left side by making this first in the flex order. */
+            -webkit-box-flex: 0;
+            -webkit-flex: 0 0 280px;
+            -ms-flex: 0 0 280px;
+            flex: 0 0 280px;
+            background-color: @wm_saf_bg_color;
+            border-right: 1px solid @wm_pg_border_color;
             padding: 15px;
+            z-index: 1000;
 
-            .wm-logo {
-                width: 100%;
-                height: auto;
-            }
+            .wm-mobile-controls {
+                display: none;
 
-            #wm-site-title {
-                margin-top: 1rem;
-                font-size: 1.5rem;
-                line-height: 2rem;
-                font-weight: bold;
-                vertical-align: middle;
-            }
-
-            #wm-tagline {
-                font-size: 1.25rem;
-                line-height: 1.5rem;
-                font-weight: bold;
-                vertical-align: middle;
-            }
-        }
-
-        // START: Navigation List.
-        #wm-nav-container {
-
-            .wm-nav {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-
-                /**
-                * The actual menu item. Because of sub menues we need to style <span>
-                * instead of the <li> to get the correct active link and hover effects.
-                */
-                .wm-nav-item {
-                    display: block;
-                    padding: 5px 10px;
-                    color: @wm_saf_a;
-                    display: block;
-
-                    &:hover {
-                        background-color: @wm_saf_a_hover;
-                        cursor: pointer;
-                    }
-                }
-
-                .wm-active > .wm-nav-item {
-                    position: relative;
-                    overflow: hidden;
-                    background-color: @wm_saf_a_active;
-                    border-right: 4px solid @wm_saf_a_pointer;
-                }
-
-                .wm-active > .wm-nav-item:before {
-                    content: " ";
-                    top: 50%;
-                    right: 0;
-                    border: solid transparent;
-                    height: 0;
-                    width: 0;
-                    position: absolute;
-                    border-color: rgba(0, 0, 0, 0);
-                    border-right-color: @wm_saf_a_pointer;
-                    border-width: 1rem;
-                    margin-top: -1rem;
-                }
-
-                // Tweaks to neseted menus. Supports up to 3 nested levels.
-                ul {
-                    padding: 0;
-                    margin: 0;
-                }
-
-                ul .wm-nav-item {
-                    display: block;
-                    padding: 5px 30px;
-                }
-
-                ul ul {
-                    padding: 0;
-                    margin: 0;
-                }
-
-                ul ul .wm-nav-item {
-                    display: block;
-                    padding: 5px 60px;
-                }
-
-                ul ul ul {
-                    padding: 0;
-                    margin: 0;
-                }
-
-                ul ul ul .wm-nav-item {
-                    display: block;
-                    padding: 5px 90px;
+                .wm-control-btn {
+                    margin: 0 0 15px 0;
                 }
             }
-        }
-        // END: Navigation List.
 
-        // How to display Left Sidebar widgets.
-        .wm-widget {
-            display: block;
-            padding: 10px;
+            a {
+                color: @wm_saf_a;
+                text-decoration: none;
 
-            .wm-widget-title {
-                padding: 5px 5px 5px 0;
-                font-weight: bold;
-                font-size: 1.5rem;
-                border-bottom: 1px solid @wm_pg_border_color;
-            }
-
-            .wm-widget-content {
-                padding: 5px 5px 5px 0;
-            }
-        }
-    }
-    // END: left Sidebar.
-
-    // START: Main Page Content.
-    #wm-page-content {
-        grid-column: center;
-        grid-row: top;
-        border-style: solid;
-        border-color: @wm_pg_border_color;
-        border-width: 0 1px 1px 1px;
-        background-color: @wm_pg_bg_color;
-        color: @wm_pg_color;
-
-        a {
-            color: @wm_pg_a;
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: underline;
-                cursor: pointer;
-            }
-        }
-
-        // Active view button: Article or Comment.
-        .wm-active {
-            background-color: @wm_pg_border_color_hover;
-        }
-
-        // START: Search Bar Row.
-        #wm-search-row {
-            position: relative;
-            margin-top: 1.5rem;
-            height: 3rem;
-            padding: 0;
-
-            #wm-hide-left-btn {
-                position: absolute;
-                left: 1rem;
-                bottom: 0;
-                width: 3rem;
-            }
-
-            // Wrapper needed for the search bar and search icon.
-            #wm-search-wrapper {
-                position: relative;
-                display: block;
-                width: 50%;
-                height: 100%;
-                max-width: 650px;
-                margin: 0 auto;
-
-                #wm-search {
-                    position: absolute;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
-                    display: block;
-                    padding: 0 0 0 10px;
-                    width: 100%;
-                    height: 3rem;
-                    line-height: 3rem;
-                    font-size: 1.5rem;
-                    vertical-align: middle;
-                    cursor: pointer;
-                    border: 1px solid @wm_pg_border_color;
-                    color: @wm_pg_color;
-                    background-color: @wm_pg_bg_color;
-                    -webkit-appearance: none;
-                    outline: none;
-
-                    .box-shadow();
-
-                    &:focus {
-                        border-color: @wm_pg_border_color_hover;
-                    }
-                }
-
-                .wm-search-icon {
-                    position: absolute;
-                    right: -10px;
-                    bottom: 1px;
-                    text-align: center;
-                    font-size: 1.5rem;
-                    width: 3rem;
-                    line-height: 3rem;
-                    padding-left: 5px;
-                    vertical-align: middle;
-                    background-color: @wm_pg_bg_color;
-                    z-index: 15;
-                    color: @wm_pg_btn;
+                &:hover {
+                    text-decoration: underline;
                     cursor: pointer;
                 }
             }
 
-            #wm-hide-right-btn {
-                position: absolute;
-                right: 1rem;
-                bottom: 0;
-                width: 3rem;
-            }
-        }
-        // END: Search Bar Row.
-
-        // START: Article Control Row (Under Search Bar Row).
-        #wm-contorls-row {
-            position: relative;
-            margin-top: 1.5rem;
-            height: 3rem;
-            padding: 0;
-
-            #wm-print-btn {
-                position: absolute;
-                left: 1rem;
-                bottom: 0;
-                width: 3rem;
-            }
-
-            // Wrapper for the Article and Comments button.
-            .wm-contorls-wrapper {
-                position: relative;
+            .wm-nav-separator {
                 display: block;
-                text-align: center;
-                width: 50%;
-                height: 100%;
-                max-width: 650px;
-                margin: 0 auto;
-
-                .wm-article-btn {
-                    position: absolute;
-                    left: 0;
-                    bottom: 0;
-                    font-size: 1.5rem;
-                    padding: 0 10px;
-                    text-transform: capitalize;
-                    display: block;
-                }
-
-                .wm-comments-btn {
-                    position: absolute;
-                    right: -10px;
-                    bottom: 0;
-                    font-size: 1.5rem;
-                    padding: 0 10px;
-                    text-transform: capitalize;
-                    display: block;
-                }
-            }
-
-            #wm-reading-btn {
-                position: absolute;
-                right: 1rem;
-                bottom: 0;
-                width: 3rem;
-            }
-        }
-        // END: Article Control Row.
-
-        // START: Change to Article or Comments controls row. (Bottom of Post).
-        #wm-article-footer {
-            position: relative;
-            margin-bottom: 1.5rem;
-            height: 3rem;
-            padding: 0;
-
-            #wm-next-post-btn {
-                position: absolute;
-                left: 1rem;
-                bottom: 0;
-                padding: 0 10px;
-                display: block;
-            }
-
-            // Wrapper for the Article and Comments buttons.
-            .wm-contorls-wrapper {
-                position: relative;
-                display: block;
-                width: 50%;
-                height: 100%;
-                max-width: 650px;
-                margin: 0 auto;
-
-                .wm-article-btn {
-                    position: absolute;
-                    left: 0;
-                    bottom: 0;
-                    font-size: 1.5rem;
-                    padding: 0 10px;
-                    text-transform: capitalize;
-                    display: block;
-                }
-
-                .wm-comments-btn {
-                    position: absolute;
-                    right: -10px;
-                    bottom: 0;
-                    font-size: 1.5rem;
-                    padding: 0 10px;
-                    text-transform: capitalize;
-                    display: block;
-                }
-            }
-
-            #wm-previous-post-btn {
-                position: absolute;
-                right: 1rem;
-                bottom: 0;
-                padding: 0 10px;
-                display: block;
-            }
-        }
-        // END: Change to Article or Comments controls row.
-
-        // Container for the actual post (article).
-        #wm-post-container {
-            overflow: hidden;
-            text-align: justify;
-            font-size: 1.25rem;
-            line-height: 1.75rem;
-            margin: 2.5rem 2rem;
-
-            p {
                 margin: 1rem 0;
+                border-bottom: 1px solid #E5E5E5;
             }
 
-            blockquote {
+            @import "identity.less";
+
+            @import "navigation.less";
+
+            @media ( max-width: 949px ) {
+                -webkit-box-shadow: 4px 0px 8px 0px rgba(0, 0, 0, 0.25);
+                -moz-box-shadow: 4px 0px 8px 0px rgba(0, 0, 0, 0.25);
+                box-shadow: 4px 0px 8px 0px rgba(0, 0, 0, 0.25);
+
+                .wm-mobile-controls {
+                    display: block;
+                }
+            }
+        }
+
+        #wm-right-sidebar {
+            -webkit-box-flex: 0;
+            -webkit-flex: 0 0 280px;
+            -ms-flex: 0 0 280px;
+            flex: 0 0 280px;
+            background-color: @wm_saf_bg_color;
+            border-left: 1px solid @wm_pg_border_color;
+            padding: 15px;
+            z-index: 1000;
+
+            .wm-mobile-controls {
+                display: none;
+
+                .wm-control-btn {
+                    margin: 0 0 15px 0;
+                }
+            }
+
+            a {
+                color: @wm_saf_a;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+
+            .wm-widget {
                 display: block;
-                width: 90%;
-                margin: 0 auto;
-                padding: 0 1rem;
-                background-color: #F8F9FA;
-                border: 1px solid #EAECF0;
-            }
+                margin-right: 15px;
+                // MUST DO THE PREVIOUS LINE TO THE LEFT SIDEBAR TOO!!!???
 
-            cite {
-                display: block;
-                text-align: right;
-                padding-bottom: .6rem;
-            }
-
-            @import("posts.less");
-        }
-    }
-    // END: Main Page Content.
-
-    // START: Comments Section.
-    #wm-comments-container {
-        display: none;
-        overflow: hidden;
-        font-size: 1.15rem;
-        line-height: 1.5rem;
-        margin: 2.5rem 2rem;
-
-        @import("post-page.less");
-    }
-    // END: Comments Section.
-
-    // START: Right Sidebar.
-    #wm-right-sidebar {
-        grid-column: right;
-        grid-row: top;
-        background-color: @wm_saf_bg_color;
-        width: 280px;
-        overflow-x: hidden;
-        color: @wm_saf_color;
-
-        a {
-            color: @wm_saf_a;
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: underline;
-                cursor: pointer;
-            }
-        }
-
-        // Close button shown on smaller devices only.
-        #wm-right-laptop-controls {
-            display: none;
-            text-align: center;
-            padding: 1rem 0;
-
-            #wm-hide-right-laptop-btn {
-                display: inline-block;
-                padding: 0 10px;
-                text-transform: capitalize;
-            }
-        }
-
-        // Article featured image and/or in article images.
-        #wm-featured-image-container {
-            display: block;
-
-            #wm-featured-image {
-                width: 100%;
-                height: auto;
-                border-style: solid;
-                border-color: @wm_pg_border_color;
-                border-width: 1px 0 1px 0;
-            }
-        }
-
-        // How to display Right Sidebar widgets.
-        .wm-widget {
-            display: block;
-            padding: 10px;
-
-            .wm-widget-title {
-                padding: 5px 5px 5px 0;
-                font-weight: bold;
-                font-size: 1.5rem;
-                border-bottom: 1px solid @wm_pg_border_color;
+                .wm-widget-title {
+                    padding: 5px 0;
+                    font-weight: bold;
+                    font-size: 1.5rem;
+                    border-bottom: 1px solid @wm_pg_border_color;
+                }
             }
 
             .wm-widget-content {
-                padding: 5px 5px 5px 0;
+                padding: 5px 0;
 
                 table {
                     display: inline-block;
                 }
-            }
 
-            .wm-widget-sub-title {
+                .wm-widget-sub-title {
 
-                td {
-                    padding-top: 10px;
-                    font-weight: bold;
+                    td {
+                        padding-top: 10px;
+                        font-weight: bold;
+                    }
+                }
+
+                .wm-widget-info {
+
+                    td {
+                        padding-left: 15px;
+                    }
+                }
+
+                .wm-widget-info {
+
+                    .wm-tags {
+                        color: @wm_saf_a;
+                    }
                 }
             }
 
-            .wm-widget-info {
+            @media ( max-width: 1099px ) {
+                -webkit-box-shadow: -4px 0px 8px 0px rgba(0, 0, 0, 0.25);
+                -moz-box-shadow: -4px 0px 8px 0px rgba(0, 0, 0, 0.25);
+                box-shadow: -4px 0px 8px 0px rgba(0, 0, 0, 0.25);
 
-                td {
-                    padding-left: 15px;
-                }
-            }
-
-            .wm-widget-info {
-
-                .wm-tags {
-                    color: @wm_saf_a;
-                }
-            }
-        }
-    }
-    // END: Right Sidebar.
-
-    // If this is a page and not a post hide the right sidebar anyways.
-    &.wm-page {
-
-        // Hide Post Footer, Right Sidebar, and buttons not needed.
-        #wm-page-content {
-
-            #wm-article-footer {
-                display: none;
-            }
-
-            #wm-contorls-row {
-                height: 0;
-                margin-top: 0;
-
-                #wm-print-btn {
-                    left: 5.1rem;
-                }
-
-                .wm-contorls-wrapper {
-                    display: none;
-                }
-            }
-
-            #wm-hide-right-btn {
-                display: none;
-            }
-
-            #wm-reading-btn {
-                display: none;
-            }
-        }
-
-        #wm-right-sidebar {
-            display: none;
-        }
-    }
-
-    // START: Footer.
-    #wm-footer {
-        grid-column: ~"1/4";
-        grid-row: bottom;
-        background-color: @wm_saf_bg_color;
-        color: @wm_saf_color;
-
-        a {
-            color: @wm_saf_a;
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: underline;
-                cursor: pointer;
-            }
-        }
-
-        .wm-widget {
-            padding: 1rem;
-
-            &:first-of-type {
-                padding-left: 0;
-            }
-
-            &:last-of-type {
-                padding-right: 0;
-            }
-        }
-
-        .wm-copy-and-credits {
-            line-height: 1.5rem;
-            vertical-align: middle;
-        }
-    }
-    // END: Footer.
-
-    // KEEP??? WHAT IS THIS????
-    .wm-nav-separator {
-        display: block;
-        margin: 10px;
-        border-bottom: 1px solid #E5E5E5;
-    }
-
-    @import "layout.less";
-
-    @media all and (max-width: 1300px){
-
-        &.wm-post {
-            #wm-reading-btn {
-                display: none;
-            }
-
-            #wm-left-sidebar {
-                display: none;
-                grid-column: none;
-                grid-row: none;
-                position: absolute;
-                width: 280px;
-                overflow-x: hidden;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                border-right: 1px solid @wm_pg_border_color;
-                z-index: 50;
-                .box-shadow(1px 1px 3px 2px fade(@wm_pg_border_color_hover, 80%));
-
-                #wm-left-laptop-controls {
+                .wm-mobile-controls {
                     display: block;
                 }
             }
         }
     }
+}
 
-    @media all and (max-width: 1023px){
+#wm-footer-wrapper {
+    display: block;
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    -ms-flex: none;
+    flex: none;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    background-color: @wm_saf_bg_color;
+    padding: 15px;
 
-        #wm-reading-btn {
-            display: none;
-        }
+    a {
+        color: @wm_saf_a;
+        text-decoration: none;
 
-        #wm-left-sidebar {
-            display: none;
-            grid-column: none;
-            grid-row: none;
-            position: absolute;
-            width: 280px;
-            overflow-x: hidden;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            border-right: 1px solid @wm_pg_border_color;
-            z-index: 50;
-            .box-shadow(1px 1px 3px 2px fade(@wm_pg_border_color_hover, 80%));
-
-            #wm-left-laptop-controls {
-                display: block;
-            }
-        }
-
-        #wm-right-sidebar {
-            display: none;
-            grid-column: none;
-            grid-row: none;
-            position: absolute;
-            width: 280px;
-            overflow-x: hidden;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            border-left: 1px solid @wm_pg_border_color;
-            z-index: 50;
-            .box-shadow(-1px 1px 3px 2px fade(@wm_pg_border_color_hover, 80%));
-
-            #wm-right-laptop-controls {
-                display: block;
-            }
-        }
-
-        @import "layout-laptop.less";
-    }
-
-    @media all and (max-width: 780px){
-        @import "layout-tablet.less";
-    }
-
-    @media all and (max-width: 699px){
-
-        #wm-page-content {
-
-            #wm-article-footer {
-
-                .wm-contorls-wrapper {
-
-                    .wm-article-btn {
-                        position: relative;
-                        display: inline-block;
-                        margin: -1px 5px 0 5px;
-                    }
-
-                    .wm-comments-btn {
-                        position: relative;
-                        display: inline-block;
-                        margin: -1px 5px 0 5px;
-                    }
-                }
-            }
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
         }
     }
 
-    @media all and (max-width: 639px){
+    #wm-footer {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        z-index: 5000;
 
-        #wm-page-content {
+        .wm-footer-column{
+            flex: 1 0 auto;
+            padding: 1rem 0;
+        }
 
-            #wm-article-footer {
-
-                .wm-contorls-wrapper {
-
-                    .wm-control-btns {
-                        font-size: 2.5rem;
-                        padding: 5px 10px;
-                    }
-
-                    .wm-article-btn {
-                        margin-top: -10px;
-                    }
-
-                    .wm-comments-btn {
-                        margin-top: -10px;
-                    }
-                }
-
-                .wm-control-btns {
-                    font-size: 2.5rem;
-                    padding: 5px 10px;
-
-                    .wm-larger-icon {
-                        font-size: 2.5rem;
-                        padding: 5px 10px;
-                        margin-bottom: 0;
-                    }
-                }
-
-                .wm-mobile-hide {
-                    display: none;
-                }
-
-                .wm-contorls-wrapper {
-                    text-align: center;
-                }
-            }
+        .wm-copyright {
+            flex: 1 100%;
+            padding: 1rem 0;
         }
     }
+}
 
-    @media all and (max-width: 600px) and (min-width: 500px){
+@import "page.less";
 
-        #wm-page-content {
+@import "print.less";
 
-            #wm-search-row{
-                #wm-search-wrapper {
-                    width: 60%;
-                }
-            }
+@media ( max-width: 1099px ) {
 
-            #wm-contorls-row{
-                .wm-contorls-wrapper {
-                    width: 60%;
-                }
-            }
-        }
+    #wm-right-sidebar {
+        margin-right: -280px;
+    }
+}
 
-        // FIX CONTROL LAYOUT ON PAGES
-        &.wm-page {
-            #wm-page-content {
+@media ( max-width: 949px ) {
 
-                #wm-post {
-                    margin-top: 6rem;
-                    font-size: 1.15rem;
-                    line-height: 1.5rem;
-                    margin-left: 1.5rem;
-                    margin-right: 1.5rem;
-                }
-
-                #wm-search-row{
-
-                    #wm-hide-left-btn {
-                        bottom: -4.5rem;
-                    }
-
-                    #wm-search-wrapper {
-                        width: 91%;
-                        margin: 0 0 0 1rem;
-                    }
-                }
-
-                #wm-contorls-row {
-                    width: auto;
-                    margin: 0 0 3rem 0;
-
-                    #wm-print-btn {
-                        left: 5rem;
-                        bottom: -4.5rem;
-                    }
-
-                    .wm-mobile-hide {
-                        display: none;
-                    }
-                }
-            }
-        }
+    #wm-left-sidebar {
+        margin-left: -280px;
     }
 
-    @media all and (max-width: 499px){
-
-        #wm-page-content {
-
-            #wm-post {
-                font-size: 1.15rem;
-                line-height: 1.5rem;
-                margin-left: 1.5rem;
-                margin-right: 1.5rem;
-            }
-
-            #wm-search-row{
-
-                #wm-hide-left-btn {
-                    bottom: -4.5rem;
-                }
-
-                #wm-hide-right-btn {
-                    bottom: -4.5rem;
-                }
-
-                #wm-search-wrapper {
-                    width: 91%;
-                    margin: 0 0 0 1rem;
-                }
-            }
-
-            #wm-contorls-row {
-                width: auto;
-                margin: 0 0 3rem 0;
-
-                #wm-print-btn {
-                    left: 5rem;
-                    bottom: -1.5rem;
-                }
-
-                .wm-mobile-hide {
-                    display: none;
-                }
-
-                .wm-contorls-wrapper {
-                    width: auto;
-
-                    .wm-article-btn {
-                        left: auto;
-                        right: 9rem;
-                        bottom: -1.5rem;
-                    }
-
-                    .wm-comments-btn {
-                        right: 5rem;
-                        bottom: -1.5rem;
-                    }
-                }
-            }
-        }
-
-        // FIX CONTROL LAYOUT ON PAGES
-        &.wm-page {
-            #wm-page-content {
-
-                #wm-post {
-                    margin-top: 6rem;
-                    font-size: 1.15rem;
-                    line-height: 1.5rem;
-                    margin-left: 1.5rem;
-                    margin-right: 1.5rem;
-                }
-
-                #wm-search-row{
-
-                    #wm-hide-left-btn {
-                        bottom: -4.5rem;
-                    }
-                }
-
-                #wm-contorls-row {
-
-                    #wm-print-btn {
-                        left: 5rem;
-                        bottom: -4.5rem;
-                    }
-                }
-            }
-        }
-    }
-
-    @media all and (max-width: 470px){
-        #wm-page-content {
-            #wm-search-row{
-                #wm-search-wrapper {
-                    width: 90%;
-                    margin: 0 0 0 1rem;
-                }
-            }
-        }
-    }
-
-    @media all and (max-width: 420px){
-        #wm-page-content {
-            #wm-search-row{
-                #wm-search-wrapper {
-                    width: 89%;
-                    margin: 0 0 0 1rem;
-                }
-            }
-        }
-    }
-
-    @media all and (max-width: 380px){
-        #wm-page-content {
-            #wm-search-row{
-                #wm-search-wrapper {
-                    width: 88%;
-                    margin: 0 0 0 1rem;
-                }
-            }
-        }
-    }
-
-    @media all and (max-width: 360px){
-
-        #wm-page-content {
-
-            #wm-search-row{
-                #wm-search-wrapper {
-                    width: 87%;
-                    margin: 0 0 0 1rem;
-                }
-            }
-
-            #wm-contorls-row {
-
-                #wm-print-btn {
-                    left: 4.5rem;
-                    bottom: -1.5rem;
-                }
-
-                .wm-contorls-wrapper {
-                    width: auto;
-
-                    .wm-article-btn {
-                        left: auto;
-                        right: 8rem;
-                        bottom: -1.5rem;
-                    }
-
-                    .wm-comments-btn {
-                        right: 4.5rem;
-                        bottom: -1.5rem;
-                    }
-                }
-            }
-
-            #wm-article-footer {
-
-                .wm-contorls-wrapper {
-
-                    .wm-control-btns {
-                        font-size: 2.5rem;
-                        padding: 5px 10px;
-                    }
-
-                    .wm-article-btn {
-                        margin: -8px 0 0 -8px;
-                    }
-
-                    .wm-comments-btn {
-                        margin: -8px 0 0 -8px;
-                    }
-                }
-
-                .wm-control-btns {
-                    font-size: 2.5rem;
-                    padding: 5px 10px;
-
-                    .wm-larger-icon {
-                        padding: 5px 6px;
-                    }
-                }
-
-                .wm-mobile-hide {
-                    display: none;
-                }
-
-                .wm-contorls-wrapper {
-                    text-align: center;
-                }
-            }
-        }
+    #wm-right-sidebar {
+        margin-right: -280px;
     }
 }

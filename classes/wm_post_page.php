@@ -257,6 +257,32 @@ if ( !class_exists( 'WM_posts' ) ){
         }
 
         /**
+        * TODO: comment this!
+        */
+        public function get_post_page_authors_raw() {
+
+            $post = get_post();
+            $author = et_the_author_meta( 'display_name', $post->post_author );
+
+            /**
+            * Display the authors section using Wiki Modern Authors and Contributors plugin
+            * data or default to the standard WordPress Post author.
+            */
+            if( $this->_aacp ){
+                // TODO: Support this
+                /** Gather all authors. */
+
+                /** Gather all co-authors. */
+
+                /** Gather all contributors. */
+                return [ 'author' => $author, 'authors' => [$author], 'contributors' => [] ];
+            } else {
+                /** Use default WordPress Post author. */
+                return [ 'author' => $author, 'authors' => [$author], 'contributors' => [] ];
+            }
+        }
+
+        /**
         * Return the HTML for the Categories section.
         *
         * @return   string  The HTML for the categories section with all categories shown in a comma seperated list.
@@ -530,7 +556,7 @@ if ( !class_exists( 'WM_posts' ) ){
 
         public function get_post_page_content( $post_id = null ){
 
-            if( empty($post_id) ){
+            if( empty( $post_id ) ){
                 global $post;
             } else {
                 $post = the_post( $post_id );
@@ -559,6 +585,19 @@ if ( !class_exists( 'WM_posts' ) ){
             }
 
             return $html;
+        }
+
+        /**
+        * Return an array with the original and updated dates for this post.
+        *
+        * @return   array The original and updated dates for this post.
+        */
+        public function get_post_page_dates_raw(){
+            if( strtotime( get_the_date() ) < strtotime( get_the_modified_date() ) ){
+                return [ get_the_date(), get_the_modified_date() ];
+            } else {
+                return [ get_the_date(), '' ];
+            }
         }
 
         /**
