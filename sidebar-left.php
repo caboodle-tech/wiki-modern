@@ -42,9 +42,9 @@
             	 ) );
             }
             */
-            wp_nav_menu( array( 'theme_location' => 'primary-menu' ) );
+            wp_nav_menu( array( 'theme_location' => 'primary-menu', 'container' => null, 'menu_class' => 'wm-nav', 'walker' => new wm_Walker() ) );
         ?>
-        <!-- DELETE THIS EXAMPLE IN PRODUCTION -->
+        <!-- DELETE THIS EXAMPLE IN PRODUCTION
         <ul class="wm-nav">
             <li class="wm-active">
                 <span class="wm-nav-item">Home</span>
@@ -88,7 +88,7 @@
             <li>
                 <span class="wm-nav-item">Contact Us</span>
             </li>
-        </ul>
+        </ul> -->
     </nav>
     <span class="wm-nav-separator" aria-hidden="true"></span>
     <!-- WIDGETS: https://www.wpblog.com/how-to-add-custom-widget-area-to-wordpress-themes/ -->

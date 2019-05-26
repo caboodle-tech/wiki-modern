@@ -9,6 +9,39 @@
  */
 class WM_Walker extends Walker_Nav_Menu {
 
+    function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+
+        $object = $item->object;
+    	$type = $item->type;
+        $active = $item->current;
+    	$title = $item->title;
+    	$description = $item->description;
+    	$permalink = $item->url;
+
+        if( $active ){
+            $output .= '<li class="wm-active">';
+        } else {
+            $output .= '<li>';
+        }
+
+      //Add SPAN if no Permalink
+      if( $permalink && $permalink != '#' ) {
+      	$output .= '<span class="wm-nav-item"><a href="' . $permalink . '">';
+      } else {
+      	$output .= '<span class="wm-nav-item">';
+      }
+
+      $output .= $title;
+      if( $description != '' && $depth == 0 ) {
+      	$output .= '<small class="description">' . $description . '</small>';
+      }
+      if( $permalink && $permalink != '#' ) {
+      	$output .= '</a></span>';
+      } else {
+      	$output .= '</span>';
+      }
+    }
+
     // TODO: COMPLETE THIS TO OUTPUT ANY MENUS WITH THE FOLLOWING FORMAT:
     // NOTE: INSIDE EACH <SPAN> THE TEXT SHOULD BE IN AN <A> I JUST LEFT IT OUT TO SAVE SPACE.
     //       IF A LINK GOES NOWHERE USE #

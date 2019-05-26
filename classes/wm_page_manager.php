@@ -8,9 +8,18 @@ if ( !class_exists( 'WM_page_manager' ) ){
 
         public function __construct (){}
 
-        private function prep_home_page_html( $title, $raw_html ){
+        private function prep_articles_html( $title, $published, $updated, $raw_html ){
 
             // TODO: CLEAN POST TITLE!!!!
+
+            if( $published == $updated ){
+                $formated_published = date( get_option('date_format'), strtotime( $published ) );
+                $formated_updated = '';
+            } else {
+                $formated_published = date( get_option('date_format'), strtotime( $published ) );
+                $formated_updated = date( get_option('date_format'), strtotime( $updated ) );
+                $formated_updated = ' Last updated <time itemprop="dateModified" datetime="' . $updated . '">' . $formated_updated . '</time>.';
+            }
 
             $raw_html = apply_filters('the_content', $raw_html );
 
@@ -22,11 +31,14 @@ if ( !class_exists( 'WM_page_manager' ) ){
             $raw_html = preg_replace( '/<figure.+<\/figure>/', '', $raw_html );
             $raw_html = preg_replace( '/<img.*?>/', '', $raw_html );
 
-            $html = '<div class="wm-article"><div class="wm-article-title">' . $title . '</div>';
-            if( count( $images ) > 0 ){
+            $html = '<article class="wm-article"><h1 class="wm-article-title">' . $title . '</h1>';
+            $html .= '<div class="wm-article-times">Published <time itemprop="datePublished" datetime="' . $published . '">' . $formated_published . '</time>.';
+            $html .= $formated_updated;
+            $html .= '</div><div class="wm-article-flex-wrapper">';
+
+            if( count( $images[0] ) > 0 ){
                 $image_html = '';
                 foreach( $images as $image ){
-                    Kint::dump( $image );
                     $image_html .= '<div class="wm-artilce-image">' . $image[0] . '</div>';
                 }
                 $html .= '<div class="wm-article-image-wrapper">' . $image_html . '</div>';
@@ -34,6 +46,7 @@ if ( !class_exists( 'WM_page_manager' ) ){
             } else {
                 $html .= '<div class="wm-article-content">' . $raw_html . '</div>';
             }
+            $html .= '</div></article>';
 
             return $html;
         }
@@ -42,7 +55,6 @@ if ( !class_exists( 'WM_page_manager' ) ){
 
             // Bring in the database class
             global $wpdb;
-            global $WM_device;
 
             // Get the post limit from settings: Settings > Reading > Blog pages show at most
             $post_limit = get_option( 'posts_per_page' );
@@ -90,14 +102,8 @@ if ( !class_exists( 'WM_page_manager' ) ){
             foreach( $normal_result as $post ){
 
                 setup_postdata( $post );
-                //the_title(); // TO DO CHNAGE THIS
-                //echo '<br>';
-                echo $this->prep_home_page_html( get_the_title( $post->ID ), get_the_content() );
-                //Kint::dump( apply_filters('the_content', $content[0] ) );
-                //echo apply_filters('the_content', $content[0] );
-                //Kint::dump( $content );
-                // NOTE: I could remove shortcodes here??? For security reasons or something???? []
-                echo '<br>';
+
+                echo $this->prep_articles_html( get_the_title( $post->ID ), $post->post_date, $post->post_modified, get_the_content() );
             }
 
             // Discreate table of sticky post in order already

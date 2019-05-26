@@ -20,8 +20,6 @@ if ( is_main_query() ) {
 
     // Show the default blog Home page with the latest posts.
     if ( is_home() ) {
-        echo 'Home Page (Default show Your Latest Post)<br><br>';
-
         $WM_page_manager->get_home_page();
     } else {
 

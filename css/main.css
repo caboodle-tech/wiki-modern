@@ -69,9 +69,9 @@ body {
   border: 1px solid #EEEEEE;
   background-color: #F9F9F9;
   z-index: 5;
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(238,238,238,0.3);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(238,238,238,0.3);
-  box-shadow: 0px 1px 3px 1px rgba(238,238,238,0.3);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
+  box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
 }
 #wm-page-wrapper .wm-control-btn:hover {
   cursor: pointer;
@@ -79,7 +79,7 @@ body {
   background-color: #F9F9F9;
 }
 #wm-page-wrapper .wm-control-text-btn {
-  padding: 0 .75rem;
+  padding: 0 0.75rem;
 }
 #wm-page-wrapper .wm-bump-btn-icon {
   margin-bottom: -2px;
@@ -100,7 +100,7 @@ body {
   height: 3rem;
   line-height: 3rem;
   font-size: 1.5rem;
-  padding: 0 .75rem;
+  padding: 0 0.75rem;
   vertical-align: middle;
   cursor: pointer;
   border: 1px solid #EEEEEE;
@@ -108,9 +108,9 @@ body {
   background-color: #FFFFFF;
   -webkit-appearance: none;
   outline: none;
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(238,238,238,0.3);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(238,238,238,0.3);
-  box-shadow: 0px 1px 3px 1px rgba(238,238,238,0.3);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
+  box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
 }
 #wm-page-wrapper .wm-search-wrapper input:focus {
   border-color: #EEEEEE;
@@ -124,6 +124,7 @@ body {
   width: 3rem;
   line-height: 3rem;
   font-size: 1.5rem;
+  cursor: pointer;
   text-align: center;
   vertical-align: middle;
   color: #2487D7;
@@ -273,16 +274,65 @@ body {
 @media (max-width: 1099px) {
   #wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content #wm-article-container {
     margin: 0 1rem;
-    font-size: 1.20rem;
-    line-height: 1.70rem;
+    font-size: 1.2rem;
+    line-height: 1.7rem;
   }
 }
 @media (max-width: 949px) {
   #wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content #wm-article-container {
     margin: 0 1rem;
-    font-size: 1.20rem;
-    line-height: 1.70rem;
+    font-size: 1.2rem;
+    line-height: 1.7rem;
   }
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content .wm-article {
+  display: block;
+  width: 100%;
+  margin-bottom: 5rem;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content .wm-article .wm-article-title {
+  display: block;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content .wm-article .wm-article-times {
+  display: block;
+  width: 100%;
+  margin: 0.6rem 0;
+  font-size: 1rem;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content .wm-article .wm-article-flex-wrapper {
+  display: flex;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content .wm-article .wm-article-flex-wrapper .wm-article-image-wrapper {
+  flex: 0 0 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-right: 2rem;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content .wm-article .wm-article-flex-wrapper .wm-article-image-wrapper img {
+  width: 100%;
+  height: auto;
+  border: 4px solid #EEEEEE;
+  background-color: #F9F9F9;
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
+  box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content .wm-article .wm-article-flex-wrapper .wm-article-content {
+  flex: 1;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content .wm-article .wm-article-flex-wrapper .wm-article-content p:first-of-type {
+  margin-top: 0;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content .wm-article .wm-article-flex-wrapper .wm-article-content p:last-of-type {
+  margin-bottom: 0;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content .wm-article:last-of-type {
+  margin-bottom: 2.5rem;
 }
 #wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-bottom-controls {
   width: 100%;
@@ -327,6 +377,7 @@ body {
 }
 #wm-page-wrapper #wm-content-outter-wrapper #wm-left-sidebar {
   order: -1;
+  /** Move to the left side by making this first in the flex order. */
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 280px;
   -ms-flex: 0 0 280px;
@@ -367,16 +418,16 @@ body {
   margin: 30px auto;
 }
 #wm-page-wrapper #wm-content-outter-wrapper #wm-left-sidebar #wm-identity-container #wm-site-title {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   font-size: 1.25rem;
-  line-height: 1.50rem;
+  line-height: 1.5rem;
   font-weight: bold;
   vertical-align: middle;
 }
 #wm-page-wrapper #wm-content-outter-wrapper #wm-left-sidebar #wm-identity-container #wm-site-tagline {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   font-size: 1.25rem;
-  line-height: 1.50rem;
+  line-height: 1.5rem;
   font-weight: bold;
   vertical-align: middle;
 }
@@ -385,14 +436,22 @@ body {
   margin: 0;
   padding: 0;
 }
+#wm-page-wrapper #wm-content-outter-wrapper #wm-left-sidebar #wm-nav-container ul a {
+  display: block;
+  text-decoration: none;
+}
 #wm-page-wrapper #wm-content-outter-wrapper #wm-left-sidebar #wm-nav-container .wm-nav {
   display: block;
   margin: 0 -15px;
+  /**
+        * The actual menu item. Because of sub menues we need to style <span>
+        * instead of the <li> to get the correct active link and hover effects.
+        */
 }
 #wm-page-wrapper #wm-content-outter-wrapper #wm-left-sidebar #wm-nav-container .wm-nav .wm-nav-item {
-  display: block;
   padding: 5px 10px 5px 15px;
   color: #2487D7;
+  display: block;
 }
 #wm-page-wrapper #wm-content-outter-wrapper #wm-left-sidebar #wm-nav-container .wm-nav .wm-nav-item:hover {
   background-color: #E5E5E5;
@@ -412,7 +471,7 @@ body {
   height: 0;
   width: 0;
   position: absolute;
-  border-color: rgba(0,0,0,0);
+  border-color: rgba(0, 0, 0, 0);
   border-right-color: #2487D7;
   border-width: 1rem;
   margin-top: -1rem;
@@ -443,9 +502,9 @@ body {
 }
 @media (max-width: 949px) {
   #wm-page-wrapper #wm-content-outter-wrapper #wm-left-sidebar {
-    -webkit-box-shadow: 4px 0px 8px 0px rgba(0,0,0,0.25);
-    -moz-box-shadow: 4px 0px 8px 0px rgba(0,0,0,0.25);
-    box-shadow: 4px 0px 8px 0px rgba(0,0,0,0.25);
+    -webkit-box-shadow: 4px 0px 8px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 4px 0px 8px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 4px 0px 8px 0px rgba(0, 0, 0, 0.25);
   }
   #wm-page-wrapper #wm-content-outter-wrapper #wm-left-sidebar .wm-mobile-controls {
     display: block;
@@ -477,6 +536,7 @@ body {
 }
 #wm-page-wrapper #wm-content-outter-wrapper #wm-right-sidebar .wm-widget {
   display: block;
+  margin-right: 15px;
 }
 #wm-page-wrapper #wm-content-outter-wrapper #wm-right-sidebar .wm-widget .wm-widget-title {
   padding: 5px 0;
@@ -502,9 +562,9 @@ body {
 }
 @media (max-width: 1099px) {
   #wm-page-wrapper #wm-content-outter-wrapper #wm-right-sidebar {
-    -webkit-box-shadow: -4px 0px 8px 0px rgba(0,0,0,0.25);
-    -moz-box-shadow: -4px 0px 8px 0px rgba(0,0,0,0.25);
-    box-shadow: -4px 0px 8px 0px rgba(0,0,0,0.25);
+    -webkit-box-shadow: -4px 0px 8px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: -4px 0px 8px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: -4px 0px 8px 0px rgba(0, 0, 0, 0.25);
   }
   #wm-page-wrapper #wm-content-outter-wrapper #wm-right-sidebar .wm-mobile-controls {
     display: block;
@@ -586,9 +646,9 @@ body {
   border: 1px solid #EEEEEE;
   background-color: #F9F9F9;
   z-index: 5;
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(238,238,238,0.3);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(238,238,238,0.3);
-  box-shadow: 0px 1px 3px 1px rgba(238,238,238,0.3);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
+  box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
 }
 #wm-print-wrapper .wm-control-btn:hover {
   cursor: pointer;
