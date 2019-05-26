@@ -8,32 +8,34 @@ if ( !class_exists( 'WM_page_manager' ) ){
 
         public function __construct (){}
 
-        private function prep_home_page_images( $html ){
+        private function prep_home_page_html( $title, $raw_html ){
 
-            // TODO: ADD DEVICE CHECKING HERE
-            // > get alt and title first
-            // > save file exstension to help with comparing
-            // > lookup file path and then file name by size and device
+            // TODO: CLEAN POST TITLE!!!!
+
+            $raw_html = apply_filters('the_content', $raw_html );
 
             // Create an empty array and then fill it with images if any are found
             $images = [];
-            preg_match_all( '/<img.+\/{0,1}>/', $html, $images );
+            preg_match_all( '/<img.+\/{0,1}>/', $raw_html, $images );
 
             // Remove all references to images including WordPress 5+ image comments
-            $html = preg_replace( '/<img.+\/{0,1}>/', '', $html );
-            $html = preg_replace( '/<!-- wp:image.+\/wp:image -->/ms', '', $html );
+            $raw_html = preg_replace( '/<figure.+<\/figure>/', '', $raw_html );
+            $raw_html = preg_replace( '/<img.*?>/', '', $raw_html );
 
-            foreach ($images[0] as $key => $value) {
-                $value = preg_match( '/src="([^"]*)"/i', $value, $ary ) ;
-                $value = preg_replace( '/(.*)-\d{1,}[xX]{0,1}\d{1,}/', '${1}', $ary[1] );
-                //$value = preg_replace( '/width=".*"|height=".*"/', '', $value );
-                $images[0][$key] = [ substr( $value, 0, strrpos( $value, '/' ) ), substr( $value, strrpos( $value, '/' ) + 1 ) ];
+            $html = '<div class="wm-article"><div class="wm-article-title">' . $title . '</div>';
+            if( count( $images ) > 0 ){
+                $image_html = '';
+                foreach( $images as $image ){
+                    Kint::dump( $image );
+                    $image_html .= '<div class="wm-artilce-image">' . $image[0] . '</div>';
+                }
+                $html .= '<div class="wm-article-image-wrapper">' . $image_html . '</div>';
+                $html .= '<div class="wm-article-content">' . $raw_html . '</div>';
+            } else {
+                $html .= '<div class="wm-article-content">' . $raw_html . '</div>';
             }
 
-            // TODO: SEND BACK CORRECTED IMAGE URLS FOR DEVICE SIZE
-
-            // Send back the cleaned HTML and images as seperate indexes in an array
-            return [ $html, $images[0] ];
+            return $html;
         }
 
         public function get_home_page(){
@@ -86,16 +88,15 @@ if ( !class_exists( 'WM_page_manager' ) ){
 
             // Display the posts
             foreach( $normal_result as $post ){
+
                 setup_postdata( $post );
-                the_title(); // TO DO CHNAGE THIS
-                echo '<br>';
-                $content = get_the_content();
-                $content = $this->prep_home_page_images( $content );
-                echo apply_filters('the_content', $content[0] );
-                Kint::dump( $content );
+                //the_title(); // TO DO CHNAGE THIS
+                //echo '<br>';
+                echo $this->prep_home_page_html( get_the_title( $post->ID ), get_the_content() );
+                //Kint::dump( apply_filters('the_content', $content[0] ) );
+                //echo apply_filters('the_content', $content[0] );
+                //Kint::dump( $content );
                 // NOTE: I could remove shortcodes here??? For security reasons or something???? []
-                echo '<br>';
-                echo '<br>';
                 echo '<br>';
             }
 

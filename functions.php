@@ -6,11 +6,10 @@
 * @package Wiki Modern Theme
 */
 
-define('WP_DEBUG', true);
-
 /** When in DEBUG mode load the Kint PHP parser to help debug PHP code. */
 if( !WP_DEBUG ){
     require( 'include/kint.phar' );
+    //Kint\Renderer\RichRenderer::$theme = 'solarized-dark.css';
 } else {
 
     /**
@@ -37,19 +36,19 @@ if( !WP_DEBUG ){
 
 }
 
-Kint::dump(  );
-
 /** Load custom classes and functions for the Wiki Modern theme. */
-require( 'include/wm-get-user-ip.php' );
 require( 'include/trim-html-tags.php' );
-require( 'classes/mobile_detect.php' );
+require( 'include/wm-auto-copyright.php' );
+require( 'include/wm-get-image-widths.php' );
+require( 'include/wm-get-user-ip.php' );
+//require( 'classes/mobile_detect.php' );
 require( 'classes/wm_cookies.php' );
 require( 'classes/wm_page_manager.php' );
 require( 'classes/wm_post_page.php' );
-require('classes/wm_walker.php');
+require( 'classes/wm_walker.php' );
 
 $WM_cookies = new WM_cookies();
-$WM_device = new Mobile_Detect();
+//$WM_device = new Mobile_Detect();
 $WM_page_manager = new WM_page_manager();
 $WM_posts = new WM_posts();
 
@@ -135,4 +134,30 @@ add_filter( 'the_content_more_link', 'wm_remove_read_more_link' );
 
 /** Add all AJAX form handlers. */
 require( 'forms/wm-comment-pagination.php' );
+
+/**
+ * Add custom image sizes attribute to enhance responsive image functionality
+ * for content images
+ *
+ * @since Twenty Sixteen 1.0
+ *
+ * @param string $sizes A source size value for use in a 'sizes' attribute.
+ * @param array  $size  Image size. Accepts an array of width and height
+ *                      values in pixels (in that order).
+ * @return string A source size value for use in a content image 'sizes' attribute.
+ */
+function twentysixteen_content_image_sizes_attr( $sizes, $size ) {
+	$widths = wm_get_image_widths();
+    $sizes = '';
+    foreach ( $widths as $width ) {
+        $width = intval( $width );
+        $sizes .= '(max-width: ' . ( $width + 100 ) . 'px) ' . ( $width - 100 ) . 'px, ';
+    }
+
+    //$sizes = substr( $sizes, 0, strlen( $sizes ) - 2 );
+
+	return $sizes .'100vw';
+}
+add_filter( 'wp_calculate_image_sizes', 'twentysixteen_content_image_sizes_attr', 10 , 2 );
+
 ?>

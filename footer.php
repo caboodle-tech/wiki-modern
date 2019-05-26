@@ -23,9 +23,9 @@
             Column 4
         </div>
         <div class="wm-copyright wm-align-center">
-            <i class="far fa-copyright"></i> 2018 <?php echo get_bloginfo('name'); ?>. All Rights Reserved.
+            <?php echo wm_auto_copyright() . ' ' .get_bloginfo('name'); ?>. All Rights Reserved.
             <br>
-            Powered by <a href="#" target="_blank"><i class="fab fa-wordpress-simple"></i></a> &nbsp;Designed with the <a href="#" target="_blank">Wiki Modern Theme</a>.
+            Powered by <a href="#" target="_blank"><i class="fab fa-wordpress-simple"></i></a> with the <a href="#" target="_blank">Wiki Modern Theme</a>.
         </div>
     </footer>
 </div>
