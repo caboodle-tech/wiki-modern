@@ -113,6 +113,19 @@ get_header();
     */
     get_footer();
 ?>
+<div id="wm-image-carousel">
+    <div class="wm-control-btn wm-close" onclick="WikiModern.toggle('image-carousel');">
+        <i class="far fa-times"></i>
+    </div>
+    <div class="wm-control-btn" onclick="WikiModern.carouselRotate('left');">
+        <i class="fas fa-angle-left"></i>
+    </div>
+    <div id="wm-image-stage">
+    </div>
+    <div class="wm-control-btn" onclick="WikiModern.carouselRotate('right');">
+        <i class="fas fa-angle-right"></i>
+    </div>
+</div>
 <div id="wm-print-wrapper">
     <div class="wm-control-btn" onclick="WikiModern.toggle('print-app');">
         <i class="far fa-times"></i>

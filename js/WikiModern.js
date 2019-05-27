@@ -105,6 +105,8 @@ var WikiModern = (function(){
             /** Both sidebars hidden, display both sidebars as pop overs. */
             status.device = 'mobile';
         }
+
+        console.log( status.device );
     };
 
     var refreshLayout = function(){
@@ -178,6 +180,25 @@ var WikiModern = (function(){
     var toggle = function( location ){
         var elem = event.target || event.srcElement;
         switch( location ){
+            case 'image-carousel':
+                // TODO: Finish
+                var container = document.getElementById('wm-image-carousel');
+                if( container.dataset.wmDisplayStatus == 0 ){
+                    // Open
+                    carouselLoad( elem );
+                    document.getElementById('wm-content-outter-wrapper').style.display = 'none';
+                    document.getElementById('wm-footer-wrapper').style.display = 'none';
+                    document.getElementById('wm-image-carousel').style.display = 'flex';
+                    container.dataset.wmDisplayStatus = 1;
+                } else {
+                    // Close
+                    // CAN NOT DO THIS LATER BECAUSE FLEX PREFIXES. ADD AND REMOVE A CLASS INSTEAD.
+                    document.getElementById('wm-content-outter-wrapper').style.display = 'flex';
+                    document.getElementById('wm-footer-wrapper').style.display = 'block';
+                    document.getElementById('wm-image-carousel').style.display = 'none';
+                    container.dataset.wmDisplayStatus = 0;
+                }
+                break;
             case 'left-sidebar':
                 elem = document.getElementById('wm-left-sidebar');
                 if( elem.dataset.wmVisibility == 0 ){
@@ -503,6 +524,73 @@ var WikiModern = (function(){
         }
     }
 
+    var carouselRotate = function( direction ){
+        var stage = document.getElementById('wm-image-stage');
+        var active = stage.querySelector('.wm-active');
+        var replacement = '';
+        if( direction == 'left' ){
+            replacement = active.previousElementSibling;
+            if( !replacement  ){
+                replacement = stage.lastElementChild;
+            }
+        } else {
+            replacement = active.nextElementSibling;
+            if( !replacement  ){
+                replacement = stage.firstElementChild;
+            }
+        }
+        active.classList.remove('wm-active');
+        active.style.opacity = '.9';
+        active.style.zIndex = '0';
+        replacement.classList.add('wm-active');
+        replacement.style.opacity = '.1';
+        replacement.style.zIndex = '5';
+        replacement.style.display = 'flex';
+        var imageFade = setInterval( function(){
+            var activeOpacity = parseFloat( active.style.opacity );
+            var replacementOpacity = parseFloat( replacement.style.opacity );
+            if( activeOpacity > 0 ){
+                active.style.opacity = activeOpacity - .10;
+                replacement.style.opacity = replacementOpacity + .10;
+            } else {
+                active.style.opacity = 0;
+                active.style.display = 'none';
+                replacement.style.opacity = 1;
+                clearInterval( imageFade );
+            }
+        }, 90 );
+    };
+
+    var carouselLoad = function( elem ){
+        elem = elem.parentElement.parentElement;
+        var sources = elem.querySelector('.wm-image-sources');
+        sources = sources.innerHTML;
+        sources = sources.replace( '<!--', '');
+        sources = sources.replace( '-->', '');
+        sources = sources.split('||');
+
+        var html = '';
+        var len = sources.length;
+        var dynamicHtml = 'class="wm-image-on-stage wm-active" style="display: flex; opacity: 1;"';
+        for( var x = 0; x < len; x++ ){
+            if( x > 0 ){ dynamicHtml = 'class="wm-image-on-stage" style="display: none; opacity: 0;"'; }
+            html += '<div ' + dynamicHtml + '>' + sources[x] + '</div>';
+        }
+
+        document.getElementById('wm-image-stage').innerHTML = html;
+    };
+
+    var navigate = function(){
+        var elem = event.target || event.srcElement;
+        if( !elem.classList.contains('wm-article-content') ){
+            elem = elem.closest('.wm-article-content');
+        }
+        var url = elem.dataset.wmNavigation;
+        if( url ){
+            window.location.href = url;
+        }
+    };
+
     /** ==========[ INITIALIZATION FUNCTION & RETURN CALL ONLY PAST THIS POINT ]========== */
 
     /**
@@ -521,6 +609,10 @@ var WikiModern = (function(){
         var container = document.getElementById('wm-page-wrapper');
         container.dataset.wmPrinterStatus = 0;
 
+        /** Set image carousel state to off when page first loads. */
+        container = document.getElementById('wm-image-carousel');
+        container.dataset.wmDisplayStatus = 0;
+
         /** Set default dataset values needed by toggle() and it's helper functions. */
         container = document.getElementById('wm-main-content');
         container.dataset.wmSwitchingActive = 0;
@@ -536,6 +628,8 @@ var WikiModern = (function(){
     domReady( initialize );
 
     return {
+        'carouselRotate': carouselRotate,
+        'navigate': navigate,
         'status': getStatus,
         'toggle': toggle
     };

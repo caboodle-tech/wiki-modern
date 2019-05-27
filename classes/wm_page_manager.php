@@ -8,7 +8,13 @@ if ( !class_exists( 'WM_page_manager' ) ){
 
         public function __construct (){}
 
-        private function prep_articles_html( $title, $published, $updated, $raw_html ){
+        private function prep_articles_html( $post ){
+
+            $title = get_the_title( $post->ID );
+            $permalink = get_permalink( $post->ID );
+            $published = $post->post_date;
+            $updated = $post->post_modified;
+            $raw_html = get_the_content( null, false, $post->ID );
 
             // TODO: CLEAN POST TITLE!!!!
 
@@ -25,26 +31,35 @@ if ( !class_exists( 'WM_page_manager' ) ){
 
             // Create an empty array and then fill it with images if any are found
             $images = [];
-            preg_match_all( '/<img.+\/{0,1}>/', $raw_html, $images );
+            preg_match_all( '/<img.*?>/', $raw_html, $images );
 
             // Remove all references to images including WordPress 5+ image comments
             $raw_html = preg_replace( '/<figure.+<\/figure>/', '', $raw_html );
             $raw_html = preg_replace( '/<img.*?>/', '', $raw_html );
 
-            $html = '<article class="wm-article"><h1 class="wm-article-title">' . $title . '</h1>';
+            $html = '<article class="wm-article"><h1 class="wm-article-title"><a href="' . $permalink . '">' . $title . '</a></h1>';
             $html .= '<div class="wm-article-times">Published <time itemprop="datePublished" datetime="' . $published . '">' . $formated_published . '</time>.';
             $html .= $formated_updated;
             $html .= '</div><div class="wm-article-flex-wrapper">';
 
             if( count( $images[0] ) > 0 ){
-                $image_html = '';
-                foreach( $images as $image ){
-                    $image_html .= '<div class="wm-artilce-image">' . $image[0] . '</div>';
+                if( count( $images[0] ) > 1 ){
+                    $image_html = '<div class="wm-artilce-image wm-pointer" onclick="WikiModern.toggle(\'image-carousel\')">' . $images[0][0];
+                    // Add multiple image icon and close div
+                    //$image_html .= '<div class="wm-control-btn"><i class="fas fa-images"></i></div></div><div class="wm-image-sources"><!--';
+                    $image_html .= '</div><div class="wm-image-sources"><!--';
+                    foreach( $images[0] as $image ){
+                        $image_html .= $image .'||';
+                    }
+                    $image_html = substr( $image_html, 0, -2 );
+                    $image_html .= '--></div>';
+                } else {
+                    $image_html = '<div class="wm-artilce-image">' . $images[0][0] . '</div>';
                 }
                 $html .= '<div class="wm-article-image-wrapper">' . $image_html . '</div>';
-                $html .= '<div class="wm-article-content">' . $raw_html . '</div>';
+                $html .= '<div class="wm-article-content" onclick="WikiModern.navigate();" data-wm-navigation="' . $permalink . '">' . $raw_html . '</div>';
             } else {
-                $html .= '<div class="wm-article-content">' . $raw_html . '</div>';
+                $html .= '<div class="wm-article-content" onclick="WikiModern.navigate();" data-wm-navigation="' . $permalink . '">' . $raw_html . '</div>';
             }
             $html .= '</div></article>';
 
@@ -103,7 +118,7 @@ if ( !class_exists( 'WM_page_manager' ) ){
 
                 setup_postdata( $post );
 
-                echo $this->prep_articles_html( get_the_title( $post->ID ), $post->post_date, $post->post_modified, get_the_content() );
+                echo $this->prep_articles_html( $post );
             }
 
             // Discreate table of sticky post in order already
