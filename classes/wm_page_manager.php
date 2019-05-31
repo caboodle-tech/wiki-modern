@@ -10,6 +10,8 @@ if ( !class_exists( 'WM_page_manager' ) ){
 
         private function prep_articles_html( $post ){
 
+            //Kint::dump( $post );
+
             $title = get_the_title( $post->ID );
             $permalink = get_permalink( $post->ID );
             $published = $post->post_date;
@@ -17,6 +19,7 @@ if ( !class_exists( 'WM_page_manager' ) ){
             $raw_html = get_the_content( null, false, $post->ID );
 
             // TODO: CLEAN POST TITLE!!!!
+            $html = '';
 
             if( $published == $updated ){
                 $formated_published = date( get_option('date_format'), strtotime( $published ) );
@@ -29,40 +32,50 @@ if ( !class_exists( 'WM_page_manager' ) ){
 
             $raw_html = apply_filters('the_content', $raw_html );
 
-            // Create an empty array and then fill it with images if any are found
-            $images = [];
-            preg_match_all( '/<img.*?>/', $raw_html, $images );
+            if( !post_password_required( $post->ID ) ){
 
-            // Remove all references to images including WordPress 5+ image comments
-            $raw_html = preg_replace( '/<figure.+<\/figure>/', '', $raw_html );
-            $raw_html = preg_replace( '/<img.*?>/', '', $raw_html );
+                // Create an empty array and then fill it with images if any are found
+                $images = [];
+                preg_match_all( '/<img.*?>/', $raw_html, $images );
 
-            $html = '<article class="wm-article"><h1 class="wm-article-title"><a href="' . $permalink . '">' . $title . '</a></h1>';
-            $html .= '<div class="wm-article-times">Published <time itemprop="datePublished" datetime="' . $published . '">' . $formated_published . '</time>.';
-            $html .= $formated_updated;
-            $html .= '</div><div class="wm-article-flex-wrapper">';
+                // Remove all references to images including WordPress 5+ image comments
+                $raw_html = preg_replace( '/<figure.+<\/figure>/', '', $raw_html );
+                $raw_html = preg_replace( '/<img.*?>/', '', $raw_html );
 
-            if( count( $images[0] ) > 0 ){
-                if( count( $images[0] ) > 1 ){
-                    $image_html = '<div class="wm-artilce-image wm-pointer" onclick="WikiModern.toggle(\'image-carousel\')">' . $images[0][0];
-                    // Add multiple image icon and close div
-                    //$image_html .= '<div class="wm-control-btn"><i class="fas fa-images"></i></div></div><div class="wm-image-sources"><!--';
-                    $image_html .= '</div><div class="wm-image-sources"><!--';
-                    foreach( $images[0] as $image ){
-                        $image_html .= $image .'||';
+                $html = '<article class="wm-article" id="post-' . $post->ID . '"><h1 class="wm-article-title"><a href="' . $permalink . '">' . $title . '</a></h1>';
+                $html .= '<div class="wm-article-times">Published <time itemprop="datePublished" datetime="' . $published . '">' . $formated_published . '</time>.';
+                $html .= $formated_updated;
+                $html .= '</div><div class="wm-article-flex-wrapper">';
+
+                if( count( $images[0] ) > 0 ){
+                    if( count( $images[0] ) > 1 ){
+                        $image_html = '<div class="wm-artilce-image wm-pointer" onclick="WikiModern.toggle(\'image-carousel\')">' . $images[0][0];
+                        // Add multiple image icon and close div
+                        //$image_html .= '<div class="wm-control-btn"><i class="fas fa-images"></i></div></div><div class="wm-image-sources"><!--';
+                        $image_html .= '</div><div class="wm-image-sources"><!--';
+                        foreach( $images[0] as $image ){
+                            $image_html .= $image .'||';
+                        }
+                        $image_html = substr( $image_html, 0, -2 );
+                        $image_html .= '--></div>';
+                    } else {
+                        $image_html = '<div class="wm-artilce-image">' . $images[0][0] . '</div>';
                     }
-                    $image_html = substr( $image_html, 0, -2 );
-                    $image_html .= '--></div>';
+                    $html .= '<div class="wm-article-image-wrapper">' . $image_html . '</div>';
+                    $html .= '<div class="wm-article-content" onclick="WikiModern.navigate();" data-wm-navigation="' . $permalink . '">' . $raw_html . '</div>';
                 } else {
-                    $image_html = '<div class="wm-artilce-image">' . $images[0][0] . '</div>';
+                    $html .= '<div class="wm-article-content" onclick="WikiModern.navigate();" data-wm-navigation="' . $permalink . '">' . $raw_html . '</div>';
                 }
-                $html .= '<div class="wm-article-image-wrapper">' . $image_html . '</div>';
-                $html .= '<div class="wm-article-content" onclick="WikiModern.navigate();" data-wm-navigation="' . $permalink . '">' . $raw_html . '</div>';
-            } else {
-                $html .= '<div class="wm-article-content" onclick="WikiModern.navigate();" data-wm-navigation="' . $permalink . '">' . $raw_html . '</div>';
-            }
-            $html .= '</div></article>';
+                $html .= '</div></article>';
 
+            } else {
+                $html = '<article class="wm-article" id="post-' . $post->ID . '"><h1 class="wm-article-title"><a href="#post-' . $post->ID . '">' . $title . '</a></h1>';
+                $html .= '<div class="wm-article-times">Published <time itemprop="datePublished" datetime="' . $published . '">' . $formated_published . '</time>.';
+                $html .= $formated_updated;
+                $html .= '</div><div class="wm-article-flex-wrapper">';
+                $html .= '<div class="wm-article-content">' . $raw_html . '</div>';
+                $html .= '</div></article>';
+            }
             return $html;
         }
 

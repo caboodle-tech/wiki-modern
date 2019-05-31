@@ -160,4 +160,10 @@ function twentysixteen_content_image_sizes_attr( $sizes, $size ) {
 }
 add_filter( 'wp_calculate_image_sizes', 'twentysixteen_content_image_sizes_attr', 10 , 2 );
 
+
+/* Prefix lock icon in post titles. */
+function wm_protected_post_prefix() {
+    return '<i class="fas fa-lock"></i> %s';
+}
+add_filter( 'protected_title_format', 'wm_protected_post_prefix' );
 ?>
