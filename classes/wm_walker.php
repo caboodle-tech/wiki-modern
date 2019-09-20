@@ -24,22 +24,23 @@ class WM_Walker extends Walker_Nav_Menu {
             $output .= '<li>';
         }
 
-      //Add SPAN if no Permalink
-      if( $permalink && $permalink != '#' ) {
-      	$output .= '<span class="wm-nav-item"><a href="' . $permalink . '">';
-      } else {
-      	$output .= '<span class="wm-nav-item">';
-      }
+        if( $permalink && $permalink != '#' ) {
+            $output .= '<span class="wm-nav-item"><a href="' . $permalink . '">';
+        } else {
+            $output .= '<span class="wm-nav-item">';
+        }
 
-      $output .= $title;
-      if( $description != '' && $depth == 0 ) {
-      	$output .= '<small class="description">' . $description . '</small>';
-      }
-      if( $permalink && $permalink != '#' ) {
-      	$output .= '</a></span>';
-      } else {
-      	$output .= '</span>';
-      }
+        $output .= $title;
+
+        if( $description != '' && $depth == 0 ) {
+        	$output .= '<small class="description">' . $description . '</small>';
+        }
+
+        if( $permalink && $permalink != '#' ) {
+        	$output .= '</a></span>';
+        } else {
+        	$output .= '</span>';
+        }
     }
 
     // TODO: COMPLETE THIS TO OUTPUT ANY MENUS WITH THE FOLLOWING FORMAT:

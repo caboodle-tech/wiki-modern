@@ -29,7 +29,7 @@ $wp_customize->add_panel(
 
 /** SECTION: Sidebar and Footer. */
 $wp_customize->add_section(
-    'wm_sidebar_and_footer',
+    'wm_theme_colors_sidebar_and_footer',
     array(
         'panel' => 'wm_theme_colors',
         'title' => 'Sidebars and Footer'
@@ -42,7 +42,8 @@ $theme_colors[] = array(
     'default'       => $colors['wm_saf_bg_color'],
     'description'   => __('Background color for the sidebars, footer, and buttons.'),
     'label'         => 'Background Color',
-    'section'       => 'wm_sidebar_and_footer',
+    'sanitize'      => 'sanitize_hex_color',
+    'section'       => 'wm_theme_colors_sidebar_and_footer',
     'slug'          => 'wm_saf_bg_color',
 );
 
@@ -52,7 +53,8 @@ $theme_colors[] = array(
     'default'       => $colors['wm_saf_color'],
     'description'   => __('Font color for the sidebars and footer.'),
     'label'         => 'Text Color',
-    'section'       => 'wm_sidebar_and_footer',
+    'sanitize'      => 'sanitize_hex_color',
+    'section'       => 'wm_theme_colors_sidebar_and_footer',
     'slug'          => 'wm_saf_color'
 );
 
@@ -62,7 +64,8 @@ $theme_colors[] = array(
     'default'       => $colors['wm_saf_a'],
     'description'   => __('Link color for the sidebars and footer.'),
     'label'         => 'Link Color',
-    'section'       => 'wm_sidebar_and_footer',
+    'sanitize'      => 'sanitize_hex_color',
+    'section'       => 'wm_theme_colors_sidebar_and_footer',
     'slug'          => 'wm_saf_a',
 );
 
@@ -72,7 +75,8 @@ $theme_colors[] = array(
     'default'       => $colors['wm_saf_a_active'],
     'description'   => __('Background color of the active link (list item) in the navigation menu.'),
     'label'         => 'Active Link Background Color',
-    'section'       => 'wm_sidebar_and_footer',
+    'sanitize'      => 'sanitize_hex_color',
+    'section'       => 'wm_theme_colors_sidebar_and_footer',
     'slug'          => 'wm_saf_a_active'
 );
 
@@ -82,7 +86,8 @@ $theme_colors[] = array(
     'default'       => $colors['wm_saf_a_hover'],
     'description'   => __('Background color of links (list items) in the navigation menu when you hover over them.'),
     'label'         => 'Active Link Hover Background Color',
-    'section'       => 'wm_sidebar_and_footer',
+    'sanitize'      => 'sanitize_hex_color',
+    'section'       => 'wm_theme_colors_sidebar_and_footer',
     'slug'          => 'wm_saf_a_hover'
 );
 
@@ -92,15 +97,19 @@ $theme_colors[] = array(
     'default'       => $colors['wm_saf_a_pointer'],
     'description'   => __('This is the arrow that points at the active link in the sidebar navigation menu.'),
     'label'         => 'Active Link Pointer Color',
-    'section'       => 'wm_sidebar_and_footer',
+    'sanitize'      => 'sanitize_hex_color',
+    'section'       => 'wm_theme_colors_sidebar_and_footer',
     'slug'          => 'wm_saf_a_pointer'
 );
 
 /** SECTION: PAGE CONTENT. */
-$wp_customize->add_section( 'wm_page_content' , array(
-    'panel' => 'wm_theme_colors',
-    'title' =>  'Page Content'
-) );
+$wp_customize->add_section(
+    'wm_theme_colors_page_content',
+    array(
+        'panel' => 'wm_theme_colors',
+        'title' =>  'Page Content'
+    )
+);
 
 /** Page Content Background Color. */
 $theme_colors[] = array(
@@ -108,7 +117,8 @@ $theme_colors[] = array(
     'default'       => $colors['wm_pg_bg_color'],
     'description'   => __('Background color for the page content.'),
     'label'         => 'Background Color',
-    'section'       => 'wm_page_content',
+    'sanitize'      => 'sanitize_hex_color',
+    'section'       => 'wm_theme_colors_page_content',
     'slug'          => 'wm_pg_bg_color'
 );
 
@@ -118,7 +128,8 @@ $theme_colors[] = array(
     'default'       => $colors['wm_pg_border_color'],
     'description'   => __('Border color for the page content area, buttons, and inputs. This color will also be used for section separators in the sidebars.'),
     'label'         => 'Border Color',
-    'section'       => 'wm_page_content',
+    'sanitize'      => 'sanitize_hex_color',
+    'section'       => 'wm_theme_colors_page_content',
     'slug'          => 'wm_pg_border_color'
 );
 
@@ -128,7 +139,8 @@ $theme_colors[] = array(
     'default'       => $colors['wm_pg_color'],
     'description'   => __('Text color for the page content.'),
     'label'         => 'Text Color',
-    'section'       => 'wm_page_content',
+    'sanitize'      => 'sanitize_hex_color',
+    'section'       => 'wm_theme_colors_page_content',
     'slug'          => 'wm_pg_color'
 );
 
@@ -138,7 +150,8 @@ $theme_colors[] = array(
     'default'       => $colors['wm_pg_a'],
     'description'   => __('Link color for the page content.'),
     'label'         => 'Link Color',
-    'section'       => 'wm_page_content',
+    'sanitize'      => 'sanitize_hex_color',
+    'section'       => 'wm_theme_colors_page_content',
     'slug'          => 'wm_pg_a'
 );
 
@@ -148,7 +161,8 @@ $theme_colors[] = array(
     'default'       => $colors['wm_pg_btn'],
     'description'   => __('Icon color for buttons in the page content area.'),
     'label'         => 'Button Icon Color',
-    'section'       => 'wm_page_content',
+    'sanitize'      => 'sanitize_hex_color',
+    'section'       => 'wm_theme_colors_page_content',
     'slug'          => 'wm_pg_btn'
 );
 
@@ -158,7 +172,8 @@ $theme_colors[] = array(
     'default'       => $colors['wm_pg_btn_bg_color'],
     'description'   => __('Background color for buttons in the page content area.'),
     'label'         => 'Button Background Color',
-    'section'       => 'wm_page_content',
+    'sanitize'      => 'sanitize_hex_color',
+    'section'       => 'wm_theme_colors_page_content',
     'slug'          => 'wm_pg_btn_bg_color'
 );
 
@@ -168,14 +183,15 @@ $theme_colors[] = array(
     'default'       => $colors['wm_pg_border_color_hover'],
     'description'   => __('Color to switch borders to when a button is hovered over or when an input receives focus.'),
     'label'         => 'Hover Border Color',
-    'section'       => 'wm_page_content',
+    'sanitize'      => 'sanitize_hex_color',
+    'section'       => 'wm_theme_colors_page_content',
     'slug'          => 'wm_pg_border_color_hover'
 );
 
-/** Add the settings and controls for each color option Wiki Modern has. */
+/*
 foreach( $theme_colors as $color_option ) {
 
-    /** Settings. */
+    // Settings
     $wp_customize->add_setting(
         $color_option['slug'],
         array(
@@ -187,7 +203,7 @@ foreach( $theme_colors as $color_option ) {
         )
     );
 
-    /** Controls. */
+    // Controls.
     $wp_customize->add_control(
         new $color_option['class'](
             $wp_customize,
@@ -201,4 +217,54 @@ foreach( $theme_colors as $color_option ) {
         )
     );
 
+}
+*/
+
+/** Add the settings and controls for each option Wiki Modern has to the Customizer. */
+$slugCounter = 0;
+foreach( $theme_colors as $option ) {
+
+    /** Make sure everything has a unique slug. */
+    if( empty( $option['slug'] ) ){
+        $option['slug'] = 'wm-theme-colors-' . $slugCounter;
+        $slugCounter++;
+    }
+
+    /** Settings. */
+    $wp_customize->add_setting(
+        $option['slug'],
+        array(
+            'capability'        => 'edit_theme_options',
+            'default'           => $option['default'],
+            'sanitize_callback' => $option['sanitize'],
+            'transport'         =>'postMessage'
+        )
+    );
+
+    /** Controls. */
+    if( $option['class'] ){
+        $wp_customize->add_control(
+            new $option['class'](
+                $wp_customize,
+                $option['slug'],
+                array(
+                    'description'   => $option['description'],
+                    'label'         => $option['label'],
+                    'section'       => $option['section'],
+                    'settings'      => $option['slug']
+                )
+            )
+        );
+    } else {
+        $wp_customize->add_control(
+            $option['slug'],
+            array(
+                'choices'       => $option['choices'],
+                'description'   => $option['description'],
+                'label'         => $option['label'],
+                'section'       => $option['section'],
+                'settings'      => $option['slug']
+            )
+        );
+    }
 }

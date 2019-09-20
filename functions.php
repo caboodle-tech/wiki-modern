@@ -39,6 +39,7 @@ if( !WP_DEBUG ){
 /** Load custom classes and functions for the Wiki Modern theme. */
 require( 'include/trim-html-tags.php' );
 require( 'include/wm-auto-copyright.php' );
+require( 'include/wm-auto-menu.php' );
 require( 'include/wm-get-image-widths.php' );
 require( 'include/wm-get-user-ip.php' );
 //require( 'classes/mobile_detect.php' );
@@ -54,7 +55,7 @@ $WM_posts = new WM_posts();
 
 //$WM_cookies->delete( 'wm_user_device', '', '', false, true );
 
-/** Record device types now. */
+/* Record device types now.
 if( $WM_cookies->get('wm_user_device') ){
     $WM_device_meta = json_decode( str_replace( '\\', '', $WM_cookies->get('wm_user_device') ) );
 } else {
@@ -71,6 +72,7 @@ if( $WM_cookies->get('wm_user_device') ){
     // TODO: Change false (HTTPS) if site is in https mode
     $WM_cookies->create( 'wm_user_device', json_encode( $WM_device_meta ), '+30days', '', '', false, true );
 }
+*/
 
 //Kint::dump( $WM_device_meta );
 
@@ -96,8 +98,6 @@ function wm_enqueue_assets() {
     /** Wiki Modern's primary JavaScript files. */
     $ctime = filemtime( get_template_directory() . '/js/WikiModern.js' );
     wp_enqueue_script( 'wm-main-js' , get_template_directory_uri() . '/js/WikiModern.js' , array() , $ctime, true);
-    $ctime = filemtime( get_template_directory() . '/js/fontawesome.min.js' );
-    wp_enqueue_script( 'wm-font-awesome-js' , get_template_directory_uri() . '/js/fontawesome.min.js' , array() , $ctime, true);
 }
 add_action( 'wp_enqueue_scripts', 'wm_enqueue_assets' );
 
@@ -160,10 +160,24 @@ function twentysixteen_content_image_sizes_attr( $sizes, $size ) {
 }
 add_filter( 'wp_calculate_image_sizes', 'twentysixteen_content_image_sizes_attr', 10 , 2 );
 
+// Register WikiModern's Widget areas
+function wm_widget_areas(){
+    require('include/wm-widgets.php');
+}
+add_action('widgets_init', 'wm_widget_areas');
 
 /* Prefix lock icon in post titles. */
 function wm_protected_post_prefix() {
     return '<i class="fas fa-lock"></i> %s';
 }
 add_filter( 'protected_title_format', 'wm_protected_post_prefix' );
+
+
+function my_theme_dependencies() {
+    if( !class_exists( 'FortAwesome\FontAwesome' ) ){
+        $search_link = get_site_url() . '/wp-admin/plugin-install.php?s=font+awesome&tab=search&type=term';
+        echo '<div class="error" id="wm-fa-warning"><p>' . __( 'Warning: The Wiki Modern Theme needs the <a href="' . $search_link . '">Font Aweseom plugin</a> installed and activated to display properly. Your site will be missing icons until you <a href="' . $search_link . '">install this plugin</a>.', 'my-theme' ) . '</p></div>';
+    }
+}
+add_action( 'admin_notices', 'my_theme_dependencies' );
 ?>

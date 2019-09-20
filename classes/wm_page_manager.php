@@ -21,6 +21,7 @@ if ( !class_exists( 'WM_page_manager' ) ){
             // TODO: CLEAN POST TITLE!!!!
             $html = '';
 
+            // NOTE: We wrap the published datetime later
             if( $published == $updated ){
                 $formated_published = date( get_option('date_format'), strtotime( $published ) );
                 $formated_updated = '';
@@ -69,11 +70,11 @@ if ( !class_exists( 'WM_page_manager' ) ){
                 $html .= '</div></article>';
 
             } else {
-                $html = '<article class="wm-article" id="post-' . $post->ID . '"><h1 class="wm-article-title"><a href="#post-' . $post->ID . '">' . $title . '</a></h1>';
+                $html = '<article class="wm-article" id="post-' . $post->ID . '"><h1 class="wm-article-title wm-link wm-disabled">' . $title . '</h1>';
                 $html .= '<div class="wm-article-times">Published <time itemprop="datePublished" datetime="' . $published . '">' . $formated_published . '</time>.';
                 $html .= $formated_updated;
                 $html .= '</div><div class="wm-article-flex-wrapper">';
-                $html .= '<div class="wm-article-content">' . $raw_html . '</div>';
+                $html .= '<div class="wm-article-password">' . $raw_html . '</div>';
                 $html .= '</div></article>';
             }
             return $html;

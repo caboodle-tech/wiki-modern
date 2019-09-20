@@ -17,6 +17,10 @@ body {
     font-family: "Open Sans", sans-serif;
 }
 
+pre {
+    overflow-x: auto;
+}
+
 *, :after, :before {
     box-sizing: border-box;
 }
@@ -69,6 +73,8 @@ body {
 
     @import "controls.less";
 
+    @import "forms.less";
+
     #wm-content-outter-wrapper {
         display: -webkit-box;
         display: -webkit-flex;
@@ -97,6 +103,7 @@ body {
             -ms-flex-direction: column;
             flex-direction: column;
             border-bottom: 1px solid @wm_pg_border_color;
+            overflow: hidden;
 
             #wm-top-controls {
                 width: 100%;

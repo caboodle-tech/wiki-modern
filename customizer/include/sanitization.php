@@ -39,3 +39,18 @@ if ( ! function_exists( 'wm_text_sanitization' ) ) {
 		return $input;
 	}
 }
+
+if ( ! function_exists( 'wm_select_sanitization' ) ) {
+    function wm_select_sanitization( $input, $setting ){
+
+        //input must be a slug: lowercase alphanumeric characters, dashes and underscores are allowed only
+        $input = sanitize_key($input);
+
+        //get the list of possible select options
+        $choices = $setting->manager->get_control( $setting->id )->choices;
+
+        //return input if valid or return default option
+        return ( array_key_exists( $input, $choices ) ? $input : $setting->default );
+
+    }
+}

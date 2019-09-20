@@ -10,18 +10,18 @@
 ?>
 <div id="wm-footer-wrapper">
     <footer id="wm-footer">
-        <div class="wm-footer-column">
-            Column 1
-        </div>
-        <div class="wm-footer-column">
-            Column 2
-        </div>
-        <div class="wm-footer-column">
-            Column 3
-        </div>
-        <div class="wm-footer-column">
-            Column 4
-        </div>
+        <?php
+            $columns = intval( get_theme_mod('wm_footer_column_count') );
+            for( $number = 1; $number <= $columns; $number++ ){
+        ?>
+                <div class="wm-footer-column">
+                    <?php
+                        dynamic_sidebar( 'col' . $number . '_footer_widget' );
+                    ?>
+                </div>
+        <?php
+            }
+        ?>
         <div class="wm-copyright wm-align-center">
             <?php echo wm_auto_copyright() . ' ' .get_bloginfo('name'); ?>. All Rights Reserved.
             <br>

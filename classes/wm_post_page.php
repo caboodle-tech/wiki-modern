@@ -239,6 +239,7 @@ if ( !class_exists( 'WM_posts' ) ){
             * data or default to the standard WordPress Post author.
             */
             if( $this->_aacp ){
+                // TODO: Make the plugin and remove this! The proper way should be to overide this function.
                 /** Gather all authors. */
 
                 /** Gather all co-authors. */

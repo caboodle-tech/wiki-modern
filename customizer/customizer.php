@@ -21,6 +21,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
     /** Load custom classes for Wiki Modern. */
     require( 'classes/wm_customizer_accordion.php' );
     require( 'classes/wm_customizer_notice.php' );
+    require( 'classes/wm_customizer_text_radio_control.php' );
     require( 'classes/wm_customizer_toggle_control.php' );
 
     /** Customizer (panel) JavaScript and CSS files. */

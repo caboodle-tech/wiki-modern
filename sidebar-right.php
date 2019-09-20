@@ -45,7 +45,10 @@
             </table>
         </div>
         <?php
-            /** Close if. */
+            // Right sidebar widget area
+            dynamic_sidebar( 'right_sidebar_widget' );
+
+            // Close IF()
             }
         ?>
     </div>

@@ -20,7 +20,7 @@ get_header();
             <div class="wm-top-row">
                 <div class="wm-left-column">
                     <div class="wm-control-btn" aria-label="Toggle left sidebar: Navigation" onclick="WikiModern.toggle('left-sidebar');">
-                        <i class="far fa-bars"></i>
+                        <i class="fas fa-bars"></i>
                     </div>
                     <div class="wm-control-btn wm-control-for-page" aria-label="Open Print Application" onclick="WikiModern.toggle('print-app');">
                         <i class="fas fa-print"></i>
@@ -30,7 +30,7 @@ get_header();
                     <div class="wm-search-wrapper">
                         <input type="text" placeholder="Search" aria-label="Search">
                         <div class="wm-search-btn" aria-label="Run Search Button">
-                            <i class="far fa-search"></i>
+                            <i class="fas fa-search"></i>
                         </div>
                     </div>
                 </div>

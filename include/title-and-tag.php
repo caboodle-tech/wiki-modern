@@ -7,12 +7,19 @@
 $title = htmlentities( get_bloginfo('name'), ENT_QUOTES );
 $tagline = htmlentities( get_bloginfo('description'), ENT_QUOTES );
 
-// TODO: ADD AND FIX HTML
-
 if( !empty($title) && get_theme_mod('wm_toggle_site_title') ){
-    echo '<div id="wm-site-title">' . $title . '</div>';
+    $align = get_theme_mod('wm_site_title_alignment');
+    if( $align == 'centered' ){ $align = 'center'; }
+    echo '<div id="wm-site-title" class="wm-align-' . $align . '">' . $title . '</div>';
 }
 
 if( !empty($tagline) && get_theme_mod('wm_toggle_tagline') ){
-    echo '<div id="wm-site-tagline">' . $tagline . '</div>';
+    $align = get_theme_mod('wm_site_tagline_alignment');
+    if( $align == 'centered' ){ $align = 'center'; }
+    echo '<div id="wm-site-tagline" class="wm-align-' . $align . '">' . $tagline . '</div>';
+}
+
+// Only show a top navigation separator if there is stuff above the nav.
+if( ( !empty($title) && get_theme_mod('wm_toggle_site_title') ) || ( !empty($tagline) && get_theme_mod('wm_toggle_tagline') ) || !get_theme_mod('wm_toggle_logo') ){
+    echo '<span class="wm-nav-separator" aria-hidden="true"></span>';
 }

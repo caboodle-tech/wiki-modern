@@ -11,7 +11,7 @@
 ?>
 <header id="wm-left-sidebar">
     <div class="wm-mobile-controls">
-        <div class="wm-align-center" onclick="WikiModern.toggle('left-sidebar');">
+        <div class="wm-align-center " onclick="WikiModern.toggle('left-sidebar');">
             <div class="wm-control-btn wm-control-text-btn">
                 <i class="far fa-times"></i> Close
             </div>
@@ -28,21 +28,24 @@
         ?>
     </div>
     <!-- Navigation -->
-    <span class="wm-nav-separator" aria-hidden="true"></span>
     <nav id="wm-nav-container">
         <?php
-            /*
-            if ( has_nav_menu('primary') ){
-                echo 'Primary Menu';
-            } else {
-                echo 'No main menu! Generate a simple default one and warn the user.';
+            if ( has_nav_menu('primary-menu') ){
                 wp_nav_menu( array(
-            		'theme_location' => 'primary',
-            		'walker' => new wm_Walker()
-            	 ) );
+                    'theme_location' => 'primary-menu',
+                    'container' => null,
+                    'menu_class' => 'wm-nav',
+                    'walker' => new wm_Walker()
+                ) );
+            } else {
+                wp_nav_menu( array(
+                    'container' => null,
+                    'fallback_cb' => 'wm_auto_menu',
+                    'menu_class' => 'wm-nav',
+                    'theme_location' => 'primary-menu'
+                ) );
             }
-            */
-            wp_nav_menu( array( 'theme_location' => 'primary-menu', 'container' => null, 'menu_class' => 'wm-nav', 'walker' => new wm_Walker() ) );
+
         ?>
         <!-- DELETE THIS EXAMPLE IN PRODUCTION
         <ul class="wm-nav">
@@ -91,5 +94,8 @@
         </ul> -->
     </nav>
     <span class="wm-nav-separator" aria-hidden="true"></span>
-    <!-- WIDGETS: https://www.wpblog.com/how-to-add-custom-widget-area-to-wordpress-themes/ -->
+    <?php
+        // Left sidebar widget area
+        dynamic_sidebar( 'left_sidebar_widget' );
+    ?>
 </header>

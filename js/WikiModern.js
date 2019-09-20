@@ -113,7 +113,6 @@ var WikiModern = (function(){
 
         recordDevice();
 
-
         var elem = document.getElementById('wm-left-sidebar');
 
         if( status.device == 'mobile' ){

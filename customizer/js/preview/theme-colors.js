@@ -1,6 +1,6 @@
 /**
-* Handles live updates to the website triggered by the user
-* altering theme colors from the Customizer.
+* Handles live updates to the website triggered by the user altering
+* theme colors from the Theme Color panel of the Customizer.
 *
 * @see ../theme-colors.php
 * @since 1.0.0
