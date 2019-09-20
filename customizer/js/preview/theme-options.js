@@ -81,3 +81,59 @@ wp.customize( 'wm_site_tagline_alignment', function( value ) {
         }
     } );
 } );
+
+// Change alignment of the footer column 1
+wp.customize( 'wm_col1_alignment', function( value ) {
+    value.bind( function( val ) {
+        var elem = $('#wm-footer-column-1');
+        if( elem ){
+            $( elem ).removeClass('wm-align-left');
+            $( elem ).removeClass('wm-align-center');
+            $( elem ).removeClass('wm-align-right');
+            if( val == 'centered' ){ val = 'center'; }
+            $( elem ).addClass( 'wm-align-' + val );
+        }
+    } );
+} );
+
+// Change alignment of the footer column 2
+wp.customize( 'wm_col2_alignment', function( value ) {
+    value.bind( function( val ) {
+        var elem = $('#wm-footer-column-2');
+        if( elem ){
+            $( elem ).removeClass('wm-align-left');
+            $( elem ).removeClass('wm-align-center');
+            $( elem ).removeClass('wm-align-right');
+            if( val == 'centered' ){ val = 'center'; }
+            $( elem ).addClass( 'wm-align-' + val );
+        }
+    } );
+} );
+
+// Change alignment of the footer column 3
+wp.customize( 'wm_col3_alignment', function( value ) {
+    value.bind( function( val ) {
+        var elem = $('#wm-footer-column-3');
+        if( elem ){
+            $( elem ).removeClass('wm-align-left');
+            $( elem ).removeClass('wm-align-center');
+            $( elem ).removeClass('wm-align-right');
+            if( val == 'centered' ){ val = 'center'; }
+            $( elem ).addClass( 'wm-align-' + val );
+        }
+    } );
+} );
+
+// Change alignment of the footer column 4
+wp.customize( 'wm_col4_alignment', function( value ) {
+    value.bind( function( val ) {
+        var elem = $('#wm-footer-column-4');
+        if( elem ){
+            $( elem ).removeClass('wm-align-left');
+            $( elem ).removeClass('wm-align-center');
+            $( elem ).removeClass('wm-align-right');
+            if( val == 'centered' ){ val = 'center'; }
+            $( elem ).addClass( 'wm-align-' + val );
+        }
+    } );
+} );

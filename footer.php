@@ -21,7 +21,7 @@
                 if( $align == 'centered' ){ $align = 'center'; }
 
                 // Output the correct HTML and content for this column
-                echo '<div class="wm-footer-column wm-align-' . $align . '">';
+                echo '<div id="wm-footer-column-' . $number . '" class="wm-footer-column wm-align-' . $align . '">';
                 dynamic_sidebar( 'col' . $number . '_footer_widget' );
                 echo '</div>';
             }
