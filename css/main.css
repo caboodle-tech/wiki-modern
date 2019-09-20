@@ -81,6 +81,11 @@ pre {
   border-color: #EEEEEE;
   background-color: #F9F9F9;
 }
+#wm-page-wrapper .wm-control-btn a {
+  display: block;
+  text-decoration: none;
+  color: #2487D7;
+}
 #wm-page-wrapper .wm-control-text-btn {
   padding: 0 0.75rem;
 }

@@ -72,9 +72,17 @@ get_header();
         <footer id="wm-bottom-controls">
             <div class="wm-top-row">
                 <div class="wm-left-column">
+                    <?php
+                        $next_post = get_next_post();
+                        if (!empty( $next_post )){
+                            $next_post = get_permalink( $next_post->ID );
+                    ?>
                     <div class="wm-control-btn wm-control-text-btn wm-float-left" aria-label="Next Article">
-                        <i class="fas fa-angle-left wm-bump-btn-icon"></i> Next
+                        <a href="<?php echo $next_post; ?>"><i class="fas fa-angle-left wm-bump-btn-icon"></i> Next</a>
                     </div>
+                    <?php
+                        }
+                    ?>
                 </div>
                 <div class="wm-middle-column">
                     <div class="wm-control-btn wm-control-text-btn wm-float-left" aria-label="Open Article" onclick="WikiModern.toggle('bottom-show-article');">
@@ -85,9 +93,17 @@ get_header();
                     </div>
                 </div>
                 <div class="wm-right-column">
+                    <?php
+                        $previous_post = get_previous_post();
+                        if (!empty( $previous_post )){
+                            $previous_post = get_permalink( $previous_post->ID );
+                    ?>
                     <div class="wm-control-btn wm-control-text-btn wm-float-right" aria-label="Previous Article">
-                        Previous <i class="fas fa-angle-right wm-bump-btn-icon"></i>
+                        <a href="<?php echo $previous_post; ?>">Previous <i class="fas fa-angle-right wm-bump-btn-icon"></i></a>
                     </div>
+                    <?php
+                        }
+                    ?>
                 </div>
             </div>
         </footer>
@@ -115,7 +131,7 @@ get_header();
 ?>
 <div id="wm-image-carousel">
     <div class="wm-control-btn wm-close" onclick="WikiModern.toggle('image-carousel');">
-        <i class="far fa-times"></i>
+        <i class="fas fa-times"></i>
     </div>
     <div class="wm-control-btn" onclick="WikiModern.carouselRotate('left');">
         <i class="fas fa-angle-left"></i>
@@ -128,7 +144,7 @@ get_header();
 </div>
 <div id="wm-print-wrapper">
     <div class="wm-control-btn" onclick="WikiModern.toggle('print-app');">
-        <i class="far fa-times"></i>
+        <i class="fas fa-times"></i>
     </div>
 </div>
 <!-- Record the root URL to the theme directory for WikiModern.js -->
