@@ -304,6 +304,18 @@ pre {
 
             @import "navigation.less";
 
+            @import (multiple) "widgets.less";
+
+            .wm-widget {
+                form {
+                    input[type=submit], input[type=button] {
+                        display: block;
+                        text-align: center;
+                        margin: 0.25rem auto;
+                    }
+                }
+            }
+
             @media ( max-width: 949px ) {
                 -webkit-box-shadow: 4px 0px 8px 0px rgba(0, 0, 0, 0.25);
                 -moz-box-shadow: 4px 0px 8px 0px rgba(0, 0, 0, 0.25);
@@ -343,45 +355,14 @@ pre {
                 }
             }
 
+            @import (multiple) "widgets.less";
+
             .wm-widget {
-                display: block;
-                margin-right: 15px;
-                // MUST DO THE PREVIOUS LINE TO THE LEFT SIDEBAR TOO!!!???
-
-                .wm-widget-title {
-                    padding: 5px 0;
-                    font-weight: bold;
-                    font-size: 1.5rem;
-                    border-bottom: 1px solid @wm_pg_border_color;
-                }
-            }
-
-            .wm-widget-content {
-                padding: 5px 0;
-
-                table {
-                    display: inline-block;
-                }
-
-                .wm-widget-sub-title {
-
-                    td {
-                        padding-top: 10px;
-                        font-weight: bold;
-                    }
-                }
-
-                .wm-widget-info {
-
-                    td {
-                        padding-left: 15px;
-                    }
-                }
-
-                .wm-widget-info {
-
-                    .wm-tags {
-                        color: @wm_saf_a;
+                form {
+                    input[type=submit], input[type=button] {
+                        display: block;
+                        text-align: center;
+                        margin: 0.25rem auto;
                     }
                 }
             }
@@ -428,13 +409,15 @@ pre {
 
         .wm-footer-column{
             flex: 1 0 auto;
-            padding: 1rem 0;
+            padding: 1rem 1rem 0.5rem 1rem;
         }
 
         .wm-copyright {
             flex: 1 100%;
             padding: 1rem 0;
         }
+
+        @import (multiple) "widgets.less";
     }
 }
 

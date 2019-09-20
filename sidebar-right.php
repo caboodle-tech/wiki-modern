@@ -22,15 +22,15 @@
     <div id="wm-featured-image-container">
         <!--<img id="wm-featured-image" src="https://wikiwp.com/wp-content/uploads/dummyImage07-1600x2409.jpg">-->
     </div>
-    <div class="wm-widget">
-        <?php
-            /** Show the post meta information only on actual post pages. */
-            if ( !is_page() && is_singular() ){
-                /** Reference the global class for Post pages. */
-                global $WM_posts;
+    <?php
+        /** Show the post meta information only on actual post pages. */
+        if ( !is_page() && is_singular() ){
+            /** Reference the global class for Post pages. */
+            global $WM_posts;
 
-                // TODO: Change hard coded Post Information to site language.
-        ?>
+            // TODO: Change hard coded Post Information to site language.
+    ?>
+    <div class="wm-widget">
         <div class="wm-widget-title">
             Post Information
         </div>
@@ -44,12 +44,12 @@
                 ?>
             </table>
         </div>
-        <?php
-            // Right sidebar widget area
-            dynamic_sidebar( 'right_sidebar_widget' );
-
-            // Close IF()
-            }
-        ?>
     </div>
+    <?php
+        // Right sidebar widget area
+        dynamic_sidebar( 'right_sidebar_widget' );
+
+        // Close IF()
+        }
+    ?>
 </aside>

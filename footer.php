@@ -2,8 +2,9 @@
 /**
 * The footer for the Wiki Modern theme.
 *
-* Displays the pages footer section followed by any JavaScript called in the
-* footer of the theme and the closing <body> and <html> tag.
+* Displays the pages footer section. NOTE: The main page (index.php) handles
+* loading JavaScript files called in the footer of the theme and the closing
+* <body> and <html> tag, not this file.
 *
 * @package Wiki Modern Theme
 */
@@ -11,15 +12,18 @@
 <div id="wm-footer-wrapper">
     <footer id="wm-footer">
         <?php
+            // Display the amount of columns the user seleted in the customizer
             $columns = intval( get_theme_mod('wm_footer_column_count') );
             for( $number = 1; $number <= $columns; $number++ ){
-        ?>
-                <div class="wm-footer-column">
-                    <?php
-                        dynamic_sidebar( 'col' . $number . '_footer_widget' );
-                    ?>
-                </div>
-        <?php
+
+                // Get the text alignment setting for this column
+                $align = get_theme_mod('wm_col' . $number . '_alignment');
+                if( $align == 'centered' ){ $align = 'center'; }
+
+                // Output the correct HTML and content for this column
+                echo '<div class="wm-footer-column wm-align-' . $align . '">';
+                dynamic_sidebar( 'col' . $number . '_footer_widget' );
+                echo '</div>';
             }
         ?>
         <div class="wm-copyright wm-align-center">

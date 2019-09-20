@@ -1,103 +1,4 @@
-/**
-* Styles used to create a toogle button.
-*
-* @see ../classes/wm_customizer_toggle_control.php
-*/
 
-* ==========================================================================
-   Toggle Switch
-   ========================================================================== */
-.toggle-switch-control .customize-control-title {
-	display: inline-block;
-}
-
-.toggle-switch {
-	position: relative;
-	width: 64px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	float: right;
-}
-
-.toggle-switch .toggle-switch-checkbox {
-	display: none;
-}
-
-.toggle-switch .toggle-switch-label {
-	display: block;
-	overflow: hidden;
-	cursor: pointer;
-	border: 2px solid #ddd;
-	border-radius: 20px;
-	padding: 0;
-	margin: 0;
-    width: 50px;
-    float: right;
-}
-
-.toggle-switch-inner {
-	display: block;
-	width: 200%;
-	margin-left: -100%;
-	transition: margin 0.3s ease-in 0s;
-}
-
-.toggle-switch-inner:before,
-.toggle-switch-inner:after {
-	display: block;
-	float: left;
-	width: 50%;
-	height: 22px;
-	padding: 0;
-	line-height: 22px;
-	font-size: 14px;
-	color: white;
-	box-sizing: border-box;
-}
-
-.toggle-switch-inner:before {
-	content: "";
-	padding-left: 8px;
-	background-color: #2885bb;
-	color: #FFFFFF;
-}
-
-.toggle-switch-inner:after {
-	content: "";
-	padding-right: 8px;
-	background-color: #EEEEEE;
-	color: #999999;
-	text-align: right;
-}
-
-.toggle-switch-switch {
-	display: block;
-	width: 16px;
-	margin: 3px;
-	background: #FFFFFF;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 28px;
-	border: 2px solid #ddd;
-	border-radius: 20px;
-	transition: all 0.3s ease-in 0s;
-}
-
-.toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-inner {
-	margin-left: 0;
-}
-
-.toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-switch {
-    right: 1px;
-    margin: 4px;
-    width: 14px;
-}
-
-/* ==========================================================================
-   Text Radio Buttons
-   ========================================================================== */
 .text_radio_button_control:after {
 	content: " ";
 	display: block;
@@ -132,4 +33,84 @@
 }
 .text_radio_button_control .radio-button-label > input:checked + span:hover {
 	color: #fff;
+}
+* ==========================================================================
+   Toggle Switch
+   ========================================================================== */
+.toggle-switch-control .customize-control-title {
+	display: inline-block;
+}
+.toggle-switch {
+	position: relative;
+	width: 64px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	float: right;
+}
+.toggle-switch .toggle-switch-checkbox {
+	display: none;
+}
+.toggle-switch .toggle-switch-label {
+	display: block;
+	overflow: hidden;
+	cursor: pointer;
+	border: 2px solid #ddd;
+	border-radius: 20px;
+	padding: 0;
+	margin: 0;
+    width: 50px;
+    float: right;
+}
+.toggle-switch-inner {
+	display: block;
+	width: 200%;
+	margin-left: -100%;
+	transition: margin 0.3s ease-in 0s;
+}
+.toggle-switch-inner:before,
+.toggle-switch-inner:after {
+	display: block;
+	float: left;
+	width: 50%;
+	height: 22px;
+	padding: 0;
+	line-height: 22px;
+	font-size: 14px;
+	color: white;
+	box-sizing: border-box;
+}
+.toggle-switch-inner:before {
+	content: "";
+	padding-left: 8px;
+	background-color: #2885bb;
+	color: #FFFFFF;
+}
+.toggle-switch-inner:after {
+	content: "";
+	padding-right: 8px;
+	background-color: #EEEEEE;
+	color: #999999;
+	text-align: right;
+}
+.toggle-switch-switch {
+	display: block;
+	width: 16px;
+	margin: 3px;
+	background: #FFFFFF;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 28px;
+	border: 2px solid #ddd;
+	border-radius: 20px;
+	transition: all 0.3s ease-in 0s;
+}
+.toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-inner {
+	margin-left: 0;
+}
+.toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-switch {
+    right: 1px;
+    margin: 4px;
+    width: 14px;
 }
