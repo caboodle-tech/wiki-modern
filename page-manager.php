@@ -2,6 +2,9 @@
 // Are we in a position that we can and should show a page?
 if ( is_main_query() ) {
 
+    // Pull in pagination function
+    require( get_template_directory() . '/include/wm-pagination.php' );
+
     // Show 404 page.
     if ( is_404() ) {
 
@@ -18,7 +21,12 @@ if ( is_main_query() ) {
 
     // Show the default blog Home page with the latest posts.
     if ( is_home() ) {
+
+        echo wm_pagination( 'top' );
+
         $WM_page_manager->get_home_page();
+
+        echo wm_pagination( 'bottom' );
     } else {
 
         // Show Static Front page if set.
@@ -30,6 +38,20 @@ if ( is_main_query() ) {
     // Show Archive / Category page but NOT the Search page.
     if ( is_archive() && !is_search() ) {
         echo 'Archive / Category Page<br>';
+
+        //Kint::dump( $wp_query );
+        echo wm_pagination( 'top' );
+
+        echo 'Page';
+
+        echo wm_pagination( 'bottom' );
+
+        // NOTE: Just use the same URL that was requested and append or change page to page # you need
+        //
+        // ??? get current URL
+        // $wp_query->requested            => The raw SQL used to display this whole search. Limit is used to only pull in that many post of X found.
+        // $wp_query->found_posts          => Number of posts found (published and protected posts)
+        // $wp_query->max_number_pages     => How many pages needed to show all post (pagination pages)
     }
 
     // Show the Search page.
@@ -49,7 +71,7 @@ if ( is_main_query() ) {
         // TODO TODO TODO
         // REDO THIS SECTION TO USE get_post() no need for all the extra work
         //     Kint::dump(get_post());
-        
+
         echo '[[Post Page]]<br>';
         // $WM_posts have been called in already by the right sidebar
         // TODO: Move this check from the right sidebar code to the header???

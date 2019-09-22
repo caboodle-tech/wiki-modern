@@ -42,6 +42,11 @@ var WikiModern = (function(){
         }
     };
 
+    var dropdown = function(){
+        var elem = event.target || event.srcElement;
+        console.log( elem );
+    };
+
     /**
     * Using a hidden div calculate the width of scroll bars in the users browser.
     * @returns {integer} The width in pixels of a scroll bar in the users browser.
@@ -628,6 +633,7 @@ var WikiModern = (function(){
 
     return {
         'carouselRotate': carouselRotate,
+        'dropdown': dropdown,
         'navigate': navigate,
         'status': getStatus,
         'toggle': toggle

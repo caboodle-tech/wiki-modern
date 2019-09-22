@@ -75,6 +75,10 @@ pre {
 
     @import "forms.less";
 
+    @import "inline-dropdown.less";
+
+    @import "pagination.less";
+
     #wm-content-outter-wrapper {
         display: -webkit-box;
         display: -webkit-flex;
@@ -104,6 +108,10 @@ pre {
             flex-direction: column;
             border-bottom: 1px solid @wm_pg_border_color;
             overflow: hidden;
+
+            .wm-link, .a {
+                color: @wm_saf_a;
+            }
 
             #wm-top-controls {
                 width: 100%;

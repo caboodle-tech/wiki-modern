@@ -373,6 +373,85 @@ pre {
   content: "";
   display: table;
 }
+#wm-page-wrapper .wm-inline-dropdown {
+  display: inline-block;
+  position: relative;
+  padding-right: 18px;
+  border-bottom: 2px dashed #EEEEEE;
+  z-index: 500;
+}
+#wm-page-wrapper .wm-inline-dropdown .wm-inline-options {
+  position: absolute;
+  left: -1px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #EEEEEE;
+  color: #000000;
+  background-color: #FFFFFF;
+  list-style-type: none;
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
+  box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
+}
+#wm-page-wrapper .wm-inline-dropdown .wm-inline-options li {
+  display: block;
+  padding: 0.25rem 0.5rem;
+}
+#wm-page-wrapper .wm-inline-dropdown .wm-inline-options:hover {
+  cursor: pointer;
+}
+#wm-page-wrapper .wm-inline-dropdown:after {
+  content: '';
+  position: absolute;
+  right: 1px;
+  top: 37%;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 10px solid #000000;
+  border-bottom: none;
+}
+#wm-page-wrapper .wm-inline-dropdown:hover {
+  cursor: pointer;
+}
+#wm-page-wrapper .wm-position-bottom .wm-inline-dropdown .wm-inline-options {
+  bottom: 2rem;
+}
+#wm-page-wrapper .wm-position-bottom .wm-inline-dropdown:after {
+  content: '';
+  position: absolute;
+  right: 1px;
+  top: 37%;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 10px solid #000000;
+  border-top: none;
+}
+#wm-page-wrapper .wm-position-bottom .wm-inline-dropdown:hover {
+  cursor: pointer;
+}
+#wm-page-wrapper .wm-pagination {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+#wm-page-wrapper .wm-pagination .wm-pagination-column {
+  font-size: 1.5rem;
+  flex: 1 0 auto;
+  padding: 1rem 0 1rem 0;
+}
+#wm-page-wrapper .wm-pagination .wm-left {
+  text-align: left;
+}
+#wm-page-wrapper .wm-pagination .wm-center {
+  text-align: center;
+}
+#wm-page-wrapper .wm-pagination .wm-right {
+  text-align: right;
+}
 #wm-page-wrapper #wm-content-outter-wrapper {
   display: -webkit-box;
   display: -webkit-flex;
@@ -402,6 +481,10 @@ pre {
   flex-direction: column;
   border-bottom: 1px solid #EEEEEE;
   overflow: hidden;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper .wm-link,
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper .a {
+  color: #2487D7;
 }
 #wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-top-controls {
   width: 100%;
