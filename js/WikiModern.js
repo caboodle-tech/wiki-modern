@@ -46,8 +46,8 @@ var WikiModern = (function(){
         var elem = event.target || event.srcElement;
 
         // This dropdown is for changing the post per page
-        if( elem.dataset.wmOptionValue ){
-            var value = elem.dataset.wmOptionValue;
+        if( elem.dataset.wmShowValue ){
+            var value = elem.dataset.wmShowValue;
             var cookie = elem.parentElement.dataset.wmCookieName;
 
             document.cookie = cookie + '=' + value + '; expires=' + getTimestamp() + '; path=/';
@@ -55,7 +55,12 @@ var WikiModern = (function(){
         }
 
         // This dropdown is for changing the current page
-        //...
+        if( elem.dataset.wmLinkValue ){
+            var value = elem.dataset.wmLinkValue;
+            //var cookie = elem.parentElement.dataset.wmCookieName;
+            //document.cookie = cookie + '=' + value + '; expires=' + getTimestamp() + '; path=/';
+            window.location.href = value;
+        }
 
         // The user is toggling a dropdown, open or close it as needed
         if( elem.dataset.wmDropdown ){

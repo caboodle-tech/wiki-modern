@@ -21,6 +21,25 @@ if( !function_exists( 'wm_pagination' ) ){
             $reverse = true;
         }
 
+        // Get the pagination links but remove all the HTML code
+        $links = paginate_links( ['type' => 'array', 'prev_next' => false, 'show_all' => true] );
+        foreach( $links as $key => $value ){
+
+            // Is this actually a link or the current page HTML?
+            if( strpos( $value, '</a>') !== false ){
+
+                // Try to pull a URL out
+                preg_match( '/href=(["\'])([^\1]*)\1/i', $value, $matches );
+                if( isset( $matches[2] ) ){
+                    $links[ $key ] = $matches[2];
+                    // Restart loop so we don't NULL this index out
+                    continue;
+                }
+            }
+
+            // Anything not actually a link should be ignored
+            $links[ $key ] = NULL;
+        }
 
         $current_page = $wp_query->query_vars['paged'];
         if( $current_page < 1 ){ $current_page = 1; }
@@ -41,7 +60,7 @@ if( !function_exists( 'wm_pagination' ) ){
             $pagination .= ' results.</div>';
         }
 
-        $pagination .= '<div class="wm-pagination-column wm-center"><i class="fas fa-newspaper wm-link"></i> ' . wm_inline_dropdown( 'wm_post_limit', $wp_query->post_count, 10, 50, $reverse );
+        $pagination .= '<div class="wm-pagination-column wm-center"><i class="fas fa-newspaper wm-link"></i> ' . wm_inline_dropdown( 'wm_post_limit', $wp_query->post_count, 10, 50, $reverse, $links );
 
         if( $wp_query->found_posts == 1 ){
             $pagination .= ' post showing.</div>';
@@ -49,7 +68,7 @@ if( !function_exists( 'wm_pagination' ) ){
             $pagination .= ' posts showing.</div>';
         }
 
-        $pagination .= '<div class="wm-pagination-column wm-right"><i class="fas fa-file-alt wm-link"></i> Page ' . wm_inline_dropdown( 'wm_view_page', $current_page, 1, $max_page, $reverse ) . ' of ' . $max_page . '.</div></div>';
+        $pagination .= '<div class="wm-pagination-column wm-right"><i class="fas fa-file-alt wm-link"></i> Page ' . wm_inline_dropdown( 'wm_view_page', $current_page, 1, $max_page, $reverse, $links ) . ' of ' . $max_page . '.</div></div>';
 
         echo $pagination;
     }

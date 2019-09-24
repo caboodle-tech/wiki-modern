@@ -82,6 +82,9 @@ if ( !class_exists( 'WM_page_manager' ) ){
 
         public function get_home_page(){
 
+            global $wp_query;
+            
+            /*
             // Bring in the database class
             global $wpdb;
 
@@ -127,8 +130,10 @@ if ( !class_exists( 'WM_page_manager' ) ){
             // Merge the array of sticky posts with normal posts
             $normal_result = array_merge( $sticky_result, $normal_result );
 
+            Kint::dump( $normal_result );*/
+
             // Display the posts
-            foreach( $normal_result as $post ){
+            foreach( $wp_query->posts as $post ){
 
                 setup_postdata( $post );
 
