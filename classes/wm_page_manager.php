@@ -86,7 +86,7 @@ if ( !class_exists( 'WM_page_manager' ) ){
             global $wpdb;
 
             // Get the post limit from settings: Settings > Reading > Blog pages show at most
-            $post_limit = get_option( 'posts_per_page' );
+            $post_limit = POST_PER_PAGE;
 
             // Force at least 1 post to be shown.
             if( $post_limit < 1 ){

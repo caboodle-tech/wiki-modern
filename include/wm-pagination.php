@@ -16,6 +16,12 @@ if( !function_exists( 'wm_pagination' ) ){
                 $position = 'wm-position-bottom';
         }
 
+        $reverse = false;
+        if( $position == 'wm-position-bottom' ){
+            $reverse = true;
+        }
+
+
         $current_page = $wp_query->query_vars['paged'];
         if( $current_page < 1 ){ $current_page = 1; }
 
@@ -35,7 +41,7 @@ if( !function_exists( 'wm_pagination' ) ){
             $pagination .= ' results.</div>';
         }
 
-        $pagination .= '<div class="wm-pagination-column wm-center"><i class="fas fa-newspaper wm-link"></i> ' . wm_inline_dropdown( 'wm_post_limit', $wp_query->post_count, 10, 50 );
+        $pagination .= '<div class="wm-pagination-column wm-center"><i class="fas fa-newspaper wm-link"></i> ' . wm_inline_dropdown( 'wm_post_limit', $wp_query->post_count, 10, 50, $reverse );
 
         if( $wp_query->found_posts == 1 ){
             $pagination .= ' post showing.</div>';
@@ -43,7 +49,7 @@ if( !function_exists( 'wm_pagination' ) ){
             $pagination .= ' posts showing.</div>';
         }
 
-        $pagination .= '<div class="wm-pagination-column wm-right"><i class="fas fa-file-alt wm-link"></i> Page ' . wm_inline_dropdown( 'wm_view_page', $current_page, 1, $max_page ) . ' of ' . $max_page . '.</div></div>';
+        $pagination .= '<div class="wm-pagination-column wm-right"><i class="fas fa-file-alt wm-link"></i> Page ' . wm_inline_dropdown( 'wm_view_page', $current_page, 1, $max_page, $reverse ) . ' of ' . $max_page . '.</div></div>';
 
         echo $pagination;
     }

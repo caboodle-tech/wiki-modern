@@ -180,4 +180,26 @@ function my_theme_dependencies() {
     }
 }
 add_action( 'admin_notices', 'my_theme_dependencies' );
+
+$post_per_page = get_option( 'posts_per_page' );
+if( isset( $_COOKIE['wm_post_limit'] ) ){
+    $limit = intval( strip_tags ( $_COOKIE['wm_post_limit'] ) );
+    if( $limit < 0 || $limit > 100 ){
+        $limit = 50;
+    }
+    $post_per_page = $limit;
+}
+
+
+define( 'POST_PER_PAGE', $post_per_page );
+
+function set_posts_per_page( $query ) {
+
+    global $wp_the_query;
+
+    $query->set( 'posts_per_page', POST_PER_PAGE );
+
+    return $query;
+}
+add_action( 'pre_get_posts',  'set_posts_per_page'  );
 ?>

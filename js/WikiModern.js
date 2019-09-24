@@ -44,7 +44,35 @@ var WikiModern = (function(){
 
     var dropdown = function(){
         var elem = event.target || event.srcElement;
-        console.log( elem );
+
+        // This dropdown is for changing the post per page
+        if( elem.dataset.wmOptionValue ){
+            var value = elem.dataset.wmOptionValue;
+            var cookie = elem.parentElement.dataset.wmCookieName;
+
+            document.cookie = cookie + '=' + value + '; expires=' + getTimestamp() + '; path=/';
+            location.reload();
+        }
+
+        // This dropdown is for changing the current page
+        //...
+
+        // The user is toggling a dropdown, open or close it as needed
+        if( elem.dataset.wmDropdown ){
+            var value = elem.dataset.wmDropdown;
+
+            if( value == 'open' ){
+                // Close
+                elem.classList.remove("wm-dropdown-open");
+                elem.classList.add("wm-dropdown-closed");
+                elem.dataset.wmDropdown = 'closed';
+            } else {
+                // Open
+                elem.classList.remove("wm-dropdown-closed");
+                elem.classList.add("wm-dropdown-open");
+                elem.dataset.wmDropdown = 'open';
+            }
+        }
     };
 
     /**
@@ -60,6 +88,23 @@ var WikiModern = (function(){
     /** Returns the status (state) of Wiki Modern to the user. Meant for debugging only. */
     var getStatus = function(){
         return status;
+    };
+
+    var getTimestamp = function(){
+        var date = new Date();
+        date = date.setMonth( date.getMonth() + 1 );
+
+        // We have to convert back to a date object
+        date = new Date( date );
+        var days = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ];
+        var months = [ 'Jan', 'Feb', 'Mar', 'April', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var hours = date.getHours();
+        if( hours < 10 ){ hours = '0' + hours; }
+        var minutes = date.getMinutes();
+        if( minutes < 10 ){ minutes = '0' + minutes; }
+        var seconds = date.getSeconds();
+        if( seconds < 10 ){ seconds = '0' + seconds; }
+        return days[ date.getDay() ] + ', ' + date.getDate() + ' ' + months[ date.getMonth() ] + ' ' + date.getFullYear() + ' ' +  hours + ':' + minutes + ':' + seconds + ' UTC';
     };
 
     /**
