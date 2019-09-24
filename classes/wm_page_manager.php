@@ -83,7 +83,7 @@ if ( !class_exists( 'WM_page_manager' ) ){
         public function get_home_page(){
 
             global $wp_query;
-            
+
             /*
             // Bring in the database class
             global $wpdb;

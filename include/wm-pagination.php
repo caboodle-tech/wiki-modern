@@ -23,22 +23,26 @@ if( !function_exists( 'wm_pagination' ) ){
 
         // Get the pagination links but remove all the HTML code
         $links = paginate_links( ['type' => 'array', 'prev_next' => false, 'show_all' => true] );
-        foreach( $links as $key => $value ){
 
-            // Is this actually a link or the current page HTML?
-            if( strpos( $value, '</a>') !== false ){
+        if( isset( $links ) ){
+            foreach( $links as $key => $value ){
 
-                // Try to pull a URL out
-                preg_match( '/href=(["\'])([^\1]*)\1/i', $value, $matches );
-                if( isset( $matches[2] ) ){
-                    $links[ $key ] = $matches[2];
-                    // Restart loop so we don't NULL this index out
-                    continue;
+                // Is this actually a link or the current page HTML?
+                if( strpos( $value, '</a>') !== false ){
+
+                    // Try to pull a URL out
+                    preg_match( '/href=(["\'])([^\1]*)\1/i', $value, $matches );
+                    if( isset( $matches[2] ) ){
+                        $links[ $key ] = $matches[2];
+                        // Restart loop so we don't NULL this index out
+                        continue;
+                    }
                 }
-            }
 
-            // Anything not actually a link should be ignored
-            $links[ $key ] = NULL;
+                // Anything not actually a link should be ignored
+                $links[ $key ] = NULL;
+            }
+            unset( $value );
         }
 
         $current_page = $wp_query->query_vars['paged'];
