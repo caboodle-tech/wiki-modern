@@ -81,6 +81,10 @@ if ( is_main_query() ) {
         $d = $WM_posts->get_post_page_dates_raw();
 ?>
     <article class="wm-article-content">
+        <div class="wm-article-title">
+<?php
+        echo $WM_posts->get_post_title() . '</div>';
+?>
         <div class="wm-article-meta">
 <?php
     $published = date_create_from_format( get_option('date_format'), $d[0] );
@@ -93,16 +97,13 @@ if ( is_main_query() ) {
         $updated = date_create_from_format( get_option('date_format'), $d[1] );
         $updated = $updated->format('Y-m-d') . ' 00:00';
 
-        $html .= ' (Updated <time datetime="' . $updated . '" title="updated">' . $d[1] . '</time>)';
+        $html .= ' Updated <time datetime="' . $updated . '" title="updated">' . $d[1] . '</time>.';
     }
 
     echo $html . '</div>';
 ?>
         </div>
-        <div class="wm-article-title">
 <?php
-    echo $WM_posts->get_post_title() . '</div>';
-
     echo $WM_posts->get_post_page_content();
 ?>
     </article>

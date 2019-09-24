@@ -107,6 +107,41 @@ get_header();
                 </div>
             </div>
         </footer>
+        <div id="wm-print-wrapper">
+            <div id="wm-print-close-btn" class="wm-control-btn" onclick="WikiModern.toggle('print-app');">
+                <i class="fas fa-times"></i>
+            </div>
+            <div id="wm-print-controls">
+                <div class="wm-section-title">Hide Document Parts:</div>
+                <div id="wm-print-controls-hide-options">
+                    <div class="wm-option" onclick="WikiModern.toggle('print-hide-images');">
+                        <i class="fas fa-image wm-icon"></i>
+                        <span class="wm-title">Images</span>
+                    </div>
+                    <div class="wm-option" onclick="WikiModern.toggle('print-hide-video');">
+                        <i class="fas fa-film wm-icon"></i>
+                        <span class="wm-title">Videos</span>
+                    </div>
+                    <div class="wm-option" onclick="WikiModern.toggle('print-hide-forms');">
+                        <i class="fas fa-receipt wm-icon"></i>
+                        <span class="wm-title">Forms</span>
+                    </div>
+                    <div class="wm-option">
+                        <i class="fas fa-qrcode wm-icon" onclick="WikiModern.toggle('print-hide-qr');"></i>
+                        <span class="wm-title">QR Code</span>
+                    </div>
+                </div>
+                <div class="wm-section-title">Output Options:</div>
+                <div id="wm-print-controls-output-options">
+                    <div class="wm-option">
+                        <i class="fas fa-print"></i> Print Document
+                    </div>
+                    <div class="wm-option">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <?php
         /**
@@ -140,11 +175,6 @@ get_header();
     </div>
     <div class="wm-control-btn" onclick="WikiModern.carouselRotate('right');">
         <i class="fas fa-angle-right"></i>
-    </div>
-</div>
-<div id="wm-print-wrapper">
-    <div class="wm-control-btn" onclick="WikiModern.toggle('print-app');">
-        <i class="fas fa-times"></i>
     </div>
 </div>
 <!-- Record the root URL to the theme directory for WikiModern.js -->

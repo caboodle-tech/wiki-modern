@@ -262,21 +262,27 @@ var WikiModern = (function(){
                 }
                 break;
             case 'print-app':
-                // TODO: Finish
                 var container = document.getElementById('wm-page-wrapper');
                 if( container.dataset.wmPrinterStatus == 0 ){
-                    // Open
-                    document.getElementById('wm-content-outter-wrapper').style.display = 'none';
-                    document.getElementById('wm-footer-wrapper').style.display = 'none';
-                    document.getElementById('wm-print-wrapper').style.display = 'block';
+                    // Open print mode
+                    container.classList.add('wm-print-mode');
                     container.dataset.wmPrinterStatus = 1;
                 } else {
-                    // Close
-                    // CAN NOT DO THIS LATER BECAUSE FLEX PREFIXES. ADD AND REMOVE A CLASS INSTEAD.
-                    document.getElementById('wm-content-outter-wrapper').style.display = 'flex';
-                    document.getElementById('wm-footer-wrapper').style.display = 'block';
-                    document.getElementById('wm-print-wrapper').style.display = 'none';
+                    // Close print mode
+                    container.classList.remove('wm-print-mode');
                     container.dataset.wmPrinterStatus = 0;
+                }
+                break;
+            case 'print-hide-images':
+                var container = document.getElementById('wm-page-wrapper');
+                if( container.dataset.wmPrinterImages == 0 ){
+                    // Hide images on print
+                    container.classList.add('wm-print-noimage');
+                    container.dataset.wmPrinterImages = 1;
+                } else {
+                    // Show images on print
+                    container.classList.remove('wm-print-noimage');
+                    container.dataset.wmPrinterImages = 0;
                 }
                 break;
             case 'right-sidebar':
@@ -662,6 +668,7 @@ var WikiModern = (function(){
         /** Set printer state to off when page first loads. */
         var container = document.getElementById('wm-page-wrapper');
         container.dataset.wmPrinterStatus = 0;
+        container.dataset.wmPrinterImages = 0;
 
         /** Set image carousel state to off when page first loads. */
         container = document.getElementById('wm-image-carousel');

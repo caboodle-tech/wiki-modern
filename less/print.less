@@ -1,37 +1,122 @@
 #wm-print-wrapper {
     display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2000;
-    width: 100%;
-    min-height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    background-color: #fff;
+}
 
-    .wm-control-btn {
-        position: absolute;
-        top: 15px;
-        right: 15px;
+&.wm-print-mode {
+
+    #wm-left-sidebar, #wm-right-sidebar, #wm-footer-wrapper, #wm-top-controls, #wm-bottom-controls, .wm-pagination {
+        display: none;
+    }
+
+    .wm-article-meta {
+        display: block;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid @wm_pg_border_color;
+    }
+
+    #wm-print-controls {
         display: inline-block;
-        height: 3rem;
-        min-width: 3rem;
-        line-height: 3rem;
-        font-size: 1.5rem;
-        text-align: center;
+        position: absolute;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        padding: .5rem 1rem;
+        min-width: 250px;
+        max-width: 500px;
+        font-size: 1.25rem;
         vertical-align: middle;
-        color: @wm_pg_btn;
+        color: @wm_pg_color;
         border: 1px solid @wm_pg_border_color;
         background-color: @wm_saf_bg_color;
-        z-index: 5;
 
         .box-shadow();
 
-        &:hover {
-            cursor: pointer;
-            border-color: @wm_pg_border_color_hover;
-            background-color: @wm_pg_btn_bg_color;
+        .wm-title {
+            display: block;
+            font-weight: bold;
         }
+
+        .wm-section-title {
+            display: block;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        #wm-print-controls-hide-options {
+            display: flex;
+
+            .wm-option {
+                display: inline-block;
+                width: 7rem;
+                margin: .35rem;
+                padding: .35rem;
+                text-align: center;
+                border: 1px solid;
+                cursor: pointer;
+                color: @wm_pg_btn;
+
+                .wm-icon {
+                    font-size: 2rem;
+                }
+
+                &:first-of-type {
+                    margin-left: 0;
+                }
+
+                &:last-of-type {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        #wm-print-controls-output-options {
+            display: flex;
+
+            .wm-option {
+                display: inline-block;
+                width: 50%;
+                margin: .35rem;
+                padding: .5rem .35rem;
+                text-align: center;
+                border: 1px solid;
+                cursor: pointer;
+                color: @wm_pg_btn;
+
+                &:first-of-type {
+                    margin-left: 0;
+                }
+
+                &:last-of-type {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+    #wm-print-wrapper {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        #wm-print-close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+        }
+    }
+
+    @media print {
+        #wm-print-wrapper {
+            display: none !important;
+        }
+    }
+}
+
+&.wm-print-noimage {
+
+    figure, img {
+        display: none;
     }
 }

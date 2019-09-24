@@ -458,6 +458,111 @@ pre {
 #wm-page-wrapper .wm-pagination .wm-right {
   text-align: right;
 }
+#wm-page-wrapper #wm-print-wrapper {
+  display: none;
+}
+#wm-page-wrapper.wm-print-mode #wm-left-sidebar,
+#wm-page-wrapper.wm-print-mode #wm-right-sidebar,
+#wm-page-wrapper.wm-print-mode #wm-footer-wrapper,
+#wm-page-wrapper.wm-print-mode #wm-top-controls,
+#wm-page-wrapper.wm-print-mode #wm-bottom-controls,
+#wm-page-wrapper.wm-print-mode .wm-pagination {
+  display: none;
+}
+#wm-page-wrapper.wm-print-mode .wm-article-meta {
+  display: block;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #EEEEEE;
+}
+#wm-page-wrapper.wm-print-mode #wm-print-controls {
+  display: inline-block;
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  padding: 0.5rem 1rem;
+  min-width: 250px;
+  max-width: 500px;
+  font-size: 1.25rem;
+  vertical-align: middle;
+  color: #000000;
+  border: 1px solid #EEEEEE;
+  background-color: #F9F9F9;
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
+  box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
+}
+#wm-page-wrapper.wm-print-mode #wm-print-controls .wm-title {
+  display: block;
+  font-weight: bold;
+}
+#wm-page-wrapper.wm-print-mode #wm-print-controls .wm-section-title {
+  display: block;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+#wm-page-wrapper.wm-print-mode #wm-print-controls #wm-print-controls-hide-options {
+  display: flex;
+}
+#wm-page-wrapper.wm-print-mode #wm-print-controls #wm-print-controls-hide-options .wm-option {
+  display: inline-block;
+  width: 7rem;
+  margin: 0.35rem;
+  padding: 0.35rem;
+  text-align: center;
+  border: 1px solid;
+  cursor: pointer;
+  color: #2487D7;
+}
+#wm-page-wrapper.wm-print-mode #wm-print-controls #wm-print-controls-hide-options .wm-option .wm-icon {
+  font-size: 2rem;
+}
+#wm-page-wrapper.wm-print-mode #wm-print-controls #wm-print-controls-hide-options .wm-option:first-of-type {
+  margin-left: 0;
+}
+#wm-page-wrapper.wm-print-mode #wm-print-controls #wm-print-controls-hide-options .wm-option:last-of-type {
+  margin-right: 0;
+}
+#wm-page-wrapper.wm-print-mode #wm-print-controls #wm-print-controls-output-options {
+  display: flex;
+}
+#wm-page-wrapper.wm-print-mode #wm-print-controls #wm-print-controls-output-options .wm-option {
+  display: inline-block;
+  width: 50%;
+  margin: 0.35rem;
+  padding: 0.5rem 0.35rem;
+  text-align: center;
+  border: 1px solid;
+  cursor: pointer;
+  color: #2487D7;
+}
+#wm-page-wrapper.wm-print-mode #wm-print-controls #wm-print-controls-output-options .wm-option:first-of-type {
+  margin-left: 0;
+}
+#wm-page-wrapper.wm-print-mode #wm-print-controls #wm-print-controls-output-options .wm-option:last-of-type {
+  margin-right: 0;
+}
+#wm-page-wrapper.wm-print-mode #wm-print-wrapper {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+#wm-page-wrapper.wm-print-mode #wm-print-wrapper #wm-print-close-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+}
+@media print {
+  #wm-page-wrapper.wm-print-mode #wm-print-wrapper {
+    display: none !important;
+  }
+}
+#wm-page-wrapper.wm-print-noimage figure,
+#wm-page-wrapper.wm-print-noimage img {
+  display: none;
+}
 #wm-page-wrapper #wm-content-outter-wrapper {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1306,42 +1411,6 @@ pre {
   max-height: 100%;
   width: auto;
   height: auto;
-}
-#wm-print-wrapper {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2000;
-  width: 100%;
-  min-height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background-color: #fff;
-}
-#wm-print-wrapper .wm-control-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  display: inline-block;
-  height: 3rem;
-  min-width: 3rem;
-  line-height: 3rem;
-  font-size: 1.5rem;
-  text-align: center;
-  vertical-align: middle;
-  color: #2487D7;
-  border: 1px solid #EEEEEE;
-  background-color: #F9F9F9;
-  z-index: 5;
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
-  box-shadow: 0px 1px 3px 1px rgba(238, 238, 238, 0.3);
-}
-#wm-print-wrapper .wm-control-btn:hover {
-  cursor: pointer;
-  border-color: #EEEEEE;
-  background-color: #F9F9F9;
 }
 @media (max-width: 1099px) {
   #wm-right-sidebar {
