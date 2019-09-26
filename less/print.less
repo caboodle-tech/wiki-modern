@@ -8,103 +8,97 @@
         display: none;
     }
 
+    #wm-print-wrapper {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        color: @wm_pg_color;
+        border-bottom: 2px solid @wm_pg_border_color;
+        background-color: @wm_saf_bg_color;
+
+        #wm-print-options {
+            display: flex;
+            flex-direction: row;
+            flex: 1;
+            margin: 1.5rem 1.5rem .5rem 1.5rem;
+
+            .wm-section-title {
+                display: flex;
+                width: 100%;
+                font-size: 1.25rem;
+                font-weight: bold;
+            }
+
+            .wm-section {
+                display: flex;
+                flex: 1;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #wm-print-controls{
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+
+                .wm-option {
+                    flex: 1;
+                    text-align: center;
+                    padding: 1rem;
+                    cursor: pointer;
+
+                    .wm-icon {
+                        font-size: 2.5rem;
+                    }
+
+                    .wm-option-title {
+                        display: block;
+                        font-size: 1.25rem;
+                        margin-top: .5rem;
+                    }
+                }
+            }
+
+            #wm-print-output {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+
+                .wm-option {
+                    text-align: center;
+                    cursor: pointer;
+                    font-size: 1.25rem;
+                    font-weight: bold;
+                    padding: .5rem 1rem;
+                    margin: 0 1rem;
+
+                    .wm-icon {
+                        font-size: 2.5rem;
+                    }
+                }
+            }
+        }
+
+        #wm-print-output {
+            display: flex;
+            flex-direction: row;
+        }
+
+        #wm-print-exit {
+            width: 2rem;
+            margin: 1.5rem;
+            font-size: 2rem;
+
+            .wm-icon {
+                cursor: pointer;
+            }
+        }
+    }
+
     .wm-article-meta {
         display: block;
         padding-bottom: 1rem;
         border-bottom: 1px solid @wm_pg_border_color;
-    }
-
-    #wm-print-controls {
-        display: inline-block;
-        position: absolute;
-        bottom: 1.5rem;
-        right: 1.5rem;
-        padding: .5rem 1rem;
-        min-width: 250px;
-        max-width: 500px;
-        font-size: 1.25rem;
-        vertical-align: middle;
-        color: @wm_pg_color;
-        border: 1px solid @wm_pg_border_color;
-        background-color: @wm_saf_bg_color;
-
-        .box-shadow();
-
-        .wm-title {
-            display: block;
-            font-weight: bold;
-        }
-
-        .wm-section-title {
-            display: block;
-            font-weight: bold;
-            margin: 1rem 0;
-        }
-
-        #wm-print-controls-hide-options {
-            display: flex;
-
-            .wm-option {
-                display: inline-block;
-                width: 7rem;
-                margin: .35rem;
-                padding: .35rem;
-                text-align: center;
-                border: 1px solid;
-                cursor: pointer;
-                color: @wm_pg_btn;
-
-                .wm-icon {
-                    font-size: 2rem;
-                }
-
-                &:first-of-type {
-                    margin-left: 0;
-                }
-
-                &:last-of-type {
-                    margin-right: 0;
-                }
-            }
-        }
-
-        #wm-print-controls-output-options {
-            display: flex;
-
-            .wm-option {
-                display: inline-block;
-                width: 50%;
-                margin: .35rem;
-                padding: .5rem .35rem;
-                text-align: center;
-                border: 1px solid;
-                cursor: pointer;
-                color: @wm_pg_btn;
-
-                &:first-of-type {
-                    margin-left: 0;
-                }
-
-                &:last-of-type {
-                    margin-right: 0;
-                }
-            }
-        }
-    }
-
-    #wm-print-wrapper {
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-
-        #wm-print-close-btn {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-        }
     }
 
     @media print {

@@ -16,6 +16,84 @@ get_header();
 </div>
 <div id="wm-content-outter-wrapper">
     <div id="wm-content-inner-wrapper">
+        <div id="wm-print-wrapper">
+            <div id="wm-print-options">
+                <div id="wm-print-controls">
+                    <div class="wm-section-title">
+                        Hide Document Parts:
+                    </div>
+                    <div class="wm-section">
+                        <div class="wm-option" onclick="WikiModern.toggle('print-hide-images');">
+                            <i class="fas fa-image wm-icon"></i>
+                            <span class="wm-option-title">Images</span>
+                        </div>
+                        <div class="wm-option" onclick="WikiModern.toggle('print-hide-video');">
+                            <i class="fas fa-film wm-icon"></i>
+                            <span class="wm-option-title">Videos</span>
+                        </div>
+                        <div class="wm-option" onclick="WikiModern.toggle('print-hide-forms');">
+                            <i class="fas fa-receipt wm-icon"></i>
+                            <span class="wm-option-title">Forms</span>
+                        </div>
+                        <div class="wm-option">
+                            <i class="fas fa-qrcode wm-icon" onclick="WikiModern.toggle('print-hide-qr');"></i>
+                            <span class="wm-option-title">QR Code</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="wm-print-output">
+                    <div class="wm-section-title">
+                        Output Options:
+                    </div>
+                    <div class="wm-section">
+                        <div class="wm-option">
+                            <i class="fas fa-print wm-icon"></i> Print Document
+                        </div>
+                        <div class="wm-option">
+                            <i class="fas fa-file-pdf wm-icon"></i> Download PDF
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="wm-print-exit" onclick="WikiModern.toggle('print-app');">
+                <i class="fas fa-times wm-icon"></i>
+            </div>
+            <!--
+            <div id="wm-print-close-btn" class="wm-control-btn" onclick="WikiModern.toggle('print-app');">
+                <i class="fas fa-times"></i>
+            </div>
+            <div id="wm-print-controls">
+                <div class="wm-section-title">Hide Document Parts:</div>
+                <div id="wm-print-controls-hide-options">
+                    <div class="wm-option" onclick="WikiModern.toggle('print-hide-images');">
+                        <i class="fas fa-image wm-icon"></i>
+                        <span class="wm-option-title">Images</span>
+                    </div>
+                    <div class="wm-option" onclick="WikiModern.toggle('print-hide-video');">
+                        <i class="fas fa-film wm-icon"></i>
+                        <span class="wm-option-title">Videos</span>
+                    </div>
+                    <div class="wm-option" onclick="WikiModern.toggle('print-hide-forms');">
+                        <i class="fas fa-receipt wm-icon"></i>
+                        <span class="wm-option-title">Forms</span>
+                    </div>
+                    <div class="wm-option">
+                        <i class="fas fa-qrcode wm-icon" onclick="WikiModern.toggle('print-hide-qr');"></i>
+                        <span class="wm-option-title">QR Code</span>
+                    </div>
+                </div>
+                <div class="wm-section-title">Output Options:</div>
+                <div id="wm-print-controls-output-options">
+                    <div class="wm-option">
+                        <i class="fas fa-print"></i> Print Document
+                    </div>
+                    <div class="wm-option">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </div>
+                </div>
+            </div>
+            -->
+        </div>
         <header id="wm-top-controls">
             <div class="wm-top-row">
                 <div class="wm-left-column">
@@ -107,41 +185,6 @@ get_header();
                 </div>
             </div>
         </footer>
-        <div id="wm-print-wrapper">
-            <div id="wm-print-close-btn" class="wm-control-btn" onclick="WikiModern.toggle('print-app');">
-                <i class="fas fa-times"></i>
-            </div>
-            <div id="wm-print-controls">
-                <div class="wm-section-title">Hide Document Parts:</div>
-                <div id="wm-print-controls-hide-options">
-                    <div class="wm-option" onclick="WikiModern.toggle('print-hide-images');">
-                        <i class="fas fa-image wm-icon"></i>
-                        <span class="wm-title">Images</span>
-                    </div>
-                    <div class="wm-option" onclick="WikiModern.toggle('print-hide-video');">
-                        <i class="fas fa-film wm-icon"></i>
-                        <span class="wm-title">Videos</span>
-                    </div>
-                    <div class="wm-option" onclick="WikiModern.toggle('print-hide-forms');">
-                        <i class="fas fa-receipt wm-icon"></i>
-                        <span class="wm-title">Forms</span>
-                    </div>
-                    <div class="wm-option">
-                        <i class="fas fa-qrcode wm-icon" onclick="WikiModern.toggle('print-hide-qr');"></i>
-                        <span class="wm-title">QR Code</span>
-                    </div>
-                </div>
-                <div class="wm-section-title">Output Options:</div>
-                <div id="wm-print-controls-output-options">
-                    <div class="wm-option">
-                        <i class="fas fa-print"></i> Print Document
-                    </div>
-                    <div class="wm-option">
-                        <i class="fas fa-file-pdf"></i> Download PDF
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     <?php
         /**
