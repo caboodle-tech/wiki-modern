@@ -72,7 +72,7 @@ if ( is_main_query() ) {
         // REDO THIS SECTION TO USE get_post() no need for all the extra work
         //     Kint::dump(get_post());
 
-        echo '[[Post Page]]<br>';
+        //echo '[[Post Page]]<br>';
         // $WM_posts have been called in already by the right sidebar
         // TODO: Move this check from the right sidebar code to the header???
         //KINT::dump( $WM_posts );

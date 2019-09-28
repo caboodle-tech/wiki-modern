@@ -1,6 +1,15 @@
 @import "mixins.less";
 @import "colors.less";
 
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/open-sans/OpenSans-Regular.ttf') format('ttf'),
+         url('../fonts/open-sans/OpenSans-Regular.woff2') format('woff2'),
+         url('../fonts/open-sans/OpenSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html {
     &.wm-alter-rem-12 {
         font-size: 12px;
@@ -27,8 +36,17 @@ pre {
     overflow-x: auto;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 *, :after, :before {
     box-sizing: border-box;
+}
+
+.aligncenter {
+    text-align: center;
 }
 
 .wm-float-left {

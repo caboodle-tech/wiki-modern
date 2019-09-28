@@ -17,7 +17,7 @@ var WikiModern = (function(){
                     foreground: 'black',
                     level: 'H',
                     padding: 0,
-                    size: 125,
+                    size: 115,
                     value: location.protocol + '//' + location.host + location.pathname
                 });
                 elem.dataset.wmCode = '1';
@@ -293,8 +293,29 @@ var WikiModern = (function(){
                     // Close print mode
                     container.classList.remove('wm-print-mode');
                     container.dataset.wmPrinterStatus = 0;
+                    // Wipe all print settings from the page
+                    container.dataset.wmPrinterForms = 0;
+                    container.classList.remove('wm-print-noform');
+                    container.dataset.wmPrinterImages = 0;
+                    container.classList.remove('wm-print-noimage');
+                    container.dataset.wmPrinterMedia = 0;
+                    container.classList.remove('wm-print-nomedia');
+                    container.dataset.wmPrinterQrcode = 0;
+                    container.classList.remove('wm-print-noqrcode');
                     // Change page font size
                     document.documentElement.classList.remove('wm-alter-rem-12');
+                }
+                break;
+            case 'print-hide-forms':
+                var container = document.getElementById('wm-page-wrapper');
+                if( container.dataset.wmPrinterForms == 0 ){
+                    // Hide images on print
+                    container.classList.add('wm-print-noform');
+                    container.dataset.wmPrinterForms = 1;
+                } else {
+                    // Show images on print
+                    container.classList.remove('wm-print-noform');
+                    container.dataset.wmPrinterForms = 0;
                 }
                 break;
             case 'print-hide-images':
@@ -308,6 +329,36 @@ var WikiModern = (function(){
                     container.classList.remove('wm-print-noimage');
                     container.dataset.wmPrinterImages = 0;
                 }
+                break;
+            case 'print-hide-media':
+                var container = document.getElementById('wm-page-wrapper');
+                if( container.dataset.wmPrinterMedia == 0 ){
+                    // Hide images on print
+                    container.classList.add('wm-print-nomedia');
+                    container.dataset.wmPrinterMedia = 1;
+                } else {
+                    // Show images on print
+                    container.classList.remove('wm-print-nomedia');
+                    container.dataset.wmPrinterMedia = 0;
+                }
+                break;
+            case 'print-hide-qrcode':
+                var container = document.getElementById('wm-page-wrapper');
+                if( container.dataset.wmPrinterQrcode == 0 ){
+                    // Hide qrcode on print
+                    container.classList.add('wm-print-noqrcode');
+                    container.dataset.wmPrinterQrcode = 1;
+                } else {
+                    // Show qrcode on print
+                    container.classList.remove('wm-print-noqrcode');
+                    container.dataset.wmPrinterQrcode = 0;
+                }
+                break;
+            case 'print-page':
+                window.print();
+                break;
+            case 'print-pdf':
+                window.alert('This feature is not yet available. Please click the print button and then choose the PDF option.');
                 break;
             case 'right-sidebar':
                 elem = document.getElementById('wm-right-sidebar');
@@ -692,7 +743,10 @@ var WikiModern = (function(){
         /** Set printer state to off when page first loads. */
         var container = document.getElementById('wm-page-wrapper');
         container.dataset.wmPrinterStatus = 0;
+        container.dataset.wmPrinterForms = 0;
         container.dataset.wmPrinterImages = 0;
+        container.dataset.wmPrinterMedia = 0;
+        container.dataset.wmPrinterQrcode = 0;
 
         /** Set image carousel state to off when page first loads. */
         container = document.getElementById('wm-image-carousel');
