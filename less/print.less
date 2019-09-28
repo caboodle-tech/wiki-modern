@@ -2,10 +2,27 @@
     display: none;
 }
 
+.wm-article-meta {
+    display:  none;
+}
+
+#wm-article-header-right {
+    display: none;
+}
+
 &.wm-print-mode {
 
     #wm-left-sidebar, #wm-right-sidebar, #wm-footer-wrapper, #wm-top-controls, #wm-bottom-controls, .wm-pagination {
         display: none;
+    }
+
+    .wm-article-meta {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #wm-article-header-right {
+        display: block;
     }
 
     #wm-print-wrapper {

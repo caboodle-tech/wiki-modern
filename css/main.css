@@ -1,3 +1,6 @@
+html.wm-alter-rem-12 {
+  font-size: 12px;
+}
 html,
 body {
   margin: 0;
@@ -461,6 +464,12 @@ pre {
 #wm-page-wrapper #wm-print-wrapper {
   display: none;
 }
+#wm-page-wrapper .wm-article-meta {
+  display: none;
+}
+#wm-page-wrapper #wm-article-header-right {
+  display: none;
+}
 #wm-page-wrapper.wm-print-mode #wm-left-sidebar,
 #wm-page-wrapper.wm-print-mode #wm-right-sidebar,
 #wm-page-wrapper.wm-print-mode #wm-footer-wrapper,
@@ -468,6 +477,13 @@ pre {
 #wm-page-wrapper.wm-print-mode #wm-bottom-controls,
 #wm-page-wrapper.wm-print-mode .wm-pagination {
   display: none;
+}
+#wm-page-wrapper.wm-print-mode .wm-article-meta {
+  display: flex;
+  flex-direction: row;
+}
+#wm-page-wrapper.wm-print-mode #wm-article-header-right {
+  display: block;
 }
 #wm-page-wrapper.wm-print-mode #wm-print-wrapper {
   display: flex;
@@ -693,6 +709,22 @@ pre {
 }
 #wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content #wm-article-container .wm-article-content {
   text-align: justify;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content #wm-article-container .wm-article-content #wm-article-header {
+  display: flex;
+  flex-direction: row;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content #wm-article-container .wm-article-content #wm-article-header #wm-article-header-left {
+  flex: 1;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content #wm-article-container .wm-article-content #wm-article-header #wm-article-header-right {
+  min-width: 150px;
+  text-align: right;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content #wm-article-container .wm-article-content #wm-article-header #wm-article-header-right #wm-article-qrcode {
+  position: absolute;
+  top: 1rem;
+  right: -0.5rem;
 }
 #wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content #wm-article-container .wm-article-content blockquote {
   border: 1px solid #EEEEEE;

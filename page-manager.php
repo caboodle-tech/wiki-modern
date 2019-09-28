@@ -81,11 +81,14 @@ if ( is_main_query() ) {
         $d = $WM_posts->get_post_page_dates_raw();
 ?>
     <article class="wm-article-content">
-        <div class="wm-article-title">
+        <div id="wm-article-header">
+            <div id="wm-article-header-left">
+                <div class="wm-article-title">
 <?php
-        echo $WM_posts->get_post_title() . '</div>';
+                    echo $WM_posts->get_post_title();
 ?>
-        <div class="wm-article-meta">
+                </div>
+                <div class="wm-article-meta">
 <?php
     $published = date_create_from_format( get_option('date_format'), $d[0] );
     $published = $published->format('Y-m-d') . ' 00:00';
@@ -102,6 +105,11 @@ if ( is_main_query() ) {
 
     echo $html . '</div>';
 ?>
+                </div>
+            </div>
+            <div id="wm-article-header-right">
+                <canvas id="wm-article-qrcode"></canvas>
+            </div>
         </div>
 <?php
     echo $WM_posts->get_post_page_content();
