@@ -42,7 +42,7 @@ function trim_html_tags( $html, $tags ){
 
                 /**
                 * We must remove in reverse order because $nodes is a dynamic list
-                * that updates after evert removal!
+                * that updates after every removal!
                 */
                 for( $x = $nodes->length-1; $x > -1; $x--){
                     $nodes->item($x)->parentNode->removeChild( $nodes->item($x) );

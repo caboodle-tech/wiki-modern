@@ -10,8 +10,6 @@ if ( !class_exists( 'WM_page_manager' ) ){
 
         private function prep_articles_html( $post ){
 
-            //Kint::dump( $post );
-
             $title = get_the_title( $post->ID );
             $permalink = get_permalink( $post->ID );
             $published = $post->post_date;
@@ -35,12 +33,66 @@ if ( !class_exists( 'WM_page_manager' ) ){
 
             if( !post_password_required( $post->ID ) ){
 
-                // Create an empty array and then fill it with images if any are found
-                $images = [];
+                // Capture all figure blocks
+                preg_match_all( '/(?:<figure.*?>(?:.*?|\n)*?<\/figure>)/', $raw_html, $figures );
+
+                // Process figure blocks and keep only video ones
+                if( !empty( $figures[0] ) ){
+                    $replacment = [];
+                    foreach( $figures[0] as $val ){
+                        if( stripos( $val, 'wp-block-video' ) || stripos( $val, 'is-type-video' ) ){
+                            array_push( $replacment, $val );
+                        }
+                    }
+                    unset($val);
+                    $figures = $replacment;
+                }
+
+                // Capture all images
                 preg_match_all( '/<img.*?>/', $raw_html, $images );
 
-                // Remove all references to images including WordPress 5+ image comments
-                $raw_html = preg_replace( '/<figure.+<\/figure>/', '', $raw_html );
+                // Remove all <div> tags before proceeding; yes this tosses out anything inside divs
+                $raw_html = preg_replace( '/(?:<div.*?>(?:.*?|\n)*?<\/div>)/', '', $raw_html );
+
+                Kint::dump($raw_html);
+
+                // Capture all paragraphs. NOTE: If a line starts with certain characters the opening <p> tag is not added
+                preg_match_all( '/(?:<p.*?>(?:.*?|\n)*?<\/p>)/', $raw_html, $paragraphs );
+
+                Kint::dump($paragraphs);
+
+                // If at least one paragraph was found process it
+                if( count( $paragraphs[0] ) > 0 ){
+
+                    // We will process and show up to 3 paragraphs
+                    $counter = 0;
+                    $raw_html = '';
+
+                    foreach( $paragraphs[0] as $key => $val ){
+                        if( $counter < 3 ){
+                            // Add the missing opening <p> tag if needed
+                            $val = trim( $val );
+                            if( substr( $val, 0, 2 ) != '<p' ){
+                                $val = '<p>' . $val;
+                            }
+                            // Add this paragraph to the HTML to output
+                            $raw_html .= $val;
+                            $counter++;
+                        } else {
+                            break;
+                        }
+                    }
+                    unset($val);
+
+                } else {
+                    // TODO: Fix this. There are no paragraphs to this post! Show something to the user
+                    $raw_html = 'This post is missing an introduction.';
+                }
+
+                //Kint::dump($raw_html);
+
+                // Remove all references to images and figures
+                $raw_html = preg_replace( '/(<figure(.+\n.+|.)+<\/figure>)/', '', $raw_html );
                 $raw_html = preg_replace( '/<img.*?>/', '', $raw_html );
 
                 $html = '<article class="wm-article" id="post-' . $post->ID . '"><h1 class="wm-article-title"><a href="' . $permalink . '">' . $title . '</a></h1>';
@@ -48,20 +100,23 @@ if ( !class_exists( 'WM_page_manager' ) ){
                 $html .= $formated_updated;
                 $html .= '</div><div class="wm-article-flex-wrapper">';
 
-                if( count( $images[0] ) > 0 ){
-                    if( count( $images[0] ) > 1 ){
-                        $image_html = '<div class="wm-artilce-image wm-pointer" onclick="WikiModern.toggle(\'image-carousel\')">' . $images[0][0];
-                        // Add multiple image icon and close div
-                        //$image_html .= '<div class="wm-control-btn"><i class="fas fa-images"></i></div></div><div class="wm-image-sources"><!--';
-                        $image_html .= '</div><div class="wm-image-sources"><!--';
-                        foreach( $images[0] as $image ){
-                            $image_html .= $image .'||';
-                        }
-                        $image_html = substr( $image_html, 0, -2 );
-                        $image_html .= '--></div>';
-                    } else {
-                        $image_html = '<div class="wm-artilce-image">' . $images[0][0] . '</div>';
+                if( !empty( $figures[0] ) ){
+
+                    $image_html = '<div class="wm-artilce-image wm-pointer">' . $figures[0] . '</div>';
+
+                    $html .= '<div class="wm-article-image-wrapper">' . $image_html . '</div>';
+                    $html .= '<div class="wm-article-content" onclick="WikiModern.navigate();" data-wm-navigation="' . $permalink . '">' . $raw_html . '</div>';
+
+                } elseif( count( $images[0] ) > 0 ){
+
+                    $image_html = '<div class="wm-artilce-image wm-pointer" onclick="WikiModern.toggle(\'image-carousel\')">' . $images[0][0];
+                    $image_html .= '</div><div class="wm-image-sources"><!--';
+                    foreach( $images[0] as $image ){
+                        $image_html .= $image .'||';
                     }
+                    $image_html = substr( $image_html, 0, -2 );
+                    $image_html .= '--></div>';
+
                     $html .= '<div class="wm-article-image-wrapper">' . $image_html . '</div>';
                     $html .= '<div class="wm-article-content" onclick="WikiModern.navigate();" data-wm-navigation="' . $permalink . '">' . $raw_html . '</div>';
                 } else {

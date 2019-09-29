@@ -847,6 +847,14 @@ img {
   flex-direction: column;
   margin-right: 2rem;
 }
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content .wm-article .wm-article-flex-wrapper .wm-article-image-wrapper figure {
+  display: block;
+  margin: 0;
+  width: 100%;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content .wm-article .wm-article-flex-wrapper .wm-article-image-wrapper iframe {
+  width: 100%;
+}
 #wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content .wm-article .wm-article-flex-wrapper .wm-article-image-wrapper .wm-image-sources {
   display: none;
 }

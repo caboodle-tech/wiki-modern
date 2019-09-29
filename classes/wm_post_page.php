@@ -654,8 +654,9 @@ if ( !class_exists( 'WM_posts' ) ){
         }
 
         private function format_posts_loop( $post, $template ){
-
+            // NOT USED ANYMORE!?!?!?!?!?!?!
             // TODO: Check if post is password protected and hide everything but the title.
+            // IS that even needed anymore?
 
             /** Grab the correct post summary. */
             $post_summary = '';
@@ -738,7 +739,7 @@ if ( !class_exists( 'WM_posts' ) ){
             return $template;
         }
 
-        public function get_posts(){
+        /*public function get_posts(){
 
             // https://developer.wordpress.org/reference/functions/get_posts/
             // https://developer.wordpress.org/reference/classes/wp_post/
@@ -747,7 +748,7 @@ if ( !class_exists( 'WM_posts' ) ){
             $post_limit = 20;
             $html = '';
 
-            /** Load and build the correct post HTML. */
+            // Load and build the correct post HTML.
             // {{post-title}}
             // {{post-author}}
             // {{post-date}}
@@ -755,23 +756,23 @@ if ( !class_exists( 'WM_posts' ) ){
             // {{post-summary}}
             $template = '<article class="wm-post-block"><div class="wm-post-title">{{post-title}}</div><div class="wm-post-meta"><span class="wm-post-meta-author">{{post-author}}</span><span class="wm-post-meta-date">{{post-date}}</span><span class="wm-post-meta-update">{{post-update}}</span></div><div class="wm-post-image">{{post-image}}</div><div class="wm-post-summary">{{post-summary}}</div></article>';
 
-            /* Get all Sticky Posts if any, sort them newest to oldest, and only return up to our limit. */
+            // Get all Sticky Posts if any, sort them newest to oldest, and only return up to our limit.
             $sticky_posts = get_option( 'sticky_posts' );
             rsort( $sticky_posts );
             $sticky_posts = array_slice( $sticky_posts, 0, $post_limit );
             $sticky_posts = new WP_Query( array( 'post__in' => $sticky_posts, 'ignore_sticky_posts' => 1 ) );
             $sticky_posts_ID = array();
 
-            /** Are there sticky posts? */
+            // Are there sticky posts?
             if( $sticky_posts->post_count > 0 ){
 
-                /** Yes. Get all the WP_post objects for these sticky posts. */
+                // Yes. Get all the WP_post objects for these sticky posts.
                 $sticky_posts = $sticky_posts->posts;
 
-                /** Loop through and build each post. */
+                /** Loop through and build each post.
                 foreach( $sticky_posts as $sticky ){
 
-                    /** If this sticky post is published show it. */
+                    /** If this sticky post is published show it.
                     if( $sticky->post_status == 'publish' ){
                         $post_limit--;
                         $sticky_posts_ID[] = $sticky->ID;
@@ -780,10 +781,10 @@ if ( !class_exists( 'WM_posts' ) ){
                 }
             }
 
-            /** Do we still need more posts to hit our display limit? */
+            /** Do we still need more posts to hit our display limit?
             if( $post_limit > 0 ){
 
-                /** Show only published post if the user is not an admin. */
+                /** Show only published post if the user is not an admin.
                 if( $this->_admin ){
                     $args = array(
                         'numberposts' => $post_limit + count( $sticky_posts_ID ),
@@ -797,13 +798,13 @@ if ( !class_exists( 'WM_posts' ) ){
                 }
                 $latest_posts = get_posts( $args );
 
-                /** Loop through each post found. */
+                /** Loop through each post found.
                 foreach( $latest_posts as $post ){
 
-                    /** If we've reached our limit stop. */
+                    /** If we've reached our limit stop.
                     if( $post_limit < 1 ){ break; }
 
-                    /** Skip this post if it was a sticky post already shown. */
+                    /** Skip this post if it was a sticky post already shown.
                     if( !in_array( $post->ID, $sticky_posts_ID ) ){
                         $post_limit--;
                         $html .= $this->format_posts_loop( $post, $template );
@@ -811,9 +812,9 @@ if ( !class_exists( 'WM_posts' ) ){
                 }
             }
 
-            /** Return the HTML for the posts. */
+            // Return the HTML for the posts.
             return $html;
-        }
+        }*/
 
     /** End Class. */
     }
