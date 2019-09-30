@@ -54,12 +54,8 @@ if ( !class_exists( 'WM_page_manager' ) ){
                 // Remove all <div> tags before proceeding; yes this tosses out anything inside divs
                 $raw_html = preg_replace( '/(?:<div.*?>(?:.*?|\n)*?<\/div>)/', '', $raw_html );
 
-                Kint::dump($raw_html);
-
                 // Capture all paragraphs. NOTE: If a line starts with certain characters the opening <p> tag is not added
                 preg_match_all( '/(?:<p.*?>(?:.*?|\n)*?<\/p>)/', $raw_html, $paragraphs );
-
-                Kint::dump($paragraphs);
 
                 // If at least one paragraph was found process it
                 if( count( $paragraphs[0] ) > 0 ){

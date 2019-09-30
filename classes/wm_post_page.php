@@ -261,9 +261,9 @@ if ( !class_exists( 'WM_posts' ) ){
         * TODO: comment this!
         */
         public function get_post_page_authors_raw() {
-
+            // NOT USED ANYMORE!?!?!?!?!?!!?!?
             $post = get_post();
-            $author = et_the_author_meta( 'display_name', $post->post_author );
+            $author = get_the_author_meta( 'display_name', $post->post_author );
 
             /**
             * Display the authors section using Wiki Modern Authors and Contributors plugin
@@ -564,7 +564,12 @@ if ( !class_exists( 'WM_posts' ) ){
             }
 
             if ( $post ){
-                return apply_filters( 'the_content', $post->post_content );
+
+                if( !post_password_required( $post->ID ) ){
+                    return apply_filters( 'the_content', $post->post_content );
+                } else {
+                    return get_the_password_form( $post->ID );
+                }
             }
 
             return '';
