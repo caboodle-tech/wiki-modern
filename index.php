@@ -147,7 +147,7 @@ get_header();
                 <?php require( 'page-manager.php'); ?>
             </div>
             <div id="wm-comment-container">
-                Comments
+                Comments are currently disabled. Please check back later.
             </div>
         </main>
         <footer id="wm-bottom-controls">
@@ -223,8 +223,7 @@ get_header();
         <i class="fas fa-angle-right"></i>
     </div>
 </div>
-<!-- Record the root URL to the theme directory for WikiModern.js -->
-<div id="wm-template-directory" data-wm-template-directory="<?php echo get_template_directory_uri(); ?>" style="display:none;"></div>
+<div id="wm-site-root" data-wm-template-directory="<?php echo get_site_url(); ?>" style="display:none;"></div>
 <!-- Load scripts and close the page. -->
 <?php wp_footer(); ?>
 </body>

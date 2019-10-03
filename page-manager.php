@@ -74,7 +74,7 @@ if ( is_main_query() ) {
 
     // Show the requested Post page.
     if ( is_singular() ) {
-        get_search_form();
+
         // TODO TODO TODO
         // REDO THIS SECTION TO USE get_post() no need for all the extra work
         //     Kint::dump(get_post());

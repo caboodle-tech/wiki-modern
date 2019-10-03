@@ -4,7 +4,8 @@ var WikiModern = (function(){
     var status = {
         'device': 'desktop',
         'page': 'page',
-        'scrollWidth': 15
+        'scrollWidth': 15,
+        'siteRoot': ''
     };
 
     var addQR = function(){
@@ -154,17 +155,12 @@ var WikiModern = (function(){
         /** Get an updated scrollbar width. */
         status.scrollWidth = getScrollbarWidth();
 
-        console.log( elem );
-        console.log( hasClass( elem, 'wm-page') );
-
         /** Record what type of page we're on. */
         if( hasClass( elem, 'wm-page') ){
             status.page = 'page';
         } else {
             status.page = 'article';
         }
-
-        console.log( status.page );
 
         /** Get the pages width. */
         var width = parseInt( elem.clientWidth + status.scrollWidth );
@@ -179,8 +175,21 @@ var WikiModern = (function(){
             /** Both sidebars hidden, display both sidebars as pop overs. */
             status.device = 'mobile';
         }
+    };
 
-        console.log( status.device );
+    var recordSiteURL = function(){
+        var elem = document.getElementById('wm-site-root');
+        if( elem ){
+            var url = elem.dataset.wmTemplateDirectory;
+            elem.parentElement.removeChild( elem );
+            var base = window.location.protocol + '//' + window.location.hostname;
+
+            if( base == url ){
+                status.siteRoot = base;
+            } else if( base == url.substr( 0, base.length ) ){
+                status.siteRoot = url;
+            }
+        }
     };
 
     var refreshLayout = function(){
@@ -264,7 +273,11 @@ var WikiModern = (function(){
 
             if( elem.id == 'wm-search' ){
                 if( elem.value ){
-                    window.location = encodeURI( location.protocol + '//' + location.host + location.pathname + '?s=' + elem.value );
+                    if( status.siteRoot.length > 10 ){
+                        window.location = encodeURI( status.siteRoot + '?s=' + elem.value );
+                    } else {
+                        window.location = encodeURI( location.protocol + '//' + location.host + location.pathname + '?s=' + elem.value );
+                    }
                 }
             }
         }
@@ -442,8 +455,6 @@ var WikiModern = (function(){
     */
     var toggleOff = function( elem, side ){
 
-        console.log( 'TOGGLE OFF: ' + side );
-
         elem.dataset.wmWidth = elem.offsetWidth;
         elem.dataset.wmOffset = 0;
         elem.dataset.wmVisibility = 0;
@@ -518,8 +529,6 @@ var WikiModern = (function(){
     */
     var toggleOn = function( elem, side ){
 
-        console.log( 'TOGGLE ON: ' + side );
-
         elem.dataset.wmVisibility = 1;
         elem.style.opacity = 1;
 
@@ -539,8 +548,6 @@ var WikiModern = (function(){
         }
 
         if( side == 'Right' && status.device == 'laptop' || status.device == 'mobile' ){
-
-            console.log('RAN');
 
             /** If the page is in any mode other than desktop mode. */
             var content = document.getElementById('wm-content-inner-wrapper');
@@ -760,6 +767,9 @@ var WikiModern = (function(){
     * need so the website works correctly and responsivly.
     */
     var initialize = function(){
+
+        // Record the site root URL
+        recordSiteURL();
 
         /** Refresh the layout: Record device category and resize page as needed. */
         refreshLayout();

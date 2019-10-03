@@ -29,7 +29,7 @@
         <div class="wm-copyright wm-align-center">
             <?php echo wm_auto_copyright() . ' ' .get_bloginfo('name'); ?>. All Rights Reserved.
             <br>
-            Powered by <a href="#" target="_blank"><i class="fab fa-wordpress-simple"></i></a> with the <a href="#" target="_blank">Wiki Modern Theme</a>.
+            Powered by <a href="#" target="_blank"><i class="fab fa-wordpress-simple"></i></a> with the <a href="https://github.com/caboodle-tech/wiki-modern" target="_blank">Wiki Modern Theme</a>.
         </div>
     </footer>
 </div>
