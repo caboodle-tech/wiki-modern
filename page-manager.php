@@ -3,7 +3,6 @@
 if ( is_main_query() ) {
 
     // Pull in pagination class
-    require( get_template_directory() . '/include/wm-pagination.php' );
     $pagination = new WM_pagination();
 
     // Show 404 page.
