@@ -44,14 +44,14 @@ require( 'include/wm-get-image-widths.php' );
 require( 'include/wm-get-user-ip.php' );
 //require( 'classes/mobile_detect.php' );
 require( 'classes/wm_cookies.php' );
-require( 'classes/wm_page_manager.php' );
+require( 'classes/WM_page.php' );
 require( 'classes/wm_pagination.php' );
-require( 'classes/wm_post_page.php' );
+require( 'classes/wm_post.php' );
 require( 'classes/wm_walker.php' );
 
 $WM_cookies = new WM_cookies();
 //$WM_device = new Mobile_Detect();
-$WM_page_manager = new WM_page_manager();
+$WM_page = new WM_page();
 $WM_posts = new WM_posts();
 
 //$WM_cookies->delete( 'wm_user_device', '', '', false, true );
@@ -92,13 +92,17 @@ function wm_enqueue_assets() {
 
     /** Wiki Modern's primary CSS files. */
     $ctime = filemtime( get_template_directory() . '/css/normalize.css' );
-    wp_enqueue_style( 'wm-normalize-css' , get_template_directory_uri() . '/css/normalize.css', array(), $ctime);
+    wp_enqueue_style( 'wm-normalize-css', get_template_directory_uri() . '/css/normalize.css', array(), $ctime);
     $ctime = filemtime( get_template_directory() . '/css/main.css' );
-    wp_enqueue_style( 'wm-main-css' , get_template_directory_uri() . '/css/main.css', array(), $ctime);
+    wp_enqueue_style( 'wm-main-css', get_template_directory_uri() . '/css/main.css', array(), $ctime);
 
-    /** Wiki Modern's primary JavaScript files. */
+    /** Wiki Modern's primary JavaScript file. */
     $ctime = filemtime( get_template_directory() . '/js/WikiModern.js' );
-    wp_enqueue_script( 'wm-main-js' , get_template_directory_uri() . '/js/WikiModern.js' , array() , $ctime, true);
+    wp_enqueue_script( 'wm-main-js', get_template_directory_uri() . '/js/WikiModern.js' , array() , $ctime, true);
+
+    /** QR code generator JavaScript file. */
+    $ctime = filemtime( get_template_directory() . '/js/QR.js' );
+    wp_enqueue_script( 'wm-main-js', get_template_directory_uri() . '/js/QR.js' , array() , $ctime, true);
 }
 add_action( 'wp_enqueue_scripts', 'wm_enqueue_assets' );
 
@@ -182,48 +186,31 @@ function my_theme_dependencies() {
 }
 add_action( 'admin_notices', 'my_theme_dependencies' );
 
-$post_per_page = get_option( 'posts_per_page' );
-if( isset( $_COOKIE['wm_pagination_limit'] ) ){
-    $limit = intval( strip_tags ( $_COOKIE['wm_pagination_limit'] ) );
-    if( $limit < 0 || $limit > 100 ){
-        $limit = 50;
-    }
-    $post_per_page = $limit;
-}
-define( 'POST_PER_PAGE', $post_per_page );
-
-$post_per_page = get_option( 'posts_per_page' );
-if( isset( $_COOKIE['wm_pagination_limit'] ) ){
-    $limit = intval( strip_tags ( $_COOKIE['wm_pagination_limit'] ) );
-    if( $limit < 0 || $limit > 100 ){
-        $limit = 50;
-    }
-    $post_per_page = $limit;
-}
-define( 'POST_PER_PAGE', $post_per_page );
-
-// $query-set( 'order', 'ASC' );
-
-
-
 function set_posts_per_page( $query ) {
 
     global $wp_the_query;
 
-    $query->set( 'posts_per_page', POST_PER_PAGE );
+    $limit = $_COOKIE['wm_pagination_limit'];
+    if( !empty( $limit ) ){
+        $limit = intval( strip_tags( $limit ) );
+        if( $limit < 0 || $limit > 50 ){
+            $limit = 50;
+        }
+        $query->set( 'posts_per_page', $limit );
+    }
 
-    $sort_by = '';
-    if( isset( $_COOKIE['wm_pagination_sort'] ) ){
-        $sort_by = strip_tags ( $_COOKIE['wm_pagination_sort'] );
+    $sort_by = $_COOKIE['wm_pagination_sort'];
+    if( !empty( $sort_by ) ){
+        $sort_by = strip_tags( $limit );
+
         if( $sort_by == 'oldest'){
             $sort_by = 'ASC';
         } else {
             $sort_by = 'DESC';
         }
+
+        $query->set( 'order', $sort_by );
     }
-
-    $query->set( 'order', $sort_by );
-
     $query->set( 'orderby', 'modified' );
 
     return $query;

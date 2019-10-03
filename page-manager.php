@@ -24,7 +24,7 @@ if ( is_main_query() ) {
 
         $pagination->show_top();
 
-        $WM_page_manager->get_home_page();
+        $WM_page->get_page();
 
         $pagination->show_bottom();
         //echo wm_pagination('bottom');
@@ -57,18 +57,24 @@ if ( is_main_query() ) {
 
     // Show the Search page.
     if ( is_search() ) {
-        echo 'Search Page<br>';
+        //'Search Page<br>';
+        $pagination->show_top();
+
+        $WM_page->get_page();
+
+        $pagination->show_bottom();
     }
 
     // Show the requested Website page.
     if( is_page() ){
         echo "[[Website Page.]]<br>";
-        echo $WM_posts->get_post_title();
-        echo $WM_posts->get_post_page_content();
+        echo $WM_posts->get_html_title();
+        echo $WM_posts->get_content();
     }
 
     // Show the requested Post page.
     if ( is_singular() ) {
+        get_search_form();
         // TODO TODO TODO
         // REDO THIS SECTION TO USE get_post() no need for all the extra work
         //     Kint::dump(get_post());
@@ -79,14 +85,14 @@ if ( is_main_query() ) {
         //KINT::dump( $WM_posts );
         //https://codex.wordpress.org/Template_Tags
         //https://codex.wordpress.org/Customizing_the_Read_More
-        $d = $WM_posts->get_post_page_dates_raw();
+        $d = $WM_posts->get_raw_dates();
 ?>
     <article class="wm-article-content">
         <div id="wm-article-header">
             <div id="wm-article-header-left">
                 <div class="wm-article-title">
 <?php
-                    echo $WM_posts->get_post_title();
+                    echo $WM_posts->get_html_title();
 ?>
                 </div>
                 <div class="wm-article-meta">
@@ -105,6 +111,7 @@ if ( is_main_query() ) {
     }
 
     echo $html . '</div>';
+    echo $WM_posts->get_html_meta_authors();
 ?>
                 </div>
             </div>
@@ -113,7 +120,7 @@ if ( is_main_query() ) {
             </div>
         </div>
 <?php
-    echo $WM_posts->get_post_page_content();
+    echo $WM_posts->get_content();
 ?>
     </article>
 <?php

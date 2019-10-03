@@ -106,8 +106,11 @@ get_header();
                 </div>
                 <div class="wm-middle-column">
                     <div class="wm-search-wrapper">
-                        <input type="text" placeholder="Search" aria-label="Search">
-                        <div class="wm-search-btn" aria-label="Run Search Button">
+<?php
+    $search_text = strip_tags( urldecode( $_GET['s'] ) );
+?>
+                        <input type="text" placeholder="Search" id="wm-search" aria-label="Search" value="<?php echo $search_text; ?>">
+                        <div class="wm-search-btn" id="wm-search-button" aria-label="Run Search Button" onclick="WikiModern.search();">
                             <i class="fas fa-search"></i>
                         </div>
                     </div>

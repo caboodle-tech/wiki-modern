@@ -1,10 +1,10 @@
 <?php
-if ( !class_exists( 'WM_page_manager' ) ){
+if ( !class_exists( 'WM_page' ) ){
 
     /**
     * Responsible for everything shown on a post page.
     */
-	class WM_page_manager {
+	class WM_page {
 
         public function __construct (){}
 
@@ -131,7 +131,7 @@ if ( !class_exists( 'WM_page_manager' ) ){
             return $html;
         }
 
-        public function get_home_page(){
+        public function get_page(){
 
             global $wp_query;
 

@@ -37,10 +37,10 @@
         <div class="wm-widget-content">
             <table>
                 <?php
-                    echo $WM_posts->get_post_page_dates();
-                    echo $WM_posts->get_post_page_authors();
-                    echo $WM_posts->get_post_page_categories();
-                    echo $WM_posts->get_post_page_tags();
+                    echo $WM_posts->get_html_dates();
+                    echo $WM_posts->get_html_authors();
+                    echo $WM_posts->get_html_categories();
+                    echo $WM_posts->get_html_tags();
                 ?>
             </table>
         </div>

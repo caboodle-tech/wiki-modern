@@ -230,7 +230,7 @@ if ( !class_exists( 'WM_posts' ) ){
         *
         * @return   string  The HTML for the Author section or the HTML for the uthors, Co-Authors, and Contributors sections.
         */
-        public function get_post_page_authors() {
+        public function get_html_authors() {
 
             $html = '<tr class="wm-widget-sub-title"><td>{{author-title}}:</td></tr>';
 
@@ -257,30 +257,10 @@ if ( !class_exists( 'WM_posts' ) ){
             return $html;
         }
 
-        /**
-        * TODO: comment this!
-        */
-        public function get_post_page_authors_raw() {
-            // NOT USED ANYMORE!?!?!?!?!?!!?!?
+        public function get_html_meta_authors(){
             $post = get_post();
             $author = get_the_author_meta( 'display_name', $post->post_author );
-
-            /**
-            * Display the authors section using Wiki Modern Authors and Contributors plugin
-            * data or default to the standard WordPress Post author.
-            */
-            if( $this->_aacp ){
-                // TODO: Support this
-                /** Gather all authors. */
-
-                /** Gather all co-authors. */
-
-                /** Gather all contributors. */
-                return [ 'author' => $author, 'authors' => [$author], 'contributors' => [] ];
-            } else {
-                /** Use default WordPress Post author. */
-                return [ 'author' => $author, 'authors' => [$author], 'contributors' => [] ];
-            }
+            return '<div>Author: ' . $author . '</div>';
         }
 
         /**
@@ -288,7 +268,7 @@ if ( !class_exists( 'WM_posts' ) ){
         *
         * @return   string  The HTML for the categories section with all categories shown in a comma seperated list.
         */
-        public function get_post_page_categories(){
+        public function get_html_categories(){
 
             $html = '<tr class="wm-widget-sub-title"><td>{{categories-title}}:</td></tr><tr class="wm-widget-info"><td>';
 
@@ -321,7 +301,7 @@ if ( !class_exists( 'WM_posts' ) ){
         *
         * @return   string The HTML for all comments and replies, a simple message if none were found, or a message if this is a locked post.
         */
-        public function get_post_page_comments( $post_id = null, $sort = null, $per_page = null, $page = null ){
+        public function get_comments( $post_id = null, $sort = null, $per_page = null, $page = null ){
 
             /** If we were not given a post ID see if we can find it. */
             if( empty($post_id) ){
@@ -408,7 +388,7 @@ if ( !class_exists( 'WM_posts' ) ){
         *
         * @return   string  The modified HTML for the WordPress comment form.
         */
-        public function get_post_page_comment_form(){
+        public function get_comment_form(){
 
             /** Capture the default Word Press form. */
             ob_start();
@@ -436,7 +416,7 @@ if ( !class_exists( 'WM_posts' ) ){
         *
         * @return   array  The HTML for the comment pagination controls, index 0 is for the top of the page and index 1 is for the bottom.
         */
-        public function get_post_page_comment_pagination( $post_id = null, $sort = null, $per_page = null, $page = null ){
+        public function get_comment_pagination( $post_id = null, $sort = null, $per_page = null, $page = null ){
 
             /** If we were not given a post ID see if we can find it. */
             if( empty($post_id) ){
@@ -555,7 +535,7 @@ if ( !class_exists( 'WM_posts' ) ){
             return $html;
         }
 
-        public function get_post_page_content( $post_id = null ){
+        public function get_content( $post_id = null ){
 
             if( empty( $post_id ) ){
                 global $post;
@@ -580,7 +560,7 @@ if ( !class_exists( 'WM_posts' ) ){
         *
         * @return   string  The HTML for the Publised Date and Last Updated section formated according to the sites settings.
         */
-        public function get_post_page_dates(){
+        public function get_html_dates(){
 
             $html = '<tr class="wm-widget-sub-title"><td>Published:</td></tr><tr class="wm-widget-info"><td>';
             $html .= get_the_date() . '</td></tr>';
@@ -598,7 +578,7 @@ if ( !class_exists( 'WM_posts' ) ){
         *
         * @return   array The original and updated dates for this post.
         */
-        public function get_post_page_dates_raw(){
+        public function get_raw_dates(){
             if( strtotime( get_the_date() ) < strtotime( get_the_modified_date() ) ){
                 return [ get_the_date(), get_the_modified_date() ];
             } else {
@@ -611,7 +591,7 @@ if ( !class_exists( 'WM_posts' ) ){
         *
         * @return   string  The HTML for the Tags section with all tags shown in a comma seperated list.
         */
-        public function get_post_page_tags(){
+        public function get_html_tags(){
 
             $html = '<tr class="wm-widget-sub-title"><td>{{tag-title}}:</td></tr><tr class="wm-widget-info"><td>';
 
@@ -642,7 +622,7 @@ if ( !class_exists( 'WM_posts' ) ){
         *
         * @return   string  The HTML for the post's title.
         */
-        public function get_post_title( $post_id = null ){
+        public function get_html_title( $post_id = null ){
 
             /** If we were not given a post ID see if we can find it. */
             if( empty($post_id) ){
@@ -656,92 +636,6 @@ if ( !class_exists( 'WM_posts' ) ){
             }
 
             return '<h1>' . apply_filters( 'the_title', $post->post_title ) . '</h1>';
-        }
-
-        private function format_posts_loop( $post, $template ){
-            // NOT USED ANYMORE!?!?!?!?!?!?!
-            // TODO: Check if post is password protected and hide everything but the title.
-            // IS that even needed anymore?
-
-            /** Grab the correct post summary. */
-            $post_summary = '';
-            if( !empty( $post->post_excerpt ) ){
-                /** Use the posts excerpt. */
-                $post_summary = $post->post_excerpt;
-            } else {
-                /** Does this post have a read more marker? */
-                if( strpos( $post->post_content, '<!--more-->' ) !== false ){
-                    /** Yes. Pull any text and basic HTML from above it. */
-                    $tmp = substr( $post->post_content, 0, strpos( $post->post_content, '<!--more-->' ) );
-                    $tmp = trim_html_tags( $tmp, array( 'comments', 'img', 'div', 'pre' ) );
-                    $tmp = preg_split('/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/', $tmp, null, PREG_SPLIT_NO_EMPTY); // Split on each line
-                    /** Wrap correctly in P tags. */
-                    foreach( $tmp as $part ){
-                        if( strpos( $part, '<blockquote>' ) === 0 ){ $post_summary .= $part; continue; }
-                        if( strpos( $part, '<figure>' ) === 0 ){ $post_summary .= $part; continue; }
-                        if( strpos( $part, '<p>' ) === 0 ){ $post_summary .= $part; continue; }
-                        if( strlen( $part ) > 6 ){ $post_summary .= '<p>' . $part . '</p>'; }
-                    }
-                } else {
-                    /** No. Grab a few (2) lines of text. */
-                    $tmp = trim_html_tags( $post->post_content, array( 'comments', 'img', 'div', 'pre' ) );
-                    $tmp = preg_split('/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/', $tmp, null, PREG_SPLIT_NO_EMPTY);
-                    /** Wrap correctly in P tags. */
-                    $lines = 1;
-                    foreach( $tmp as $part ){
-                        if( $lines > 2 ){ break; }
-                        if( strpos( $part, '<blockquote>' ) === 0 ){ $post_summary .= $part; $lines++; continue; }
-                        if( strpos( $part, '<figure>' ) === 0 ){ $post_summary .= $part; $lines++; continue; }
-                        if( strpos( $part, '<p>' ) === 0 ){ $post_summary .= $part; $lines++; continue; }
-                        if( strlen( $part ) > 6 ){ $post_summary .= '<p>' . $part . '</p>'; $lines++; }
-                    }
-                }
-            }
-
-            /** Build a list of images in the post. */
-            $post_images = array();
-
-            /** Get cover photos in post. */
-            preg_match_all('/<!-- wp:cover[^>]+-->/i', $post->post_content, $results);
-            foreach( $results[0] as $src ){
-                preg_match('/url":"([^,]+)"/i', $src, $match);
-                if( count($match) > 1 ){
-                    $post_images[] = $match[1];
-                }
-            }
-
-            /** Get images (minus emojis) in post. */
-            preg_match_all('/<img[^>]+>/i', $post->post_content, $results);
-            foreach( $results[0] as $src ){
-                if( strpos( $src, 'emoji') === false ){
-                    preg_match('/src="([^"]+)/i', $src, $match);
-                    if( count($match) > 1 ){
-                        $post_images[] = $match[1];
-                    }
-                }
-            }
-
-            $image = '';
-            if( count( $post_images ) > 0 ){
-                $image .= '<img src="' . $post_images[0] . '">';
-            }
-
-            /** Change post dates to correct format. */
-            if( strtotime( $post->post_date ) != strtotime( $post->post_modified ) ){
-                $post->post_modified = date( get_option( 'date_format' ), strtotime( $post->post_modified ) );
-            } else {
-                $post->post_modified = '';
-            }
-            $post->post_date = date( get_option( 'date_format' ), strtotime( $post->post_date ) );
-
-            /** Build the template and return it. */
-            $template = str_replace( '{{post-title}}', $post->post_title, $template );
-            $template = str_replace( '{{post-author}}', $post->post_author, $template );
-            $template = str_replace( '{{post-date}}', $post->post_date, $template );
-            $template = str_replace( '{{post-update}}', $post->post_modified, $template );
-            $template = str_replace( '{{post-image}}', $image, $template );
-            $template = str_replace( '{{post-summary}}', $post_summary, $template );
-            return $template;
         }
 
         /*public function get_posts(){
