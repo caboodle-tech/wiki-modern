@@ -41,11 +41,11 @@ if ( is_main_query() ) {
         echo 'Archive / Category Page<br>';
 
         //Kint::dump( $wp_query );
-        echo wm_pagination( 'top' );
+        $pagination->show_top();
 
-        echo 'Page';
+        $WM_page->get_page();
 
-        echo wm_pagination( 'bottom' );
+        $pagination->show_bottom();
 
         // NOTE: Just use the same URL that was requested and append or change page to page # you need
         //

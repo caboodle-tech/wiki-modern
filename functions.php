@@ -201,7 +201,7 @@ function set_posts_per_page( $query ) {
 
     $sort_by = $_COOKIE['wm_pagination_sort'];
     if( !empty( $sort_by ) ){
-        $sort_by = strip_tags( $limit );
+        $sort_by = strip_tags( $sort_by );
 
         if( $sort_by == 'oldest'){
             $sort_by = 'ASC';
@@ -212,8 +212,14 @@ function set_posts_per_page( $query ) {
         $query->set( 'order', $sort_by );
     }
     $query->set( 'orderby', 'modified' );
-
-    return $query;
 }
 add_action( 'pre_get_posts',  'set_posts_per_page'  );
+
+function wpb_change_search_url() {
+    if ( is_search() && ! empty( $_GET['s'] ) ){
+        wp_redirect( home_url( "/search/" ) . urlencode( get_query_var( 's' ) ) );
+        exit();
+    }
+}
+add_action( 'template_redirect', 'wpb_change_search_url' );
 ?>
