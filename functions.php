@@ -45,6 +45,7 @@ require( 'include/wm-get-user-ip.php' );
 //require( 'classes/mobile_detect.php' );
 require( 'classes/wm_cookies.php' );
 require( 'classes/wm_page_manager.php' );
+require( 'classes/wm_pagination.php' );
 require( 'classes/wm_post_page.php' );
 require( 'classes/wm_walker.php' );
 
@@ -182,22 +183,48 @@ function my_theme_dependencies() {
 add_action( 'admin_notices', 'my_theme_dependencies' );
 
 $post_per_page = get_option( 'posts_per_page' );
-if( isset( $_COOKIE['wm_post_limit'] ) ){
-    $limit = intval( strip_tags ( $_COOKIE['wm_post_limit'] ) );
+if( isset( $_COOKIE['wm_pagination_limit'] ) ){
+    $limit = intval( strip_tags ( $_COOKIE['wm_pagination_limit'] ) );
     if( $limit < 0 || $limit > 100 ){
         $limit = 50;
     }
     $post_per_page = $limit;
 }
-
-
 define( 'POST_PER_PAGE', $post_per_page );
+
+$post_per_page = get_option( 'posts_per_page' );
+if( isset( $_COOKIE['wm_pagination_limit'] ) ){
+    $limit = intval( strip_tags ( $_COOKIE['wm_pagination_limit'] ) );
+    if( $limit < 0 || $limit > 100 ){
+        $limit = 50;
+    }
+    $post_per_page = $limit;
+}
+define( 'POST_PER_PAGE', $post_per_page );
+
+// $query-set( 'order', 'ASC' );
+
+
 
 function set_posts_per_page( $query ) {
 
     global $wp_the_query;
 
     $query->set( 'posts_per_page', POST_PER_PAGE );
+
+    $sort_by = '';
+    if( isset( $_COOKIE['wm_pagination_sort'] ) ){
+        $sort_by = strip_tags ( $_COOKIE['wm_pagination_sort'] );
+        if( $sort_by == 'oldest'){
+            $sort_by = 'ASC';
+        } else {
+            $sort_by = 'DESC';
+        }
+    }
+
+    $query->set( 'order', $sort_by );
+
+    $query->set( 'orderby', 'modified' );
 
     return $query;
 }

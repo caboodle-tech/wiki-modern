@@ -2,8 +2,9 @@
 // Are we in a position that we can and should show a page?
 if ( is_main_query() ) {
 
-    // Pull in pagination function
+    // Pull in pagination class
     require( get_template_directory() . '/include/wm-pagination.php' );
+    $pagination = new WM_pagination();
 
     // Show 404 page.
     if ( is_404() ) {
@@ -22,11 +23,12 @@ if ( is_main_query() ) {
     // Show the default blog Home page with the latest posts.
     if ( is_home() ) {
 
-        echo wm_pagination( 'top' );
+        $pagination->show_top();
 
         $WM_page_manager->get_home_page();
 
-        echo wm_pagination( 'bottom' );
+        $pagination->show_bottom();
+        //echo wm_pagination('bottom');
     } else {
 
         // Show Static Front page if set.
