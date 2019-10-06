@@ -2,31 +2,33 @@
 if ( !class_exists( 'WM_page' ) ){
 
     /**
-    * Responsible for everything shown on a post page.
+    * Responsible for static site pages
     */
 	class WM_page {
 
         public function __construct (){}
 
-        private function prep_articles_html( $post ){
+        private function prep_page_html( $post, $link_flag = true ){
 
             $title = get_the_title( $post->ID );
             $permalink = get_permalink( $post->ID );
+            $raw_html = get_the_content( null, false, $post->ID );
             $published = $post->post_date;
             $updated = $post->post_modified;
-            $raw_html = get_the_content( null, false, $post->ID );
 
             // TODO: CLEAN POST TITLE!!!!
             $html = '';
 
-            // NOTE: We wrap the published datetime later
-            if( $published == $updated ){
-                $formated_published = date( get_option('date_format'), strtotime( $published ) );
-                $formated_updated = '';
-            } else {
-                $formated_published = date( get_option('date_format'), strtotime( $published ) );
-                $formated_updated = date( get_option('date_format'), strtotime( $updated ) );
-                $formated_updated = ' Last updated <time itemprop="dateModified" datetime="' . $updated . '">' . $formated_updated . '</time>.';
+            if( $link_flag ){
+                // NOTE: We wrap the published datetime later
+                if( $published == $updated ){
+                    $formated_published = date( get_option('date_format'), strtotime( $published ) );
+                    $formated_updated = '';
+                } else {
+                    $formated_published = date( get_option('date_format'), strtotime( $published ) );
+                    $formated_updated = date( get_option('date_format'), strtotime( $updated ) );
+                    $formated_updated = ' Last updated <time itemprop="dateModified" datetime="' . $updated . '">' . $formated_updated . '</time>.';
+                }
             }
 
             $raw_html = apply_filters('the_content', $raw_html );
@@ -135,74 +137,24 @@ if ( !class_exists( 'WM_page' ) ){
 
             global $wp_query;
 
-            /*
-            // Bring in the database class
-            global $wpdb;
+            echo 'NEW FUN';
 
-            // Get the post limit from settings: Settings > Reading > Blog pages show at most
-            $post_limit = POST_PER_PAGE;
+            setup_postdata( $wp_query->posts[0] );
 
-            // Force at least 1 post to be shown.
-            if( $post_limit < 1 ){
-                $post_limit = 1;
-            }
+            echo $this->prep_page_html( $post, false );
+        }
 
-            // We need to build a string of post ID's to load and display
-            $int_string = '';
+        public function get_pages(){
 
-            // Load and show all sticky posts regardless of the post limit
-            $sticky = get_option( 'sticky_posts' );
-            $sticky_count = count( $sticky );
-            $sticky_result = [];
+            global $wp_query;
 
-            if( $sticky_count > 0 ){
-                foreach( $sticky as $int ){
-                    $int_string .= "$int, ";
-                }
-                $int_string = substr( $int_string, 0, -2 );
-
-                $query = "SELECT * FROM $wpdb->posts WHERE post_type = 'post' AND post_status = 'publish' AND ID IN ($int_string) ORDER BY post_modified DESC;";
-
-                $sticky_result = $wpdb->get_results( $query );
-
-                $post_limit -= count( $sticky_result );
-            }
-
-            // If we have not gone over the post limit load the latest post now until we do
-            $normal_result = [];
-
-            if( $post_limit > 0 ){
-
-                $query = "SELECT * FROM $wpdb->posts WHERE post_type = 'post' AND post_status = 'publish' AND ID NOT IN ($int_string) ORDER BY post_date DESC LIMIT $post_limit";
-
-                $normal_result = $wpdb->get_results( $query );
-            }
-
-            // Merge the array of sticky posts with normal posts
-            $normal_result = array_merge( $sticky_result, $normal_result );
-
-            Kint::dump( $normal_result );*/
-
-            // Display the posts
+            // Display the pages
             foreach( $wp_query->posts as $post ){
 
                 setup_postdata( $post );
 
-                echo $this->prep_articles_html( $post );
+                echo $this->prep_page_html( $post, true );
             }
-
-            // Discreate table of sticky post in order already
-            // SELECT * FROM `wm_posts` WHERE `post_type` = 'post' AND `post_status` = 'publish' AND `ID` IN (410, 1, 375) ORDER BY `post_modified` DESC
-
-            // Discreate table of latest posts minus any sticky posts
-            // SELECT * FROM `wm_posts` WHERE `post_type` = 'post' AND `post_status` = 'publish' AND `ID` NOT IN (410, 1, 375) ORDER BY `post_date` DESC LIMIT 2
-
-            // If we haven't reached our limit yet show newest posts until we do.
-
-            // https://stackoverflow.com/a/19814472/3193156
-
-            //print_r( $sticky );
-            //var_dump( $query );
         }
 
     /** End Class. */

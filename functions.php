@@ -44,6 +44,7 @@ require( 'include/wm-get-image-widths.php' );
 require( 'include/wm-get-user-ip.php' );
 //require( 'classes/mobile_detect.php' );
 require( 'classes/wm_cookies.php' );
+require( 'classes/WM_page_html.php' );
 require( 'classes/WM_page.php' );
 require( 'classes/wm_pagination.php' );
 require( 'classes/wm_post.php' );
@@ -52,6 +53,7 @@ require( 'classes/wm_walker.php' );
 $WM_cookies = new WM_cookies();
 //$WM_device = new Mobile_Detect();
 $WM_page = new WM_page();
+$WM_page_html = new WM_page_html();
 $WM_posts = new WM_posts();
 
 //$WM_cookies->delete( 'wm_user_device', '', '', false, true );
@@ -96,13 +98,13 @@ function wm_enqueue_assets() {
     $ctime = filemtime( get_template_directory() . '/css/main.css' );
     wp_enqueue_style( 'wm-main-css', get_template_directory_uri() . '/css/main.css', array(), $ctime);
 
-    /** Wiki Modern's primary JavaScript file. */
-    $ctime = filemtime( get_template_directory() . '/js/WikiModern.js' );
-    wp_enqueue_script( 'wm-main-js', get_template_directory_uri() . '/js/WikiModern.js' , array() , $ctime, true);
-
     /** QR code generator JavaScript file. */
     $ctime = filemtime( get_template_directory() . '/js/QR.js' );
-    wp_enqueue_script( 'wm-main-js', get_template_directory_uri() . '/js/QR.js' , array() , $ctime, true);
+    wp_enqueue_script( 'wm-qr-js', get_template_directory_uri() . '/js/QR.js' , array() , $ctime, true);
+
+    /** Wiki Modern's primary JavaScript file. */
+    $ctime = filemtime( get_template_directory() . '/js/WikiModern.js' );
+    wp_enqueue_script( 'wm-wikimodern-js', get_template_directory_uri() . '/js/WikiModern.js' , array() , $ctime, true);
 }
 add_action( 'wp_enqueue_scripts', 'wm_enqueue_assets' );
 

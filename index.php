@@ -143,12 +143,7 @@ get_header();
             </div>
         </header>
         <main id="wm-main-content">
-            <div id="wm-article-container">
-                <?php require( 'page-manager.php'); ?>
-            </div>
-            <div id="wm-comment-container">
-                Comments are currently disabled. Please check back later.
-            </div>
+            <?php require( 'page-manager.php'); ?>
         </main>
         <footer id="wm-bottom-controls">
             <div class="wm-top-row">

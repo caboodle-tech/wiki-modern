@@ -1,7 +1,7 @@
 ( function( $ ) {
 
-$('document').ready(function() {
-});
+//$('document').ready(function() {
+//});
 function toggleAccordion(){
     var e = event || window.event;
     var elem = e.target || e.srcElement;

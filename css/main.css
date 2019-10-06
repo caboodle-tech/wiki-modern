@@ -503,6 +503,15 @@ img {
   border-bottom: 1px solid #EEEEEE;
   padding-bottom: 1.25rem;
 }
+#wm-page-wrapper.wm-print-mode .wm-article-meta .wm-title {
+  font-weight: bold;
+}
+#wm-page-wrapper.wm-print-mode .wm-article-meta div {
+  margin-top: 0.5rem;
+}
+#wm-page-wrapper.wm-print-mode .wm-article-meta div:first-of-type {
+  margin-top: 0;
+}
 #wm-page-wrapper.wm-print-mode #wm-article-header-right {
   display: block;
 }
@@ -644,6 +653,7 @@ img {
   -ms-flex-direction: column;
   flex-direction: column;
   border-bottom: 1px solid #EEEEEE;
+  background-color: #FFFFFF;
   overflow: hidden;
 }
 #wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper .wm-link,

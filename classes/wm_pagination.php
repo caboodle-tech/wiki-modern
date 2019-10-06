@@ -55,7 +55,7 @@ if ( !class_exists( 'WM_pagination' ) ){
         private function get_limit_html( $reverse ){
 
             // Open the HTML
-            $html = '<div class="wm-pagination-column wm-center"><i class="fas fa-newspaper wm-link"></i> ';
+            $html = '<div class="wm-pagination-column wm-right"><i class="fas fa-newspaper wm-link"></i> ';
             $html .= '<span class="wm-inline-dropdown wm-dropdown-closed" data-wm-dropdown="closed" onclick="WikiModern.dropdown();">';
             $html .= $this->post_count . '<ul class="wm-inline-options" data-wm-cookie-name="wm_pagination_limit">';
 
@@ -262,15 +262,15 @@ if ( !class_exists( 'WM_pagination' ) ){
         /**
         * Echo out the HTML for the bottom pagination
         */
-        public function show_bottom(){
-            echo $this->get_html('bottom');
+        public function get_bottom(){
+            return $this->get_html('bottom');
         }
 
         /**
         * Echo out the HTML for the top pagination
         */
-        public function show_top(){
-            echo $this->get_html('top');
+        public function get_top(){
+            return $this->get_html('top');
         }
     }
 }

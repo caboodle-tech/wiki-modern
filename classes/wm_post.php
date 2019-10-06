@@ -2,7 +2,7 @@
 if ( !class_exists( 'WM_posts' ) ){
 
     /**
-    * Responsible for everything shown on a post page.
+    * Responsible for post pages
     */
 	class WM_posts {
 
@@ -260,7 +260,7 @@ if ( !class_exists( 'WM_posts' ) ){
         public function get_html_meta_authors(){
             $post = get_post();
             $author = get_the_author_meta( 'display_name', $post->post_author );
-            return '<div>Author: ' . $author . '</div>';
+            return '<div><span class="wm-title">Author:</span> ' . $author . '</div>';
         }
 
         /**
