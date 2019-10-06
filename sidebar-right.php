@@ -37,6 +37,7 @@
         <div class="wm-widget-content">
             <table>
                 <?php
+                    // TODO: MOVES THESE TO THE NEW WM_page_html CLASS!
                     echo $WM_posts->get_html_dates();
                     echo $WM_posts->get_html_authors();
                     echo $WM_posts->get_html_categories();

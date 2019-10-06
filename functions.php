@@ -174,8 +174,8 @@ function wm_widget_areas(){
 add_action('widgets_init', 'wm_widget_areas');
 
 /* Prefix lock icon in post titles. */
-function wm_protected_post_prefix() {
-    return '<i class="fas fa-lock"></i> %s';
+function wm_protected_post_prefix( $title ) {
+    return '<i class="fas fa-lock"></i> ' . $title ;
 }
 add_filter( 'protected_title_format', 'wm_protected_post_prefix' );
 
