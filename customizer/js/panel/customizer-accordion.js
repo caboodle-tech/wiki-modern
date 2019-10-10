@@ -10,10 +10,6 @@
 
 // NOT IN USE. BUGGY AND BROKEN.
 
-$('document').ready(function() {
-    //setTimeout( makeAccordions, 1000 );
-});
-
 function toggleAccordion(){
     var e = event || window.event;
     var elem = e.target || e.srcElement;

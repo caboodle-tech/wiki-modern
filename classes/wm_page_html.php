@@ -88,7 +88,7 @@ if ( !class_exists( 'WM_page_html' ) ){
                 $html .= apply_filters( 'the_content', $post->post_content );
                 $html .= '</article>';
             } else {
-                $html = '<article class="wm-article" id="post-' . $post->ID . '">' . $this->get_html_title( $post, false);
+                $html = '<article class="wm-article" id="post-' . $post->ID . '">' . $this->get_html_title( $post, false );
                 $html .= get_the_password_form( $post->ID );
                 $html .= '</article>';
             }
@@ -136,6 +136,107 @@ if ( !class_exists( 'WM_page_html' ) ){
         }
 
         /**
+        * Return the HTML for the Authors and Contributors sections. This will default
+        * to just showing the post author but will check if there is a plugin that
+        * allows Authors, Co-Authors, and Contributors. If a plugin is found that
+        * supports this that information will be shown instead.
+        *
+        * @return string The HTML for the Author section or the HTML for the uthors, Co-Authors, and Contributors sections.
+        */
+        public function get_sidebar_authors() {
+
+            $html = '<tr class="wm-widget-sub-title"><td>{{author-title}}:</td></tr>';
+
+            /** Use default WordPress Post author. */
+            $post = get_post();
+            $author = get_the_author_meta( 'display_name', $post->post_author );
+            $html .= '<tr class="wm-widget-info"><td>' . $author . '</td></tr>';
+            /** Replace the author title to be singular. */
+            $html = str_replace( '{{author-title}}', 'Author', $html );
+
+            return $html;
+        }
+
+        /**
+        * Return the HTML for the Categories section.
+        *
+        * @return string The HTML for the categories section with all categories shown in a comma seperated list.
+        */
+        public function get_sidebar_categories(){
+
+            $html = '<tr class="wm-widget-sub-title"><td>{{categories-title}}:</td></tr><tr class="wm-widget-info"><td>';
+
+            $categories = get_the_category();
+            $output = '';
+            foreach( $categories as $category ){
+                $id = get_cat_ID( $category->name );
+                $url =  get_category_link( $id );
+                $output .= '<span class="wm-tags"><a href="' . $url . '">' . $category->name . '</a></span>, ';
+            }
+
+            if( count( $categories ) > 1 ){
+                /** Replace the categories title to be plural. */
+                $html = str_replace( '{{categories-title}}', 'Categories', $html );
+            } else {
+                /** Replace the categories title to be singular. */
+                $html = str_replace( '{{categories-title}}', 'Category', $html );
+            }
+
+            /** Remove the extra comma and space from the loop and close the HTML. */
+            $html .= substr( $output, 0, strlen( $output ) - 2 ) . '</td></tr>';
+            return $html;
+        }
+
+        /**
+        * Return the HTML for the Publised Date and Last Updated section.
+        *
+        * @return string The HTML for the Publised Date and Last Updated section formated according to the sites settings.
+        */
+        public function get_sidebar_dates(){
+
+            $html = '<tr class="wm-widget-sub-title"><td>Published:</td></tr><tr class="wm-widget-info"><td>';
+            $html .= get_the_date() . '</td></tr>';
+
+            if( strtotime( get_the_date() ) < strtotime( get_the_modified_date() ) ){
+                $html .= '<tr class="wm-widget-sub-title"><td>Last Updated:</td></tr><tr class="wm-widget-info"><td>';
+                $html .= get_the_modified_date() . '</td></tr>';
+            }
+
+            return $html;
+        }
+
+        /**
+        * Return the HTML for the Tags section.
+        *
+        * @return string The HTML for the Tags section with all tags shown in a comma seperated list.
+        */
+        public function get_sidebar_tags(){
+
+            $html = '<tr class="wm-widget-sub-title"><td>{{tag-title}}:</td></tr><tr class="wm-widget-info"><td>';
+
+            $tags = get_the_tags();
+
+            if( $tags ){
+                $output = '';
+                foreach( $tags as $tag ){
+                    $url = get_tag_link( $tag->term_id );
+                    $output .= '<span class="wm-tags"><a href="' . $url . '">' . $tag->name . '</a></span>, ';
+                }
+                $html .= substr( $output, 0, strlen( $output ) - 2 ) . '</td></tr>';
+                if( count( $tags ) > 1 ){
+                    /** Replace the author title to be plural. */
+                    $html = str_replace( '{{tag-title}}', 'Tags', $html );
+                } else {
+                    /** Replace the author title to be singular. */
+                    $html = str_replace( '{{tag-title}}', 'Tag', $html );
+                }
+                return $html;
+            }
+            /** There was no tags found hide the whole Tag section. */
+            return '';
+        }
+
+        /**
         * Build the HTML for a static website page
         *
         * @return string HTML for the page.
@@ -179,16 +280,15 @@ if ( !class_exists( 'WM_page_html' ) ){
             $published = $post->post_date;
             $updated = $post->post_modified;
 
-            if( $link_flag ){
-                // NOTE: We wrap the published datetime later
-                if( $published == $updated ){
-                    $formated_published = date( get_option('date_format'), strtotime( $published ) );
-                    $formated_updated = '';
-                } else {
-                    $formated_published = date( get_option('date_format'), strtotime( $published ) );
-                    $formated_updated = date( get_option('date_format'), strtotime( $updated ) );
-                    $formated_updated = ' Last updated <time itemprop="dateModified" datetime="' . $updated . '">' . $formated_updated . '</time>.';
-                }
+
+            // NOTE: We wrap the published datetime later
+            if( $published == $updated ){
+                $formated_published = date( get_option('date_format'), strtotime( $published ) );
+                $formated_updated = '';
+            } else {
+                $formated_published = date( get_option('date_format'), strtotime( $published ) );
+                $formated_updated = date( get_option('date_format'), strtotime( $updated ) );
+                $formated_updated = ' Last updated <time itemprop="dateModified" datetime="' . $updated . '">' . $formated_updated . '</time>.';
             }
 
             $raw_html = apply_filters('the_content', $raw_html );

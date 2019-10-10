@@ -138,7 +138,7 @@ function compile_customizer( $options ){
     }
 
     /** Load timestamps of file changes. */
-    $last_updated = @file_get_contents( 'customizer/timestamps.json' );
+    $last_updated = @file_get_contents( 'customizer/_timestamps.json' );
     $compile_flag = false;
     if( !empty($last_updated) ){
         $last_updated = json_decode( $last_updated, true );
@@ -195,62 +195,69 @@ function compile_customizer( $options ){
 
         foreach( $dirs as $dir ){
 
-            $ext = '';
-            $source = '';
-            $type = '';
-            $files = scandir($dir);
+            if( $dir != '.' && $dir != '..' ){
 
-            foreach( $files as $file ){
+                $ext = '';
+                $source = '';
+                $type = '';
+                $files = scandir($dir);
 
-                $fullpath = $dir . '/' . $file;
+                foreach( $files as $file ){
 
-                /** Get the files contents (source). */
-                $contents = file_get_contents( $fullpath );
+                    if( $file != '.' && $file != '..' ){
 
-                /** Remove comments. */
-                $contents = preg_replace('/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\'|\")\/\/.*))/', '', $contents);
+                        $fullpath = $dir . '/' . $file;
 
-                /** Remove empty lines. */
-                $source .= preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $contents);
-            }
+                        /** Get the files contents (source). */
+                        $contents = file_get_contents( $fullpath );
 
-            /** Pull the correct file type out of the file path. */
-            if( stristr( $dir, 'preview' ) != false ){
-                $type = 'preview';
-            } else {
-                $type = 'panel';
-            }
+                        /** Remove comments. */
+                        $contents = preg_replace('/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\'|\")\/\/.*))/', '', $contents);
 
-            /** Pull the correct file extension out of the file path. */
-            if( stristr( $dir, 'css' ) != false ){
-                $ext = 'css';
-            } else {
-                $ext = 'js';
-            }
+                        /** Remove empty lines. */
+                        $source .= preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $contents);
 
-            /**
-            * Remove empty lines left over from the ending line of each file
-            * that was read. Text editors add these lines sometimes.
-            */
-            $source = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $source);
-
-            /** Save the new compiled file. */
-            if( $ext == 'js' ){
-                $source = '( function( $ ) {' . PHP_EOL . $source . PHP_EOL . '} )( jQuery );';
-            }
-            file_put_contents( 'customizer/' . $ext . '/customizer-' . $type . '.' .$ext, $source );
-
-            if( $ext == 'css' ){
-                if( $type == 'preview' ){
-                    echo timestamp() . 'Customizer preview CSS compiled successfully.' . PHP_EOL;
-                } else {
-                    echo timestamp() . 'Customizer panel CSS compiled successfully.' . PHP_EOL;
+                    }
                 }
-            } else {
-                if( $type == 'preview' ){
-                    echo timestamp() . 'Customizer preview JavaScript compiled successfully.' . PHP_EOL;
+
+                /** Pull the correct file type out of the file path. */
+                if( stristr( $dir, 'preview' ) != false ){
+                    $type = 'preview';
                 } else {
-                    echo timestamp() . 'Customizer panel JavaScript compiled successfully.' . PHP_EOL;
+                    $type = 'panel';
+                }
+
+                /** Pull the correct file extension out of the file path. */
+                if( stristr( $dir, 'css' ) != false ){
+                    $ext = 'css';
+                } else {
+                    $ext = 'js';
+                }
+
+                /**
+                * Remove empty lines left over from the ending line of each file
+                * that was read. Text editors add these lines sometimes.
+                */
+                $source = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $source);
+
+                /** Save the new compiled file. */
+                if( $ext == 'js' ){
+                    $source = '( function( $ ) {' . PHP_EOL . $source . PHP_EOL . '} )( jQuery );';
+                }
+                file_put_contents( 'customizer/' . $ext . '/customizer-' . $type . '.' .$ext, $source );
+
+                if( $ext == 'css' ){
+                    if( $type == 'preview' ){
+                        echo timestamp() . 'Customizer preview CSS compiled successfully.' . PHP_EOL;
+                    } else {
+                        echo timestamp() . 'Customizer panel CSS compiled successfully.' . PHP_EOL;
+                    }
+                } else {
+                    if( $type == 'preview' ){
+                        echo timestamp() . 'Customizer preview JavaScript compiled successfully.' . PHP_EOL;
+                    } else {
+                        echo timestamp() . 'Customizer panel JavaScript compiled successfully.' . PHP_EOL;
+                    }
                 }
             }
         }
@@ -258,7 +265,7 @@ function compile_customizer( $options ){
 
     /** If a recompile happened save the new timestamps. */
     if( $compile_flag == true || $override_compile == true ){
-        file_put_contents('customizer/timestamps.json', json_encode( $timestamps ) );
+        file_put_contents('customizer/_timestamps.json', json_encode( $timestamps ) );
     }
 }
 
@@ -281,11 +288,11 @@ function compile_less( $options ){
     $ignore = array(
         '.',
         '..',
-        'timestamps.json'
+        '_timestamps.json'
     );
 
     /** Load timestamps of file changes. */
-    $last_updated = @file_get_contents( 'less/timestamps.json' );
+    $last_updated = @file_get_contents( 'less/_timestamps.json' );
     $compile_flag = false;
 
     /** Check if we actually found timestamps. */
@@ -360,7 +367,7 @@ function compile_less( $options ){
         }
 
         /** Save updated timestamps and clean up. */
-        file_put_contents('less/timestamps.json', json_encode($timestamps) );
+        file_put_contents('less/_timestamps.json', json_encode($timestamps) );
         $less_compiler = NULL;
         unset($less_compiler);
     }

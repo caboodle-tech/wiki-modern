@@ -26,7 +26,7 @@
         /** Show the post meta information only on actual post pages. */
         if ( !is_page() && is_singular() ){
             /** Reference the global class for Post pages. */
-            global $WM_posts;
+            global $WM_page_html;
 
             // TODO: Change hard coded Post Information to site language.
     ?>
@@ -37,11 +37,10 @@
         <div class="wm-widget-content">
             <table>
                 <?php
-                    // TODO: MOVES THESE TO THE NEW WM_page_html CLASS!
-                    echo $WM_posts->get_html_dates();
-                    echo $WM_posts->get_html_authors();
-                    echo $WM_posts->get_html_categories();
-                    echo $WM_posts->get_html_tags();
+                    echo $WM_page_html->get_sidebar_dates();
+                    echo $WM_page_html->get_sidebar_authors();
+                    echo $WM_page_html->get_sidebar_categories();
+                    echo $WM_page_html->get_sidebar_tags();
                 ?>
             </table>
         </div>
@@ -49,7 +48,6 @@
     <?php
         // Right sidebar widget area
         dynamic_sidebar( 'right_sidebar_widget' );
-
         // Close IF()
         }
     ?>
