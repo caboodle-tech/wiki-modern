@@ -15,6 +15,21 @@ require('include/logo.php');
 */
 if ( class_exists( 'WP_Customize_Control' ) ) {
 
+    // Make sure the core files are present that we need!
+    $file = get_template_directory() . '/etc/colors.json';
+    if( !file_exists( $file ) ){
+        $colors = file_get_contents( get_template_directory() . '/less/colors.less' );
+        $colors = str_replace( array( '@', ': ', ';', PHP_EOL ), array( '"', '": "', '",', '' ), $colors );
+        $colors = '{' . substr( $colors, 0, -1 ) . '}';
+        file_put_contents( $file, $colors );
+        $colors = json_decode( $colors, true );
+    }
+
+    $file = get_template_directory() . '/etc/template.less';
+    if( !file_exists( $file ) ){
+        include( get_template_directory() . '/customizer/include/wm-less-template.php' );
+    }
+
     /** Load sanitization functions needed by classes. */
     require('include/sanitization.php');
 

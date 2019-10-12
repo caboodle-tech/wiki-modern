@@ -336,7 +336,7 @@ function compile_less( $options ){
         * If in auto-compile mode (dev mode) block loading the LESS
         * compiler multiple times.
         */
-        if( !in_array( realpath('include/less'), get_included_files()) ){
+        if( !in_array( realpath('include/less'), get_included_files() ) ){
             require( 'include/less' );
         }
         $less_compiler = new lessc;

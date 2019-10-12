@@ -218,6 +218,14 @@ get_header();
         <i class="fas fa-angle-right"></i>
     </div>
 </div>
+<?php
+if( is_customize_preview() ){
+?>
+<iframe name="wm-theme-customizer" id="wm-theme-customizer" src="<?php echo get_template_directory_uri(); ?>/customizer.php" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts"></iframe>
+
+<?php
+}
+?>
 <div id="wm-site-root" data-wm-template-directory="<?php echo get_site_url(); ?>" style="display:none;"></div>
 <!-- Load scripts and close the page. -->
 <?php wp_footer(); ?>

@@ -27,9 +27,20 @@
             }
         ?>
         <div class="wm-copyright wm-align-center">
-            <?php echo wm_auto_copyright() . ' ' .get_bloginfo('name'); ?>. All Rights Reserved.
+            <?php
+                $legal = get_option( 'wm-footer-legal-text', false );
+                if( $legal == false ){
+                    $legal = wm_auto_copyright() . ' ' . get_bloginfo('name');
+                    if( substr( $legal, -1 ) != '.' ){
+                        $legal .= '.';
+                    }
+                    $legal .= ' All Rights Reserved.';
+                    update_option( 'wm-footer-legal-text', $legal );
+                }
+                echo $legal;
+            ?>
             <br>
-            Powered by <a href="#" target="_blank"><i class="fab fa-wordpress-simple"></i></a> with the <a href="https://github.com/caboodle-tech/wiki-modern" target="_blank">Wiki Modern Theme</a>.
+            Powered by <a href="https://wordpress.org/" target="_blank"><i class="fab fa-wordpress-simple"></i></a> with the <a href="https://github.com/caboodle-tech/wiki-modern" target="_blank">Wiki Modern Theme</a>.
         </div>
     </footer>
 </div>

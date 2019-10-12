@@ -15,7 +15,7 @@
     <div class="wm-mobile-controls">
         <div class="wm-align-center" onclick="WikiModern.toggle('right-sidebar');">
             <div class="wm-control-btn wm-control-text-btn">
-                <i class="far fa-times"></i> Close
+                <i class="fas fa-times"></i> Close
             </div>
         </div>
     </div>

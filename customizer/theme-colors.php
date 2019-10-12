@@ -15,7 +15,8 @@ wp_enqueue_script( 'wm-theme-colors-js', get_template_directory_uri() . '/custom
 */
 
 /** Load Wiki Modern's default colors. */
-$colors = json_decode( file_get_contents( get_template_directory() . '/etc/theme-colors.json'), true );
+$colors = json_decode( file_get_contents( get_template_directory() . '/etc/colors.json' ), true );
+
 
 /** PANEL: Theme Colors. */
 $wp_customize->add_panel(
