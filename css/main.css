@@ -63,6 +63,27 @@ img {
   height: 50px;
   border: 1px solid;
 }
+#wm-customizer-blocker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 9999;
+  background: rgba(88, 88, 88, 0.95);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+#wm-customizer-blocker #wm-customizer-blocker-message {
+  text-align: center;
+  font-size: 3rem;
+  color: #fff;
+  margin-top: -14rem;
+}
+#wm-theme-customizer {
+  display: none;
+}
 #wm-page-wrapper {
   display: -webkit-box;
   display: -webkit-flex;
@@ -75,6 +96,7 @@ img {
   -ms-flex-direction: column;
   flex-direction: column;
   overflow-x: hidden;
+  position: relative;
 }
 #wm-page-wrapper .wm-control-btn {
   display: inline-block;

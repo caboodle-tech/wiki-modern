@@ -14,6 +14,19 @@ get_header();
     <div id="wm-scrollbar-check-inner">
     </div>
 </div>
+<?php
+if( is_customize_preview() ){
+?>
+<div id="wm-customizer-blocker">
+    <div id="wm-customizer-blocker-message">
+        <i class="fas fa-spinner fa-pulse"></i>
+        <br>
+        <p>Compiling Theme</p>
+    </div>
+</div>
+<?php
+}
+?>
 <div id="wm-content-outter-wrapper">
     <div id="wm-content-inner-wrapper">
         <div id="wm-print-wrapper">
@@ -219,13 +232,15 @@ get_header();
     </div>
 </div>
 <?php
-Kint::dump( boolval( get_option( 'wm-less-template-rebuild' ) ) );
 if( is_customize_preview() ){
     if( boolval( get_option( 'wm-less-template-rebuild' ) ) == true ){
         $action = get_template_directory_uri() . '/wm-less.php';
 ?>
+<script type="text/javascript">
+    var blocker = document.getElementById('wm-customizer-blocker');
+    blocker.style.display = 'flex';
+</script>
 <iframe name="wm-theme-customizer" id="wm-theme-customizer" data-wm-form-action="<?php echo $action; ?>" src="<?php echo get_template_directory_uri(); ?>/customizer.php" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts"></iframe>
-
 <?php
     }
 }

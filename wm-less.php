@@ -14,13 +14,15 @@ if( !empty( $_POST['wm-textarea'] ) ){
     update_option( 'wm-less-template-rebuild', false );
 
     // Delete the temporary template file
-    unlink( get_template_directory() . '/etc/_template.less' );
+    @unlink( get_template_directory() . '/etc/_template.less' );
 ?>
 <!doctype html>
 <html lang="en">
     <head>
         <script type="text/javascript">
-            window.parent.location.reload();
+            setTimeout( function(){
+                window.parent.location.reload( true );
+            }, 1000 );
         </script>
     </head>
     <body>
