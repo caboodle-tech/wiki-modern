@@ -7,7 +7,7 @@ $comp_files = [];
 
 $content = '';
 $count = 0;
-echo '<pre>';
+
 foreach( $files as $file ){
 
     if( $file != '.' && $file != '..' && $file != 'colors.less' ){

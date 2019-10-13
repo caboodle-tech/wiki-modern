@@ -76,7 +76,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
     function wm_save_customizer_options(){
 
         /** Handle when Wiki Modern's theme colors change. */
-        require( 'after/theme-colors.php' );
+        require( 'after/wm-less.php' );
     }
     add_action( 'customize_save_after', 'wm_save_customizer_options' );
 

@@ -219,11 +219,15 @@ get_header();
     </div>
 </div>
 <?php
+Kint::dump( boolval( get_option( 'wm-less-template-rebuild' ) ) );
 if( is_customize_preview() ){
+    if( boolval( get_option( 'wm-less-template-rebuild' ) ) == true ){
+        $action = get_template_directory_uri() . '/wm-less.php';
 ?>
-<iframe name="wm-theme-customizer" id="wm-theme-customizer" src="<?php echo get_template_directory_uri(); ?>/customizer.php" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts"></iframe>
+<iframe name="wm-theme-customizer" id="wm-theme-customizer" data-wm-form-action="<?php echo $action; ?>" src="<?php echo get_template_directory_uri(); ?>/customizer.php" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts"></iframe>
 
 <?php
+    }
 }
 ?>
 <div id="wm-site-root" data-wm-template-directory="<?php echo get_site_url(); ?>" style="display:none;"></div>
