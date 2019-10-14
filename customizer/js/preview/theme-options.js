@@ -20,6 +20,7 @@ wp.customize( 'wm_toggle_logo', function( value ) {
         }
     } );
 } );
+
 wp.customize( 'wm_toggle_site_title', function( value ) {
     value.bind( function( val ) {
         var elem = $('#wm-site-title');
@@ -34,6 +35,7 @@ wp.customize( 'wm_toggle_site_title', function( value ) {
         }
     } );
 } );
+
 wp.customize( 'wm_site_title_alignment', function( value ) {
     value.bind( function( val ) {
         var elem = $('#wm-site-title');
@@ -46,6 +48,7 @@ wp.customize( 'wm_site_title_alignment', function( value ) {
         }
     } );
 } );
+
 wp.customize( 'wm_toggle_tagline', function( value ) {
     value.bind( function( val ) {
         var elem = $('#wm-site-tagline');
@@ -60,6 +63,7 @@ wp.customize( 'wm_toggle_tagline', function( value ) {
         }
     } );
 } );
+
 wp.customize( 'wm_site_tagline_alignment', function( value ) {
     value.bind( function( val ) {
         var elem = $('#wm-site-tagline');
@@ -72,6 +76,7 @@ wp.customize( 'wm_site_tagline_alignment', function( value ) {
         }
     } );
 } );
+
 wp.customize( 'wm_col1_alignment', function( value ) {
     value.bind( function( val ) {
         var elem = $('#wm-footer-column-1');
@@ -84,6 +89,7 @@ wp.customize( 'wm_col1_alignment', function( value ) {
         }
     } );
 } );
+
 wp.customize( 'wm_col2_alignment', function( value ) {
     value.bind( function( val ) {
         var elem = $('#wm-footer-column-2');
@@ -96,6 +102,7 @@ wp.customize( 'wm_col2_alignment', function( value ) {
         }
     } );
 } );
+
 wp.customize( 'wm_col3_alignment', function( value ) {
     value.bind( function( val ) {
         var elem = $('#wm-footer-column-3');
@@ -108,6 +115,7 @@ wp.customize( 'wm_col3_alignment', function( value ) {
         }
     } );
 } );
+
 wp.customize( 'wm_col4_alignment', function( value ) {
     value.bind( function( val ) {
         var elem = $('#wm-footer-column-4');

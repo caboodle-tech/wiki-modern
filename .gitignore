@@ -1,3 +1,4 @@
 # WordPress Compiler release folder
 RELEASE/
+# Dev specific timestamp files
 *_timestamps.json

@@ -55,11 +55,13 @@ if( is_cli()===true && http_response_code()===false ){
             * have changed every 15 seconds.
             */
             set_time_limit(0);
-            echo 'Recompiling changes to Wiki Modern every 15 seconds. Close this terminal or interrupt the execution to stop:' . PHP_EOL;
             while(true){
+                echo PHP_EOL;
+                echo 'Recompiling changes to Wiki Modern every 15 seconds. Close this terminal or interrupt the execution to stop:' . PHP_EOL;
                 compile_less( NULL );
                 compile_customizer( NULL );
                 sleep(15);
+                echo PHP_EOL;
             }
             break;
         case 'compile:frontend':
@@ -151,10 +153,10 @@ function compile_customizer( $options ){
 
     // Record directories we need to check.
     $dirs = array(
-        './customizer/css/panel',
-        './customizer/css/preview',
-        './customizer/js/panel',
-        './customizer/js/preview'
+        'customizer/css/panel',
+        'customizer/css/preview',
+        'customizer/js/panel',
+        'customizer/js/preview'
     );
 
     // Ignore these when reading through directory content.
@@ -245,7 +247,7 @@ function compile_customizer( $options ){
                 if( $ext == 'js' ){
                     $source = '( function( $ ) {' . PHP_EOL . $source . PHP_EOL . '} )( jQuery );';
                 }
-                file_put_contents( './customizer/' . $ext . '/customizer-' . $type . '.' . $ext, $source );
+                file_put_contents( 'customizer/' . $ext . '/customizer-' . $type . '.' . $ext, $source );
 
                 if( $ext == 'css' ){
                     if( $type == 'preview' ){
@@ -264,7 +266,7 @@ function compile_customizer( $options ){
         }
 
         // Save the new timestamps.
-        file_put_contents('./customizer/_timestamps.json', json_encode( $timestamps ) );
+        file_put_contents('customizer/_timestamps.json', json_encode( $timestamps ) );
     }
 }
 
@@ -300,7 +302,7 @@ function compile_less( $options ){
     );
 
     // Load timestamps of file changes.
-    $last_updated = @file_get_contents( './less/_timestamps.json' );
+    $last_updated = @file_get_contents( 'less/_timestamps.json' );
     $compile_flag = false;
 
     // Check if we actually found timestamps.
@@ -318,7 +320,7 @@ function compile_less( $options ){
         // Only process files not in the ignore list.
         if( !in_array( $file, $ignore ) ){
 
-            $fullpath = './less/' . $file;
+            $fullpath = 'less/' . $file;
 
             // Check if this file has changed
             if( $compile_flag == false ){
@@ -339,7 +341,7 @@ function compile_less( $options ){
         // Check if the sites user has custom colors and use them instead.
         $custom_flag = false;
         if( file_exists( './etc/colors.json' ) ){
-            if( filemtime( './less/colors.less' ) < filemtime( './etc/colors.json' ) ){
+            if( filemtime( 'less/colors.less' ) < filemtime( './etc/colors.json' ) ){
                 $custom_flag = true;
             }
         }
@@ -404,7 +406,7 @@ function compile_less( $options ){
         }
 
         // Save the new timestamps.
-        file_put_contents('./less/_timestamps.json', json_encode( $timestamps ) );
+        file_put_contents('less/_timestamps.json', json_encode( $timestamps ) );
     }
 }
 

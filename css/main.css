@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Open Sans';
-  src: url('../fonts/open-sans/OpenSans-Regular.ttf') format('ttf'), url('../fonts/open-sans/OpenSans-Regular.woff2') format('woff2'), url('../fonts/open-sans/OpenSans-Regular.woff') format('woff');
+  src: url('http://localhost/WORDPRESS/wp-content/themes/wiki-modern/fonts/open-sans/OpenSans-Regular.ttf') format('ttf'), url('http://localhost/WORDPRESS/wp-content/themes/wiki-modern/fonts/open-sans/OpenSans-Regular.woff2') format('woff2'), url('http://localhost/WORDPRESS/wp-content/themes/wiki-modern/fonts/open-sans/OpenSans-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
