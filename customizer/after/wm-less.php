@@ -30,7 +30,6 @@ if( $update ){
 
     // Save a temporary template file
     file_put_contents( get_template_directory() . '/etc/_template.less', $template );
-    file_put_contents( get_template_directory() . '/etc/__template.less', $template );
 
     // Record the current colors
     file_put_contents( get_template_directory() . '/etc/colors.json', json_encode( $previous ) );

@@ -122,10 +122,10 @@ function check_release_dir( $version ){
     }
 }
 
-/** Compile JavaScript and CSS files used by the Customizer. */
+// Compile JavaScript and CSS files used by the Customizer.
 function compile_customizer( $options ){
 
-    /** Force compile? */
+    // Force compile?
     $override_compile = false;
     if( !empty( $options[2] ) ){
         switch($options[2]){
@@ -137,60 +137,59 @@ function compile_customizer( $options ){
         }
     }
 
-    /** Load timestamps of file changes. */
+    // Load timestamps of file changes.
     $last_updated = @file_get_contents( 'customizer/_timestamps.json' );
     $compile_flag = false;
-    if( !empty($last_updated) ){
+    if( !empty( $last_updated ) ){
         $last_updated = json_decode( $last_updated, true );
     } else {
         $last_updated = array();
         $compile_flag = true;
     }
 
-    /** Record directories we need to check. */
+    // Record directories we need to check.
     $dirs = array(
-        'customizer/css/panel',
-        'customizer/css/preview',
-        'customizer/js/panel',
-        'customizer/js/preview'
+        './customizer/css/panel',
+        './customizer/css/preview',
+        './customizer/js/panel',
+        './customizer/js/preview'
     );
 
-    /** Ignore these when reading through directory content. */
+    // Ignore these when reading through directory content.
     $ignore = array(
         '.',
         '..'
     );
 
-    /** Read through the directories. */
+    // Read through the directories.
     foreach( $dirs as $dir ){
-        // TODO: Force / in path with a function to clean $file
+
         if( file_exists( $dir ) ){
+
             $files = scandir($dir);
+
             foreach( $files as $file ){
 
                 $fullpath = $dir . '/' . $file;
 
-                /** Only process files not in the ignore list. */
+                // Only process files not in the ignore list.
                 if( !in_array( $file, $ignore ) ){
 
-                    /**
-                    * Check if this file has changed. As soon as one file is found
-                    * changed stop checking because a full recompile is needed.
-                    */
+                    // Check if this file has changed.
                     if( $compile_flag == false && @$last_updated[ make_key( $fullpath ) ] ){
                         if( $last_updated[ make_key( $fullpath ) ] != filemtime($fullpath) ){
                             $compile_flag = true;
                         }
                     }
 
-                    /** Record the last updated time of each file. */
+                    // Record the last updated time of each file.
                     $timestamps[ make_key( $fullpath ) ] = filemtime($fullpath);
                 }
             }
         }
     }
 
-    /** Recompile files if something changed. */
+    // Recompile files if something changed.
     if( $compile_flag == true || $override_compile == true ){
 
         foreach( $dirs as $dir ){
@@ -208,26 +207,26 @@ function compile_customizer( $options ){
 
                         $fullpath = $dir . '/' . $file;
 
-                        /** Get the files contents (source). */
+                        // Get the files contents (source)
                         $contents = file_get_contents( $fullpath );
 
-                        /** Remove comments. */
-                        $contents = preg_replace('/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\'|\")\/\/.*))/', '', $contents);
+                        // Remove comments.
+                        $contents = preg_replace( '/(\/\*([^\*]|[\r\n]|(\*+([^\*\/]|[\r\n])))*\*+\/)|((?<= |^|\t)\/\/.*)/m', '', $content );
 
-                        /** Remove empty lines. */
+                        // Remove empty lines.
                         $source .= preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $contents);
 
                     }
                 }
 
-                /** Pull the correct file type out of the file path. */
+                // Pull the correct file type out of the file path.
                 if( stristr( $dir, 'preview' ) != false ){
                     $type = 'preview';
                 } else {
                     $type = 'panel';
                 }
 
-                /** Pull the correct file extension out of the file path. */
+                // Pull the correct file extension out of the file path.
                 if( stristr( $dir, 'css' ) != false ){
                     $ext = 'css';
                 } else {
@@ -240,11 +239,11 @@ function compile_customizer( $options ){
                 */
                 $source = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $source);
 
-                /** Save the new compiled file. */
+                // Save the new compiled file.
                 if( $ext == 'js' ){
                     $source = '( function( $ ) {' . PHP_EOL . $source . PHP_EOL . '} )( jQuery );';
                 }
-                file_put_contents( 'customizer/' . $ext . '/customizer-' . $type . '.' .$ext, $source );
+                file_put_contents( './customizer/' . $ext . '/customizer-' . $type . '.' . $ext, $source );
 
                 if( $ext == 'css' ){
                     if( $type == 'preview' ){
@@ -261,21 +260,28 @@ function compile_customizer( $options ){
                 }
             }
         }
-    }
 
-    /** If a recompile happened save the new timestamps. */
-    if( $compile_flag == true || $override_compile == true ){
-        file_put_contents('customizer/_timestamps.json', json_encode( $timestamps ) );
+        // Save the new timestamps.
+        file_put_contents('./customizer/_timestamps.json', json_encode( $timestamps ) );
     }
 }
 
-/** Compile LESS into a single CSS file. */
+// Compile LESS into a single CSS file.
 function compile_less( $options ){
 
-    /** Force compile? */
+    // Do not run if LESSC is not installed
+    exec('lessc --version 2>&1', $output );
+    if( !preg_match( '/lessc [0-9\.]{2,} /', $output[0] ) ){
+        // Warn user
+        echo PHP_EOL . timestamp() . "\033[0;31mCan not compiling LESS code! Make sure you have Node Package Manager (NPM)" . PHP_EOL;
+        echo "installed globally, then install the LESSC NMP package globally.\033[0m" . PHP_EOL . PHP_EOL;
+        return;
+    }
+
+    // Force compile?
     $override_compile = false;
     if( !empty( $options[2] ) ){
-        switch($options[2]){
+        switch( $options[2] ){
             case '-f':
             case '-force':
             case '--force':
@@ -284,95 +290,123 @@ function compile_less( $options ){
         }
     }
 
-    /** Ignore these when reading through directory content. */
+    // Ignore these when reading through directory content.
     $ignore = array(
         '.',
         '..',
         '_timestamps.json'
     );
 
-    /** Load timestamps of file changes. */
-    $last_updated = @file_get_contents( 'less/_timestamps.json' );
+    // Load timestamps of file changes.
+    $last_updated = @file_get_contents( './less/_timestamps.json' );
     $compile_flag = false;
 
-    /** Check if we actually found timestamps. */
-    if( !empty($last_updated) ){
+    // Check if we actually found timestamps.
+    if( !empty( $last_updated ) ){
         $last_updated = json_decode( $last_updated, true );
     } else {
-        /** We have no timestamps saved compile. */
+        // We have no timestamps saved compile.
         $compile_flag = true;
     }
 
-    /** Check for any changes. */
+    // Check for any changes.
     $files = scandir('less');
     foreach( $files as $file ){
 
-        /** Only process files not in the ignore list. */
+        // Only process files not in the ignore list.
         if( !in_array( $file, $ignore ) ){
 
-            $fullpath = 'less/' . $file;
+            $fullpath = './less/' . $file;
 
-            /**
-            * Check if this file has changed. As soon as one file is found
-            * changed stop checking because a full recompile is needed.
-            */
+            // Check if this file has changed
             if( $compile_flag == false ){
                 if( @$last_updated[ make_key( $fullpath ) ] != filemtime($fullpath) ){
-                    /** This file has changed run the compiler. */
+                    // This file has changed run the compiler.
                     $compile_flag = true;
                 }
             }
 
-            /** Record the latest file update time. */
+            // Record the latest file update time
             $timestamps[ make_key( $fullpath ) ] = filemtime($fullpath);
         }
-
     }
 
-    /** Do we need to compile? */
-    if( $compile_flag == true || $override_compile == true){
+    // Do we need to compile?
+    if( $compile_flag == true || $override_compile == true ){
 
-        /**
-        * If in auto-compile mode (dev mode) block loading the LESS
-        * compiler multiple times.
-        */
-        if( !in_array( realpath('include/less'), get_included_files() ) ){
-            require( 'include/less' );
-        }
-        $less_compiler = new lessc;
-
-        /** If the sites user has custom colors use them instead. **/
+        // Check if the sites user has custom colors and use them instead.
         $custom_flag = false;
-        if( file_exists( 'etc/colors.less' ) ){
-            /** Move the production file temporarily. */
-            rename( 'less/colors.less', 'less/___tmp-colors.less' );
-            copy( 'etc/colors.less', 'less/colors.less' );
-            $custom_flag = true;
+        if( file_exists( './etc/colors.json' ) ){
+            if( filemtime( './less/colors.less' ) < filemtime( './etc/colors.json' ) ){
+                $custom_flag = true;
+            }
         }
 
-        /** Attempt to compile LESS. */
-        try {
-            $source = $less_compiler->compileFile("less/main.less");
-            file_put_contents( 'css/main.css', $source );
-            echo timestamp() . 'Theme LESS compiled successfully.' . PHP_EOL;
-        } catch(Exception $e){
-            echo timestamp() . "\033[0;31mThere was an error compiling the theme LESS code: " . PHP_EOL . PHP_EOL;
-            echo $e . PHP_EOL . "\033[0m";
-        }
-
-        /** Restore files if needed. */
         if( $custom_flag ){
-            unlink( 'less/colors.less' );
-            rename( 'less/___tmp-colors.less', 'less/colors.less' );
+
+            // Get JSON colors
+            $previous = json_decode( file_get_contents( './etc/colors.json' ), true );
+
+            // Convert JSON into LESS
+            $less = '';
+            foreach( $previous as $key => &$color ){
+                $less .= '@' . $key . ': ' . $color . ';' . PHP_EOL;
+            }
+
+            // Load LESS template and replace color import
+            $template = file_get_contents( './etc/template.less' );
+            $template = str_replace( '@import "colors.less";', $less, $template );
+
+            // Save a temporary template file
+            file_put_contents( './etc/_template.less', $template );
+
+            // Compile LESS
+            exec( 'lessc etc/_template.less css/main.css 2>&1', $output );
+            if( count( $output ) < 1 ){
+                echo timestamp() . 'Theme LESS compiled successfully.' . PHP_EOL;
+            } else {
+                echo timestamp() . "\033[0;31mThere was an error compiling the theme LESS code: " . PHP_EOL . PHP_EOL;
+                foreach( $output as $key => $value ){
+                    if( strlen( $value ) > 1 ){
+                        if( $key > 0 ){
+                            echo PHP_EOL . 'Line ';
+                        }
+                        echo $value;
+                    }
+                }
+                echo PHP_EOL . "\033[0m";
+            }
+
+            // Delete the temporary template file
+            @unlink( './etc/_template.less' );
+
+        } else {
+
+            // Compile LESS
+            exec( 'lessc less/main.less css/main.css 2>&1', $output );
+            if( count( $output ) < 1 ){
+                echo timestamp() . 'Theme LESS compiled successfully.' . PHP_EOL;
+            } else {
+                echo timestamp() . "\033[0;31mThere was an error compiling the theme LESS code: " . PHP_EOL . PHP_EOL;
+                foreach( $output as $key => $value ){
+                    if( strlen( $value ) > 1 ){
+                        if( $key > 0 ){
+                            echo PHP_EOL . 'Line ';
+                        }
+                        echo $value;
+                    }
+                }
+                echo PHP_EOL . "\033[0m";
+            }
+
         }
 
-        /** Save updated timestamps and clean up. */
-        file_put_contents('less/_timestamps.json', json_encode($timestamps) );
-        $less_compiler = NULL;
-        unset($less_compiler);
+        // Save the new timestamps.
+        file_put_contents('./less/_timestamps.json', json_encode( $timestamps ) );
     }
 }
 
+// Timestamp to print to console
 function timestamp(){
     return '[' . date( 'H:i:s' ) . '] ';
 }
