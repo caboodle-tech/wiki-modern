@@ -548,7 +548,7 @@ function release( $version ){
     $config = parse_json( file_get_contents( 'bin/config' ) );
     $text_domain = $config['text-domain'];
 
-    /** Load the template used to include or ingore files for relase. */
+    /** Load the template used to include or ignore files for relase. */
     $template = parse_json( file_get_contents( 'bin/release' ) );
 
     /** Loop through and correct template structure. */
@@ -557,7 +557,7 @@ function release( $version ){
             /** Add currect directory prefix so in_array checks match correctly. */
             $group[$key] = './' . $value;
             /** Use the systems correct directory sperator so in_array checks match correctly. */
-            $group[$key] = str_replace( '/', DIRECTORY_SEPARATOR, $group[$key] );
+        //    $group[$key] = str_replace( '/', DIRECTORY_SEPARATOR, $group[$key] );
         }
         $template[$index] = $group;
     }
@@ -572,13 +572,13 @@ function release( $version ){
     $zip = new ZipArchive();
 
     /** Add the version to the zip file name. */
-    $zip_file = getcwd() . DIRECTORY_SEPARATOR . 'RELEASE' . DIRECTORY_SEPARATOR . $text_domain . '-' . $version . '.zip';
+    $zip_file = getcwd() . '/RELEASE/' . $text_domain . '-' . $version . '.zip';
 
     /** Open the ZIP file for work. */
     $zip->open( $zip_file, ZipArchive::CREATE );
 
     /** Loop through our dev files and save production code to the zip file. */
-    release_recursive_compile( '.', DIRECTORY_SEPARATOR, $text_domain, $template, $zip );
+    release_recursive_compile( '.', '/', $text_domain, $template, $zip );
 
     /** Add files where their directories where ignored. */
     foreach ($template['save'] as $file ) {

@@ -1,5 +1,6 @@
-@import "mixins.less";
 @import "colors.less";
+
+@import "mixins.less";
 
 @font-face {
     font-family: 'Open Sans';
@@ -83,7 +84,7 @@ img {
 }
 
 #wm-customizer-blocker {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
@@ -98,7 +99,8 @@ img {
         text-align: center;
         font-size: 3rem;
         color: #fff;
-        margin-top: -14rem;
+        align-items: center;
+        justify-content: center;
     }
 }
 
@@ -273,6 +275,7 @@ img {
                 position: relative;
                 flex: 1;
                 margin: 15px;
+                color: @wm_pg_color;
 
                 @import "containers.less";
                 @import "articles.less";
@@ -335,6 +338,7 @@ img {
             border-right: 1px solid @wm_pg_border_color;
             padding: 15px;
             z-index: 1000;
+            color: @wm_saf_color;
 
             .wm-mobile-controls {
                 display: none;
@@ -396,6 +400,7 @@ img {
             border-left: 1px solid @wm_pg_border_color;
             padding: 15px;
             z-index: 1000;
+            color: @wm_saf_color;
 
             .wm-mobile-controls {
                 display: none;
@@ -440,6 +445,7 @@ img {
     line-height: 1.5rem;
     background-color: @wm_saf_bg_color;
     padding: 15px;
+    color: @wm_saf_color;
 
     a {
         color: @wm_saf_a;
