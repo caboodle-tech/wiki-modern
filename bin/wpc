@@ -338,6 +338,11 @@ function compile_less( $options ){
     // Do we need to compile?
     if( $compile_flag == true || $override_compile == true ){
 
+        // Make the template file if it does not exist or if a lESS file has changed
+        if( $compile_flag == true || file_exists( './etc/template.less' ) == false ){
+            template_file();
+        }
+
         // Check if the sites user has custom colors and use them instead.
         $custom_flag = false;
         if( file_exists( './etc/colors.json' ) ){
@@ -408,6 +413,87 @@ function compile_less( $options ){
         // Save the new timestamps.
         file_put_contents('less/_timestamps.json', json_encode( $timestamps ) );
     }
+}
+
+function template_file(){
+
+    $files = scandir( './less/' );
+
+    $less_files = [];
+    $comp_files = [];
+
+    $content = '';
+    $count = 0;
+
+    foreach( $files as $file ){
+
+        if( $file != '.' && $file != '..' && $file != 'colors.less' ){
+
+            if( substr( $file, -4 ) == 'less' ){
+
+                $content = file_get_contents( './less/' . $file );
+
+                // Remove all comments
+                $content = preg_replace( '/(\/\*([^\*]|[\r\n]|(\*+([^\*\/]|[\r\n])))*\*+\/)|((?<= |^|\t)\/\/.*)/m', '', $content );
+
+                preg_match_all( '/@import.+;/', $content, $matches );
+
+                if( count( $matches[0] ) < 1 ){
+                    $comp_files[ $file ] = $content;
+                } else {
+                    $less_files[ $file ] = $content;
+                }
+            }
+        }
+    }
+
+    $counter = 1;
+
+    while( count( $less_files ) > 0 ){
+
+        foreach( $less_files as $file => $content ){
+
+            foreach ( $comp_files as $key => $less ) {
+                $content = preg_replace( '/@import.+"' . $key . '";/', $less, $content );
+            }
+
+            // Remove all comments
+            $content = preg_replace( '/(\/\*([^\*]|[\r\n]|(\*+([^\*\/]|[\r\n])))*\*+\/)|((?<= |^|\t)\/\/.*)/m', '', $content );
+
+            preg_match_all( '/@import.+;/', $content, $matches );
+
+            // If there are no more imports move this to the completed list
+            if( count( $matches[0] ) < 1 ){
+                $comp_files[ $file ] = $content;
+                unset( $less_files[ $file ] );
+                continue;
+            }
+
+            // If there is only one more file left and the only import(s) are colors add it to the completed list
+            if( count( $matches[0] ) == 1 ){
+
+                $value = trim( preg_replace( array('/"/', '/;/', '/\(.+\)/', '/@import/'), '', $matches[0][0] ) );
+
+                if( $value == 'colors.less' ){
+                    $comp_files[ $file ] = $content;
+                    unset( $less_files[ $file ] );
+                    continue;
+                }
+            }
+
+            // Keep going
+            $less_files[ $file ] = $content;
+        }
+
+        // Emergency stop, do not recurse more than 10 times
+        if( $counter < 10 ){
+            $counter++;
+        } else {
+            break;
+        }
+    }
+
+    file_put_contents( './etc/template.less', $comp_files['main.less'] );
 }
 
 // Timestamp to print to console

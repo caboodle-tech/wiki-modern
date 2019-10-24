@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Open Sans';
-  src: url('http://localhost/WORDPRESS/wp-content/themes/wiki-modern/fonts/open-sans/OpenSans-Regular.ttf') format('ttf'), url('http://localhost/WORDPRESS/wp-content/themes/wiki-modern/fonts/open-sans/OpenSans-Regular.woff2') format('woff2'), url('http://localhost/WORDPRESS/wp-content/themes/wiki-modern/fonts/open-sans/OpenSans-Regular.woff') format('woff');
+  src: url('../fonts/open-sans/OpenSans-Regular.ttf') format('ttf'), url('../fonts/open-sans/OpenSans-Regular.woff2') format('woff2'), url('../fonts/open-sans/OpenSans-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -28,6 +28,17 @@ pre {
 img {
   max-width: 100%;
   height: auto;
+}
+a {
+  color: #ffc68a;
+}
+figcaption,
+figure {
+  color: #e5e5e5;
+}
+.wp-block-image figcaption,
+.wp-block-image figure figcaption {
+  color: #e5e5e5;
 }
 *,
 :after,
@@ -785,6 +796,18 @@ img {
 #wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content #wm-article-container h1 {
   font-size: 2rem;
   line-height: 2.5rem;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content #wm-article-container a {
+  text-decoration: none;
+  color: #ffc68a;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content #wm-article-container figcaption,
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content #wm-article-container figure {
+  color: #e5e5e5;
+}
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content #wm-article-container .wp-block-image figcaption,
+#wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content #wm-article-container .wp-block-image figure figcaption {
+  color: #e5e5e5;
 }
 #wm-page-wrapper #wm-content-outter-wrapper #wm-content-inner-wrapper #wm-main-content #wm-article-container .wm-article-content {
   text-align: justify;
