@@ -71,7 +71,7 @@ if ( !class_exists( 'WM_page_html' ) ){
                 $published = date_create_from_format( get_option('date_format'), $dates[0] );
                 $published = $published->format('Y-m-d') . ' 00:00';
 
-                $html = '<article class="wm-article-content"><div id="wm-article-header"><div id="wm-article-header-left"><div class="wm-article-title">';
+                $html = '<article class="wm-article-content"><div id="wm-article-header-wrapper"><div id="wm-article-header"><div class="wm-article-title">';
                 $html .= $this->get_html_title( $post, false);
                 $html .= '</div><div class="wm-article-meta"><div>Published <time datetime="' . $published . '" title="published">' . $dates[0] . '</time>.';
 
@@ -84,7 +84,7 @@ if ( !class_exists( 'WM_page_html' ) ){
 
                 $html .= '</div>';
                 $html .= $this->get_author_meta( $post );
-                $html .= '</div></div><div id="wm-article-header-right"><canvas id="wm-article-qrcode"></canvas></div></div>';
+                $html .= '</div><canvas id="wm-article-qrcode" width="100" height="100"></canvas></div></div>';
                 $html .= apply_filters( 'the_content', $post->post_content );
                 $html .= '</article>';
             } else {

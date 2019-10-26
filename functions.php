@@ -7,33 +7,10 @@
 */
 
 /** When in DEBUG mode load the Kint PHP parser to help debug PHP code. */
-if( !WP_DEBUG ){
+if( WP_DEBUG ){
     require( 'include/kint.phar' );
-    //Kint\Renderer\RichRenderer::$theme = 'solarized-dark.css';
 } else {
-
-    /**
-    * If not in debug mode help the dev out who may have accidently left Kint calls
-    * in the code by catching all calls and ignoring them. REMOVING THIS SOON.
-    */
-    class Kint {
-
-        const static_blackhole = '';
-
-        public function blackhole( $a ){
-            return;
-        }
-
-        public function __call( $m, $a ) {
-            return call_user_func_array( array( $this, $this->blackhole ), $a );
-        }
-
-        public static function __callStatic( $m, $a ) {
-            return self::static_blackhole;
-        }
-    }
-    $kint = new Kint();
-
+    require( 'include/kint-fake.php');
 }
 
 /** Load custom classes and functions for the Wiki Modern theme. */
@@ -45,16 +22,13 @@ require( 'include/wm-get-user-ip.php' );
 //require( 'classes/mobile_detect.php' );
 require( 'classes/wm_cookies.php' );
 require( 'classes/wm_page_html.php' );
-require( 'classes/wm_page.php' );
 require( 'classes/wm_pagination.php' );
-require( 'classes/wm_post.php' );
 require( 'classes/wm_walker.php' );
 
 $WM_cookies = new WM_cookies();
 //$WM_device = new Mobile_Detect();
-$WM_page = new WM_page();
 $WM_page_html = new WM_page_html();
-$WM_posts = new WM_posts();
+
 
 //$WM_cookies->delete( 'wm_user_device', '', '', false, true );
 

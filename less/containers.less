@@ -24,23 +24,20 @@
     .wm-article-content {
         text-align: justify;
 
-        #wm-article-header {
+        #wm-article-header-wrapper {
             display: flex;
             flex-direction: row;
 
-            #wm-article-header-left {
+            #wm-article-header {
                 flex: 1;
-            }
-
-            #wm-article-header-right {
-                min-width: 125px;
-                min-height: 115px;
-                text-align: right;
+                position: relative;
 
                 #wm-article-qrcode {
                     position: absolute;
                     top: 1rem;
                     right: 0rem;
+                    min-width: 100px;
+                    min-height: 100px;
                 }
             }
         }

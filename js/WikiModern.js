@@ -12,13 +12,22 @@ var WikiModern = (function(){
         var elem = document.getElementById('wm-article-qrcode');
         if( elem ){
             if( elem.dataset.wmCode != '1' ){
-                var qr = new QRious( { element: elem } );
+                /*var qr = new QRious( { element: elem } );
                 qr.set({
                     background: 'white',
                     foreground: 'black',
                     level: 'H',
                     padding: 0,
-                    size: 115,
+                    size: 125,
+                    value: location.protocol + '//' + location.host + location.pathname
+                });*/
+                var qr = new QRious( {
+                    background: 'white',
+                    element: elem,
+                    foreground: 'black',
+                    level: 'H',
+                    padding: 0,
+                    size: 100,
                     value: location.protocol + '//' + location.host + location.pathname
                 });
                 elem.dataset.wmCode = '1';

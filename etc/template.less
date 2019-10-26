@@ -547,12 +547,12 @@ figcaption, figure {
     display: none;
 }
 
-.wm-article-meta {
-    display:  none;
+#wm-article-qrcode {
+    display: none;
 }
 
-#wm-article-header-right {
-    display: none;
+.wm-article-meta {
+    display:  none;
 }
 
 &.wm-print-mode {
@@ -580,10 +580,12 @@ figcaption, figure {
         }
     }
 
+    #wm-article-qrcode {
+        display: block;
+    }
+
     .wm-article-meta {
         display: block;
-        border-bottom: 1px solid @wm_pg_border_color;
-        padding-bottom: 1.25rem;
 
         .wm-title {
             font-weight: bold;
@@ -598,8 +600,10 @@ figcaption, figure {
         }
     }
 
-    #wm-article-header-right {
-        display: block;
+    #wm-article-header {
+        border-bottom: 1px solid @wm_pg_border_color;
+        padding-right: 125px;
+        padding-bottom: 1.25rem;
     }
 
     #wm-print-wrapper {
@@ -746,8 +750,24 @@ figcaption, figure {
 
 &.wm-print-noqrcode {
 
-    #wm-article-header-right {
+    #wm-article-qrcode {
         display: none;
+    }
+
+    #wm-content-outter-wrapper{
+        #wm-content-inner-wrapper {
+            #wm-main-content {
+                #wm-article-container {
+                    .wm-article-content {
+                        #wm-article-header-wrapper {
+                            #wm-article-header {
+                                padding-right: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -923,23 +943,20 @@ figcaption, figure {
     .wm-article-content {
         text-align: justify;
 
-        #wm-article-header {
+        #wm-article-header-wrapper {
             display: flex;
             flex-direction: row;
 
-            #wm-article-header-left {
+            #wm-article-header {
                 flex: 1;
-            }
-
-            #wm-article-header-right {
-                min-width: 125px;
-                min-height: 115px;
-                text-align: right;
+                position: relative;
 
                 #wm-article-qrcode {
                     position: absolute;
                     top: 1rem;
                     right: 0rem;
+                    min-width: 100px;
+                    min-height: 100px;
                 }
             }
         }

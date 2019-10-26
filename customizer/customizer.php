@@ -22,25 +22,29 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
         $colors = str_replace( array( '@', ': ', ';', PHP_EOL ), array( '"', '": "', '",', '' ), $colors );
         $colors = '{' . substr( $colors, 0, -1 ) . '}';
         file_put_contents( $file, $colors );
-        $colors = json_decode( $colors, true );
     }
 
     $file = get_template_directory() . '/etc/colors.json';
     if( !file_exists( $file ) ){
-        $colors = file_get_contents( get_template_directory() . '/less/colors.less' );
-        $colors = str_replace( array( '@', ': ', ';', PHP_EOL ), array( '"', '": "', '",', '' ), $colors );
-        $colors = '{' . substr( $colors, 0, -1 ) . '}';
-        file_put_contents( $file, $colors );
-        $colors = json_decode( $colors, true );
-    }
 
-    $file = get_template_directory() . '/etc/default.json';
-    if( !file_exists( $file ) ){
         $colors = file_get_contents( get_template_directory() . '/less/colors.less' );
         $colors = str_replace( array( '@', ': ', ';', PHP_EOL ), array( '"', '": "', '",', '' ), $colors );
         $colors = '{' . substr( $colors, 0, -1 ) . '}';
         file_put_contents( $file, $colors );
         $colors = json_decode( $colors, true );
+
+        // Check if there are previous colors saved in the database and use those instead
+        $update = false;
+        foreach( $colors as $key => &$color ){
+            if( get_theme_mod( $key ) != $color ){
+                $colors[ $key ] = get_theme_mod( $key );
+                $update = true;
+            }
+        }
+
+        if( $update ){
+            file_put_contents( $file, json_encode( $colors ) );
+        }
     }
 
     $file = get_template_directory() . '/etc/template.less';
