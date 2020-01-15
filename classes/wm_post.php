@@ -158,7 +158,7 @@ if ( !class_exists( 'WM_posts' ) ){
                 }
 
                 /** Do we need to add the trackback or pingback class? */
-                // TODO: FIX THIS. JUST PUT THEM IN THEIR OWN LIST.
+                // [TODO][BP20F4838] FIX THIS. JUST PUT THEM IN THEIR OWN LIST.
                 switch( $comment['comment_type'] ){
                     case 'trackback':
                         $class .= ' wm-comment-trackback';
@@ -172,7 +172,7 @@ if ( !class_exists( 'WM_posts' ) ){
                 $comment_moderation = '';
                 if( $comment['comment_approved'] < 1 && $admin ){
                     /** Yes. Add the comment moderation buttons. */
-                    // TODO: ACTUALLY MAKE THIS WORK
+                    // [TODO][BP20F4839] ACTUALLY MAKE THIS WORK.
                     // wp_nonce_url( admin_url( 'comment.php?c=' . $comment['comment_ID'] . '&action=approvecomment' ) ) ???
                     $comment_moderation = '<a href="" target="_blank" class="wm-control-btns"><i class="fas fa-trash-alt"></i> Trash</a> <a href="" target="_blank" class="wm-control-btns"><i class="fas fa-flag"></i> Spam</a> <a href="" target="_blank" class="wm-control-btns"><i class="fas fa-check"></i> Approve</a>';
                 }
@@ -239,7 +239,7 @@ if ( !class_exists( 'WM_posts' ) ){
             * data or default to the standard WordPress Post author.
             */
             if( $this->_aacp ){
-                // TODO: Make the plugin and remove this! The proper way should be to overide this function.
+                // [TODO][BP20F4840] Make the plugin and remove this! The proper way should be to overide this function.
                 /** Gather all authors. */
 
                 /** Gather all co-authors. */
@@ -347,7 +347,7 @@ if ( !class_exists( 'WM_posts' ) ){
                 if ( $count > 0 ){
                     /** Yes. */
 
-                    // TODO: Make cookies to store this in and check from.
+                    // [TODO][BP20F4841] Make cookies to store this in and check from.
 
                     /** Validate $sort. */
                     switch( $sort ){

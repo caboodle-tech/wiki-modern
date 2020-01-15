@@ -9,7 +9,7 @@
  * @package Wiki Modern Theme
  */
 
- // TODO: Don't load post image either when not on a post page.
+// [TODO][BP20F4852] Don't load post image either when not on a post page.
  ?>
 <aside id="wm-right-sidebar">
     <div class="wm-mobile-controls">
@@ -26,9 +26,9 @@
         /** Show the post meta information only on actual post pages. */
         if ( !is_page() && is_singular() ){
             /** Reference the global class for Post pages. */
-            global $WM_page_html;
+            global $wm_page_html;
 
-            // TODO: Change hard coded Post Information to site language.
+            // [TODO][BP20F4853] Change hard coded Post Information to site language.
     ?>
     <div class="wm-widget">
         <div class="wm-widget-title">
@@ -37,10 +37,10 @@
         <div class="wm-widget-content">
             <table>
                 <?php
-                    echo $WM_page_html->get_sidebar_dates();
-                    echo $WM_page_html->get_sidebar_authors();
-                    echo $WM_page_html->get_sidebar_categories();
-                    echo $WM_page_html->get_sidebar_tags();
+                    echo $wm_page_html->get_sidebar_dates();
+                    echo $wm_page_html->get_sidebar_authors();
+                    echo $wm_page_html->get_sidebar_categories();
+                    echo $wm_page_html->get_sidebar_tags();
                 ?>
             </table>
         </div>

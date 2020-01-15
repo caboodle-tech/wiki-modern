@@ -16,7 +16,7 @@ if ( !class_exists( 'WM_page' ) ){
             $published = $post->post_date;
             $updated = $post->post_modified;
 
-            // TODO: CLEAN POST TITLE!!!!
+            // [TODO][BP20F4834] CLEAN POST TITLE!!!!
             $html = '';
 
             if( $link_flag ){
@@ -83,7 +83,7 @@ if ( !class_exists( 'WM_page' ) ){
                     unset($val);
 
                 } else {
-                    // TODO: Fix this. There are no paragraphs to this post! Show something to the user
+                    // [TODO][BP20F4835] Fix this. There are no paragraphs to this post! Show something to the user.
                     $raw_html = 'This post is missing an introduction.';
                 }
 

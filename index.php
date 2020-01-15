@@ -1,11 +1,14 @@
 <?php
 /**
-* Load the pages header.
-* File: header.php
-*/
+ * Load the pages header.
+ * 
+ * @file header.php
+ * @package Optimal Ship Theme
+ */
+
 get_header();
 
-// TODO: ADD post_password_required check to block viewing locked post without password.
+// [TODO][BP20F4850] ADD post_password_required check to block viewing locked post without password.
 // Make sure the sidebar doesn't load anything either except maybe widgets?
 
 /** Hidden divs used to calculate the browsers scrollbar width. */
@@ -15,7 +18,7 @@ get_header();
     </div>
 </div>
 <?php
-if( is_customize_preview() ){
+if( is_customize_preview() ) {
 ?>
 <div id="wm-customizer-blocker">
     <div id="wm-customizer-blocker-message">
@@ -121,7 +124,7 @@ if( is_customize_preview() ){
             </div>
         </header>
         <main id="wm-main-content">
-            <?php require( 'page-manager.php'); ?>
+            <?php require 'page-manager.php'; ?>
         </main>
         <footer id="wm-bottom-controls">
             <div class="wm-top-row">
@@ -197,20 +200,20 @@ if( is_customize_preview() ){
     </div>
 </div>
 <?php
-if( is_customize_preview() ){
-    if( boolval( get_option( 'wm-less-template-rebuild' ) ) == true ){
-        $action = get_template_directory_uri() . '/wm-less.php';
+if ( is_customize_preview() ) {
+    if ( boolval( get_option( 'wm-less-template-rebuild' ) ) === TRUE ) {
+        $form_action = get_template_directory_uri() . '/wm-less.php';
 ?>
 <script type="text/javascript">
     var blocker = document.getElementById('wm-customizer-blocker');
     blocker.style.display = 'flex';
 </script>
-<iframe name="wm-theme-customizer" id="wm-theme-customizer" data-wm-form-action="<?php echo $action; ?>" src="<?php echo get_template_directory_uri(); ?>/customizer.php" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts"></iframe>
+<iframe name="wm-theme-customizer" id="wm-theme-customizer" data-wm-form-action="<?php echo esc_url_raw( $form_action ); ?>" src="<?php echo esc_url_raw( get_template_directory_uri() ); ?>/customizer.php" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts"></iframe>
 <?php
     }
 }
 ?>
-<div id="wm-site-root" data-wm-template-directory="<?php echo get_site_url(); ?>" style="display:none;"></div>
+<div id="wm-site-root" data-wm-template-directory="<?php echo esc_url_raw( get_site_url() ); ?>" style="display:none;"></div>
 <!-- Load scripts and close the page. -->
 <?php wp_footer(); ?>
 </body>

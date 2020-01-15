@@ -302,7 +302,7 @@ var WikiModern = (function(){
         var elem = event.target || event.srcElement;
         switch( location ){
             case 'image-carousel':
-                // TODO: Finish
+                // [TODO][BP20F4851] Finish.
                 var container = document.getElementById('wm-image-carousel');
                 if( container.dataset.wmDisplayStatus == 0 ){
                     // Open

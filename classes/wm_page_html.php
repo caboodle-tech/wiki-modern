@@ -65,7 +65,7 @@ if ( !class_exists( 'WM_page_html' ) ){
 
             if( !post_password_required( $post->ID ) ){
 
-                // TODO: PULL IN ALL THE $WM_posts FUNCTIONS AND DELETE THAT CLASS
+                // [TODO][BP20F4836] PULL IN ALL THE $WM_posts FUNCTIONS AND DELETE THAT CLASS.
 
                 $dates = $this->get_raw_dates( $post->ID );
                 $published = date_create_from_format( get_option('date_format'), $dates[0] );
@@ -343,7 +343,7 @@ if ( !class_exists( 'WM_page_html' ) ){
                     unset($val);
 
                 } else {
-                    // TODO: Fix this. There are no paragraphs to this post! Show something to the user
+                    // [TODO][BP20F4837] Fix this. There are no paragraphs to this post! Show something to the user.
                     $raw_html = 'This post is missing an introduction.';
                 }
 

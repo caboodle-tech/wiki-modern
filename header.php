@@ -8,14 +8,14 @@
  * @package Wiki Modern Theme
  */
 
- // TODO: Change language to the sites language.
+// [TODO][BP20F4843] Change language to the sites language.
 ?>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php wp_title('&vert;', true, 'right'); ?></title>
+    <title><?php wp_title('|', true, 'right'); ?></title>
     <?php wp_head(); ?>
 </head>
 <?php

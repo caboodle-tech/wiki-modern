@@ -79,7 +79,7 @@ function trim_html_tags( $html, $tags ){
     } else {
         /** No. Use regex and send back something useful. */
         $html = '';
-        // TODO: ADD THIS FEATURE
+        // [TODO][BP20F4849] ADD THIS FEATURE.
     }
 
     /** Send back the cleaned HTML. */

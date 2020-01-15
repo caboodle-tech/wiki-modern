@@ -132,7 +132,7 @@ class lessc {
 
         // copy mixins into scope, set their parents
         // bring blocks from import into current block
-        // TODO: need to mark the source parser these came from this file
+        // [TODO][BP20F4844] need to mark the source parser these came from this file.
         foreach ($root->children as $childName => $child) {
             if (isset($parentBlock->children[$childName])) {
                 $parentBlock->children[$childName] = array_merge(
@@ -157,7 +157,7 @@ class lessc {
 
         $oldImport = $this->importDir;
 
-        // TODO: this is because the importDir api is stupid
+        // [TODO][BP20F4845] this is because the importDir api is stupid.
         $this->importDir = (array)$this->importDir;
         array_unshift($this->importDir, $importDir);
 
@@ -2097,7 +2097,7 @@ class lessc {
                 }
             }
         } else {
-            // TODO: Throw an exception? We got neither a string nor something
+            // [TODO][BP20F4846] Throw an exception? We got neither a string nor something.
             // that looks like a compatible lessphp cache structure.
             return null;
         }
@@ -2675,7 +2675,7 @@ class lessc_parser {
     }
 
     protected function isDirective($dirname, $directives) {
-        // TODO: cache pattern in parser
+        // [TODO][BP20F4847] cache pattern in parser.
         $pattern = implode("|",
             array_map(array("lessc", "preg_quote"), $directives));
         $pattern = '/^(-[a-z-]+-)?(' . $pattern . ')$/i';
@@ -3714,7 +3714,7 @@ class lessc_parser {
     }
 
     // remove comments from $text
-    // todo: make it work for all functions, not just url
+    // [TODO][BP20F4848] make it work for all functions, not just url.
     protected function removeComments($text) {
         $look = array(
             'url(', '//', '/*', '"', "'"
