@@ -29,3 +29,5 @@ The biggest feature for me personally is the Reading Mode and QR Code on Print. 
 
 # Wiki Modern's Future
 I love Wiki Modern and I will for the time being always support it. However, if my business website is any indication of the spare time I have on my hands, this will continue to be a spare time endeavor. :zzz::zzz::tired_face::zzz::zzz: In all seriousness I believe most work on Wiki Modern has been done late at night after work or on my Saturdays and I do not see myself having the time to change that schedule. My students, ~clients~, and employer(s) come first.
+
+Wiki Moderns current [To-Do Items](TODO.md).
