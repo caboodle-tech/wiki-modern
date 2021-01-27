@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="wm-row">
-            <main class="wm-col">
+            <main class="wm-col wm-main-content">
                 <!-- Print Controls -->
                 <div id="wm-print-controls-wrapper">
                     <div class="wm-close-button">
@@ -133,8 +133,9 @@
                 </div>
             </main>
             <aside class="wm-col wm-left-sidebar">
-                <div class="wm-mobile-button">
-                    Close
+                <div class="wm-mobile-button wm-close-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z"/></svg>
+                    <span>Close</span>
                 </div>
                 <div class="wm-article-meta">
                     ...
@@ -144,8 +145,9 @@
                 </div>
             </aside>
             <header class="wm-col wm-right-sidebar">
-                <div class="wm-mobile-button">
-                    Close
+                <div class="wm-mobile-button wm-close-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z"/></svg>
+                    <span>Close</span>
                 </div>
                 <div id="wm-logo-wrapper">
                     <img id="wm-logo" src="https://via.placeholder.com/250x250">
@@ -166,7 +168,7 @@
                 </div>
             </header>
         </div>
-        <footer class="wm-row">
+        <footer class="wm-row wm-footer">
             Footer
         </footer>
     </body>

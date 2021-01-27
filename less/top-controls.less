@@ -87,6 +87,8 @@
 
     .wm-read {
         flex: 1;
+        visibility: hidden;
+        pointer-events: none;
         
         .wm-button {
             margin-right: auto;
@@ -119,6 +121,7 @@
         }
     
         .wm-read {
+            display: none;
             order: 2;
             margin-right: 1rem;
 
@@ -138,6 +141,12 @@
     }
 
     @media ( min-width: 1024px ) {
+
+        .wm-read {
+            display: block;
+            visibility: visible;
+            pointer-events: initial;
+        }
 
         .wm-left-toggle {
             flex: 0;

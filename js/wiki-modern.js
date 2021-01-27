@@ -7,8 +7,38 @@ var WM = ( function() {
     /** Attach event listeners as needed to the page. */
     var attachEvents = function(){
 
+        var elem = '';
+
         // Watch the page for resize events and respond accoringly.
         window.addEventListener( 'resize', refreshLayout, true );
+
+        // Open print controls.
+        elem = elems.topControls.querySelector( '.wm-print .wm-button' );
+        elem.addEventListener( 'click', togglePrintMode, true );
+
+        // Close print controls.
+        elem = elems.printControls.querySelector( '.wm-close-button' );
+        elem.addEventListener( 'click', togglePrintMode, true );
+
+        // Toggle right sidebar.
+        elem = elems.topControls.querySelector( '.wm-right-toggle .wm-button' );
+        elem.addEventListener( 'click', toggleSiderbar.bind( null, 'right' ), true );
+
+        // Toggle left sidebar.
+        elem = elems.topControls.querySelector( '.wm-left-toggle .wm-button' );
+        elem.addEventListener( 'click', toggleSiderbar.bind( null, 'left' ), true );
+
+        // Toggle right sidebar mobile button.
+        elem = elems.rightSidebar.querySelector( '.wm-close-button' );
+        elem.addEventListener( 'click', toggleSiderbar.bind( null, 'right' ), true );
+
+        // Toggle left sidebar mobile button.
+        elem = elems.leftSidebar.querySelector( '.wm-close-button' );
+        elem.addEventListener( 'click', toggleSiderbar.bind( null, 'left' ), true );
+
+        // Toggle reading mode.
+        elem = elems.topControls.querySelector( '.wm-read .wm-button' );
+        elem.addEventListener( 'click', toggleReadingMode, true );
 
     };
 
@@ -48,10 +78,12 @@ var WM = ( function() {
 
         // Record reference to elements.
         elems.page = document.body;
-        elems.content = document.querySelector( 'main' );
-        elems.leftSidebar = document.querySelector( 'aside' );
-        elems.rightSidebar = document.querySelector( 'header' );
-        elems.footer = document.querySelector( 'footer' );
+        elems.content = document.querySelector( 'main.wm-main-content' );
+        elems.topControls = document.querySelector( '#wm-top-controls-wrapper' );
+        elems.printControls = document.querySelector( '#wm-print-controls-wrapper' );
+        elems.leftSidebar = document.querySelector( 'aside.wm-left-sidebar' );
+        elems.rightSidebar = document.querySelector( 'header.wm-right-sidebar' );
+        elems.footer = document.querySelector( 'footer.wm-footer' );
 
         // Setup the pages layout.
         refreshLayout();
@@ -147,6 +179,31 @@ var WM = ( function() {
 
     };
 
+    var togglePrintMode = function() {
+        document.body.classList.toggle( 'wm-print-mode' );
+    };
+
+    var toggleReadingMode = function() {
+        if ( stats.device == 'laptop' || stats.device == 'desktop' ) {
+            var closeFlag = false;
+            // Close right sidebar if its open.
+            if ( elems.rightSidebar.dataset.wmVisibility == '1' ) {
+                toggleSiderbar( 'right' );
+                closeFlag = true;
+            }
+            // Close left sidebar if its open.
+            if ( elems.leftSidebar.dataset.wmVisibility == '1' ) {
+                toggleSiderbar( 'left' );
+                closeFlag = true;
+            }
+            // Open the sidebars if both were already closed.
+            if ( ! closeFlag ) {
+                toggleSiderbar( 'right' );
+                toggleSiderbar( 'left' );
+            }
+        }
+    };
+
     var toggleSiderbar = function( side ) {
 
         switch( side.toUpperCase() ) {
@@ -206,7 +263,7 @@ var WM = ( function() {
                 break;
             case 'RIGHT':
                 // Do not allow multiple calls, abort if timer exists still.
-                if ( timer.leftSidebar ) {
+                if ( timer.rightSidebar ) {
                     return;
                 }
                 if ( elems.rightSidebar.dataset.wmVisibility == '0' ) {
