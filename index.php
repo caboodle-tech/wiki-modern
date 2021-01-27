@@ -1,220 +1,90 @@
-<?php
-/**
- * Load the pages header.
- * 
- * @file header.php
- * @package Optimal Ship Theme
- */
-
-get_header();
-
-// [TODO][BP20F4850] ADD post_password_required check to block viewing locked post without password.
-// Make sure the sidebar doesn't load anything either except maybe widgets?
-
-/** Hidden divs used to calculate the browsers scrollbar width. */
-?>
-<div id="wm-scrollbar-check-outter">
-    <div id="wm-scrollbar-check-inner">
-    </div>
-</div>
-<?php
-if( is_customize_preview() ) {
-?>
-<div id="wm-customizer-blocker">
-    <div id="wm-customizer-blocker-message">
-        <i class="fas fa-spinner fa-pulse"></i>
-        <br>
-        <p>Compiling Theme</p>
-    </div>
-</div>
-<?php
-}
-?>
-<div id="wm-content-outter-wrapper">
-    <div id="wm-content-inner-wrapper">
-        <div id="wm-print-wrapper">
-            <div id="wm-print-options">
-                <div id="wm-print-controls">
-                    <div class="wm-section-title">
-                        Hide Document Parts:
-                    </div>
-                    <div class="wm-section">
-                        <div class="wm-option" onclick="WikiModern.toggle('print-hide-images');">
-                            <i class="fas fa-image wm-icon"></i>
-                            <span class="wm-option-title">Images</span>
-                        </div>
-                        <div class="wm-option" onclick="WikiModern.toggle('print-hide-media');">
-                            <i class="fas fa-film wm-icon"></i>&nbsp;&nbsp;<i class="fas fa-volume-up wm-icon"></i>
-                            <span class="wm-option-title">Digital Media</span>
-                        </div>
-                        <div class="wm-option" onclick="WikiModern.toggle('print-hide-forms');">
-                            <i class="fas fa-receipt wm-icon"></i>
-                            <span class="wm-option-title">Forms</span>
-                        </div>
-                        <div class="wm-option" onclick="WikiModern.toggle('print-hide-qrcode');">
-                            <i class="fas fa-qrcode wm-icon"></i>
-                            <span class="wm-option-title">QR Code</span>
-                        </div>
-                    </div>
-                </div>
-                <div id="wm-print-output">
-                    <div class="wm-section-title">
-                        Output Options:
-                    </div>
-                    <div class="wm-section">
-                        <div class="wm-option" onclick="WikiModern.toggle('print-page');">
-                            <i class="fas fa-print wm-icon"></i> Print Document
-                        </div>
-                        <div class="wm-option" onclick="WikiModern.toggle('print-pdf');">
-                            <i class="fas fa-file-pdf wm-icon"></i> Download PDF
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="wm-print-exit" onclick="WikiModern.toggle('print-app');">
-                <i class="fas fa-times wm-icon"></i>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Demo</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/wiki-modern.js"></script>
+        <script src="js/fa.min.js"></script>
+    </head>
+    <body>
+        <!-- This is hidden from site users. -->
+        <div id="wm-scrollbar-check-outter">
+            <div id="wm-scrollbar-check-inner">
             </div>
         </div>
-        <header id="wm-top-controls">
-            <div class="wm-top-row">
-                <div class="wm-left-column">
-                    <div class="wm-control-btn" aria-label="Toggle left sidebar: Navigation" onclick="WikiModern.toggle('left-sidebar');">
-                        <i class="fas fa-bars"></i>
+        <div class="wm-row">
+            <main class="wm-col">
+                <!-- Page controls -->
+                <div id="wm-top-controls-wrapper">
+                    <div id="wm-search-wrapper">
+                        <div id="wm-fake-input">
+                            <input type="text" placeholder="Search" aria-label="Search" id="wm-search">
+                            <span id="wm-search-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" transform="scale(-1, 1)"><path d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/></svg>
+                            </span>
+                        </div>
                     </div>
-                    <div class="wm-control-btn wm-control-for-page" aria-label="Open Print Application" onclick="WikiModern.toggle('print-app');">
-                        <i class="fas fa-print"></i>
+                    <div class="wm-left-toggle">
+                        <div class="wm-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z"/></svg>
+                        </div>
                     </div>
-                </div>
-                <div class="wm-middle-column">
-                    <div class="wm-search-wrapper">
-<?php
-    $search_text = strip_tags( urldecode( get_query_var('s') ) );
-?>
-                        <input type="text" placeholder="Search" id="wm-search" aria-label="Search" value="<?php echo $search_text; ?>">
-                        <div class="wm-search-btn" id="wm-search-button" aria-label="Run Search Button" onclick="WikiModern.search();">
-                            <i class="fas fa-search"></i>
+                    <div class="wm-print">
+                        <div class="wm-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M14 20h-6v-1h6v1zm10-15v13h-4v6h-16v-6h-4v-13h4v-5h16v5h4zm-6 10h-12v7h12v-7zm0-13h-12v3h12v-3zm4 5.5c0-.276-.224-.5-.5-.5s-.5.224-.5.5.224.5.5.5.5-.224.5-.5zm-6 9.5h-8v1h8v-1z"/></svg>
+                        </div>
+                    </div>
+                    <div class="wm-read">
+                        <div class="wm-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" xml:space="preserve" preserveAspectRatio='xMinYMin'><path d="M12 4.706c-2.938-1.83-7.416-2.566-12-2.706v17.714c3.937.12 7.795.681 10.667 1.995.846.388 1.817.388 2.667 0 2.872-1.314 6.729-1.875 10.666-1.995v-17.714c-4.584.14-9.062.876-12 2.706zm-10 13.104v-13.704c5.157.389 7.527 1.463 9 2.334v13.168c-1.525-.546-4.716-1.504-9-1.798zm20 0c-4.283.293-7.475 1.252-9 1.799v-13.171c1.453-.861 3.83-1.942 9-2.332v13.704zm-2-10.214c-2.086.312-4.451 1.023-6 1.672v-1.064c1.668-.622 3.881-1.315 6-1.626v1.018zm0 3.055c-2.119.311-4.332 1.004-6 1.626v1.064c1.549-.649 3.914-1.361 6-1.673v-1.017zm0-2.031c-2.119.311-4.332 1.004-6 1.626v1.064c1.549-.649 3.914-1.361 6-1.673v-1.017zm0 6.093c-2.119.311-4.332 1.004-6 1.626v1.064c1.549-.649 3.914-1.361 6-1.673v-1.017zm0-2.031c-2.119.311-4.332 1.004-6 1.626v1.064c1.549-.649 3.914-1.361 6-1.673v-1.017zm-16-6.104c2.119.311 4.332 1.004 6 1.626v1.064c-1.549-.649-3.914-1.361-6-1.672v-1.018zm0 5.09c2.086.312 4.451 1.023 6 1.673v-1.064c-1.668-.622-3.881-1.315-6-1.626v1.017zm0-2.031c2.086.312 4.451 1.023 6 1.673v-1.064c-1.668-.622-3.881-1.316-6-1.626v1.017zm0 6.093c2.086.312 4.451 1.023 6 1.673v-1.064c-1.668-.622-3.881-1.315-6-1.626v1.017zm0-2.031c2.086.312 4.451 1.023 6 1.673v-1.064c-1.668-.622-3.881-1.315-6-1.626v1.017z"/></svg>
+                        </div>
+                    </div>
+                    <div class="wm-right-toggle">
+                        <div class="wm-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/></svg>
                         </div>
                     </div>
                 </div>
-                <div class="wm-right-column">
-                    <div class="wm-control-btn" aria-label="Toggle right sidebar: Aside information" onclick="WikiModern.toggle('right-sidebar');">
-                        <i class="fas fa-info-circle"></i>
+            </main>
+            <aside class="wm-col wm-left-sidebar">
+                <div class="wm-mobile-button">
+                    Close
+                </div>
+                <div class="wm-article-meta">
+                    ...
+                </div>
+                <div class="wm-module-area">
+                    mod
+                </div>
+            </aside>
+            <header class="wm-col wm-right-sidebar">
+                <div class="wm-mobile-button">
+                    Close
+                </div>
+                <div id="wm-logo-wrapper">
+                    <img id="wm-logo" src="https://via.placeholder.com/250x250">
+                </div>
+                <nav id="wm-nav-wrapper">
+                    ...
+                </nav>
+                <div class="wm-module-area">
+                    mod
+                </div>
+                <div id="wm-dark-mode-wrapper">
+                    <div id="wm-dark-mode-toggle" title="Toggle dark mode">
+                        <label>
+                            <input type="checkbox" name="">
+                            <span></span>
+                        </label>
                     </div>
                 </div>
-            </div>
-            <div class="wm-bottom-row">
-                <div class="wm-left-column">
-                    <div class="wm-control-btn" aria-label="Open Print Application" onclick="WikiModern.toggle('print-app');">
-                        <i class="fas fa-print"></i>
-                    </div>
-                </div>
-                <div class="wm-middle-column">
-                    <div class="wm-control-btn wm-control-text-btn wm-float-left" aria-label="Open Article" onclick="WikiModern.toggle('show-article');">
-                        <i class="fas fa-newspaper"></i> Article
-                    </div>
-                    <div class="wm-control-btn wm-control-text-btn wm-float-right" aria-label="Open Comments" onclick="WikiModern.toggle('show-comments');">
-                        <i class="fas fa-comments"></i> Comments
-                    </div>
-                </div>
-                <div class="wm-right-column">
-                    <div class="wm-control-btn" aria-label="Toggle Reading Mode: Hides or shows sidebars" onclick="WikiModern.toggle('reading-mode');">
-                        <i class="fab fa-readme"></i>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <main id="wm-main-content">
-            <?php require 'page-manager.php'; ?>
-        </main>
-        <footer id="wm-bottom-controls">
-            <div class="wm-top-row">
-                <div class="wm-left-column">
-                    <?php
-                        $next_post = get_next_post();
-                        if (!empty( $next_post )){
-                            $next_post = get_permalink( $next_post->ID );
-                    ?>
-                    <div class="wm-control-btn wm-control-text-btn wm-float-left" aria-label="Next Article">
-                        <a href="<?php echo $next_post; ?>"><i class="fas fa-angle-left wm-bump-btn-icon"></i> Next</a>
-                    </div>
-                    <?php
-                        }
-                    ?>
-                </div>
-                <div class="wm-middle-column">
-                    <div class="wm-control-btn wm-control-text-btn wm-float-left" aria-label="Open Article" onclick="WikiModern.toggle('bottom-show-article');">
-                        <i class="fas fa-newspaper"></i> Article
-                    </div>
-                    <div class="wm-control-btn wm-control-text-btn wm-float-right" aria-label="Open Comments" onclick="WikiModern.toggle('bottom-show-comments');">
-                        <i class="fas fa-comments"></i> Comments
-                    </div>
-                </div>
-                <div class="wm-right-column">
-                    <?php
-                        $previous_post = get_previous_post();
-                        if (!empty( $previous_post )){
-                            $previous_post = get_permalink( $previous_post->ID );
-                    ?>
-                    <div class="wm-control-btn wm-control-text-btn wm-float-right" aria-label="Previous Article">
-                        <a href="<?php echo $previous_post; ?>">Previous <i class="fas fa-angle-right wm-bump-btn-icon"></i></a>
-                    </div>
-                    <?php
-                        }
-                    ?>
-                </div>
-            </div>
+            </header>
+        </div>
+        <footer class="wm-row">
+            Footer
         </footer>
-    </div>
-    <?php
-        /**
-        * Load the pages left (site navigation & widgets) sidebar.
-        * File: sidebar-left.php
-        */
-        get_sidebar('left');
-
-        /**
-        * Load the pages right (Post meta & widgets) sidebar.
-        * File: sidebar-right.php
-        */
-        get_sidebar('right');
-    ?>
-</div>
-<?php
-    /**
-    * Load the pages footer.
-    * File: footer.php
-    */
-    get_footer();
-?>
-<div id="wm-image-carousel">
-    <div class="wm-control-btn wm-close" onclick="WikiModern.toggle('image-carousel');">
-        <i class="fas fa-times"></i>
-    </div>
-    <div class="wm-control-btn" onclick="WikiModern.carouselRotate('left');">
-        <i class="fas fa-angle-left"></i>
-    </div>
-    <div id="wm-image-stage">
-    </div>
-    <div class="wm-control-btn" onclick="WikiModern.carouselRotate('right');">
-        <i class="fas fa-angle-right"></i>
-    </div>
-</div>
-<?php
-if ( is_customize_preview() ) {
-    if ( boolval( get_option( 'wm-less-template-rebuild' ) ) === TRUE ) {
-        $form_action = get_template_directory_uri() . '/wm-less.php';
-?>
-<script type="text/javascript">
-    var blocker = document.getElementById('wm-customizer-blocker');
-    blocker.style.display = 'flex';
-</script>
-<iframe name="wm-theme-customizer" id="wm-theme-customizer" data-wm-form-action="<?php echo esc_url_raw( $form_action ); ?>" src="<?php echo esc_url_raw( get_template_directory_uri() ); ?>/customizer.php" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts"></iframe>
-<?php
-    }
-}
-?>
-<div id="wm-site-root" data-wm-template-directory="<?php echo esc_url_raw( get_site_url() ); ?>" style="display:none;"></div>
-<!-- Load scripts and close the page. -->
-<?php wp_footer(); ?>
-</body>
+    </body>
 </html>

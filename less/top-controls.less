@@ -1,0 +1,71 @@
+#wm-top-controls-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+
+    .wm-button {
+        width: 3rem;
+        height: 3rem;
+        line-height: 3rem;
+        font-size: 2rem;
+        text-align: center;
+        border: 1px solid @border-color;
+        background-color: @sidebar-bg-color;
+        
+        svg {
+            transform: scale(1.25);
+        }
+    }
+
+    #wm-search-wrapper {
+        width: 100%;
+
+        #wm-fake-input {
+            position: relative;
+            border: 1px solid @border-color;
+            background-color: @sidebar-bg-color;
+            margin-bottom: @spacing;
+
+            #wm-search {
+                width: 100%;
+            }
+
+            #wm-search-icon {
+                position: absolute;
+                z-index: 300;
+                right: 0;
+            }
+        }
+    }
+
+    .wm-left-toggle {
+        flex: 1;
+
+        .wm-button {
+            margin-right: auto;
+        }
+    }
+
+    .wm-print {
+        flex: 1;
+        
+        .wm-button {
+            margin-right: auto;
+        }
+    }
+
+    .wm-read {
+        flex: 1;
+        
+        .wm-button {
+            margin-left: auto;
+        }
+    }
+
+    .wm-right-toggle {
+        flex: 1;
+        
+        .wm-button {
+            margin-left: auto;
+        }
+    }
+}
