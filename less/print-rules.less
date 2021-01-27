@@ -1,0 +1,120 @@
+body.wm-print-mode {
+
+    header, aside, footer {
+        display: none;
+    }
+
+    main {
+        border: 0px !important;
+
+        #wm-print-controls-wrapper {
+            display: flex;
+        }
+
+        #wm-top-controls-wrapper {
+            display: none;
+        }
+
+        @media print {
+    
+            #wm-print-controls-wrapper {
+                display: none !important;
+            }
+            
+        }
+    }
+}
+
+#wm-print-controls-wrapper {
+    position: relative;
+    display: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: -@spacing -@spacing @spacing -@spacing;
+    padding: @spacing;
+    background-color: @sidebar-bg-color;
+    border-bottom: 1px solid @border-color;
+
+    .wm-close-button {
+        position: absolute;
+        top: @spacing;
+        right: @spacing;
+        transform: scale(1.25);
+        cursor: pointer;
+
+        &:hover {
+            opacity: .5;
+        }
+    }
+
+    .wm-left-column, .wm-right-column  {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+
+        .wm-title {
+            width: 100%;
+            font-size: 1.20rem;
+            font-weight: bold;
+        }
+
+        .wm-option {
+            flex: 1;
+            flex-basis: 50%;
+            text-align: center;
+            padding-top: @spacing;
+
+            .wm-title {
+                padding: 0;
+                font-size: 1.15rem;
+                font-weight: normal;
+            }
+
+            .wm-icon {
+                padding: @spacing 0;
+
+                svg {
+                    transform: scale(1.25);
+
+                    &+svg {
+                        margin-left: @spacing;
+                    }
+                }
+            }
+        }
+    }
+
+    .wm-right-column {
+        padding-top: @spacing;
+    }
+
+    @media ( min-width: 768px ) {
+
+        .wm-left-column {
+            .wm-option {
+                flex-basis: 25%;
+            }
+        }
+    }
+
+    @media ( min-width: 1024px ) {
+
+        .wm-left-column {
+            width: 60%;
+
+            .wm-option {
+                flex-basis: 25%;
+            }
+        }
+        
+        .wm-right-column {
+            width: 40%;
+            padding-top: 0;
+
+            .wm-option {
+                flex-basis: 25%;
+            }
+        }
+    }
+}

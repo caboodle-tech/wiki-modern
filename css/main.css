@@ -333,3 +333,103 @@ footer.wm-row {
   position: relative;
   flex: 0;
 }
+body.wm-print-mode header,
+body.wm-print-mode aside,
+body.wm-print-mode footer {
+  display: none;
+}
+body.wm-print-mode main {
+  border: 0px !important;
+}
+body.wm-print-mode main #wm-print-controls-wrapper {
+  display: flex;
+}
+body.wm-print-mode main #wm-top-controls-wrapper {
+  display: none;
+}
+@media print {
+  body.wm-print-mode main #wm-print-controls-wrapper {
+    display: none !important;
+  }
+}
+#wm-print-controls-wrapper {
+  position: relative;
+  display: none;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: -15px -15px 15px -15px;
+  padding: 15px;
+  background-color: #fafafb;
+  border-bottom: 1px solid #c5c5c5;
+}
+#wm-print-controls-wrapper .wm-close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  transform: scale(1.25);
+  cursor: pointer;
+}
+#wm-print-controls-wrapper .wm-close-button:hover {
+  opacity: 0.5;
+}
+#wm-print-controls-wrapper .wm-left-column,
+#wm-print-controls-wrapper .wm-right-column {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+#wm-print-controls-wrapper .wm-left-column .wm-title,
+#wm-print-controls-wrapper .wm-right-column .wm-title {
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+#wm-print-controls-wrapper .wm-left-column .wm-option,
+#wm-print-controls-wrapper .wm-right-column .wm-option {
+  flex: 1;
+  flex-basis: 50%;
+  text-align: center;
+  padding-top: 15px;
+}
+#wm-print-controls-wrapper .wm-left-column .wm-option .wm-title,
+#wm-print-controls-wrapper .wm-right-column .wm-option .wm-title {
+  padding: 0;
+  font-size: 1.15rem;
+  font-weight: normal;
+}
+#wm-print-controls-wrapper .wm-left-column .wm-option .wm-icon,
+#wm-print-controls-wrapper .wm-right-column .wm-option .wm-icon {
+  padding: 15px 0;
+}
+#wm-print-controls-wrapper .wm-left-column .wm-option .wm-icon svg,
+#wm-print-controls-wrapper .wm-right-column .wm-option .wm-icon svg {
+  transform: scale(1.25);
+}
+#wm-print-controls-wrapper .wm-left-column .wm-option .wm-icon svg + svg,
+#wm-print-controls-wrapper .wm-right-column .wm-option .wm-icon svg + svg {
+  margin-left: 15px;
+}
+#wm-print-controls-wrapper .wm-right-column {
+  padding-top: 15px;
+}
+@media (min-width: 768px) {
+  #wm-print-controls-wrapper .wm-left-column .wm-option {
+    flex-basis: 25%;
+  }
+}
+@media (min-width: 1024px) {
+  #wm-print-controls-wrapper .wm-left-column {
+    width: 60%;
+  }
+  #wm-print-controls-wrapper .wm-left-column .wm-option {
+    flex-basis: 25%;
+  }
+  #wm-print-controls-wrapper .wm-right-column {
+    width: 40%;
+    padding-top: 0;
+  }
+  #wm-print-controls-wrapper .wm-right-column .wm-option {
+    flex-basis: 25%;
+  }
+}
