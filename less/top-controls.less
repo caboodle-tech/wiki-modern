@@ -15,6 +15,7 @@
         
         svg {
             transform: scale(1.25);
+            fill: @content-color;
         }
 
         &:hover {
@@ -29,7 +30,7 @@
         #wm-fake-input {
             position: relative;
             border: 1px solid @border-color;
-            background-color: @sidebar-bg-color;
+            background-color: @input-bg-color;
             margin-bottom: @spacing;
             height: 3rem;
             padding: 0 @spacing / 2;
@@ -45,6 +46,8 @@
                 padding-right: 2rem;
                 border: 0;
                 outline: none;
+                background-color: @input-bg-color;
+                color: @input-color;
             }
 
             #wm-search-icon {
@@ -60,6 +63,7 @@
 
                 svg {
                     transform: scale(1.25);
+                    fill: @input-color;
                 }
             }
 

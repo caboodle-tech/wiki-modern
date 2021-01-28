@@ -57,6 +57,10 @@ h1, h2, h3, h4, h5, h6 {
     box-sizing: border-box;
 }
 
+input[type="checkbox"] + span {
+    cursor: pointer;
+}
+
 #wm-scrollbar-check-outter {
     position: absolute;
     top: 0;
@@ -96,6 +100,34 @@ main {
     padding: @spacing;
 }
 
+aside.wm-left-sidebar, header.wm-right-sidebar {
+
+    .wm-mobile-button {
+        margin-bottom: @spacing;
+        text-align: center;
+        
+        .wm-close-button {
+            display: inline-block;
+            font-size: 2rem;
+            line-height: 2rem;
+            vertical-align: middle;
+            padding: @spacing / 2 @spacing;
+            background-color: @content-bg-color;
+            border: 1px solid @border-color;
+            .box-shadow();
+            cursor: pointer;
+        }
+
+        svg {
+            transform: scale(1.25);
+        }
+
+        &:hover {
+            border-color: fade( @border-color, 50% );
+        }
+    }
+}
+
 aside.wm-left-sidebar {
     z-index: 1000;
     order: -1;
@@ -132,15 +164,19 @@ header.wm-right-sidebar {
 }
 
 footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     font-size: @font-size;
     background-color: @footer-bg-color;
     color: @footer-color;
-    padding: @spacing;
 
     &.wm-row {
         position: relative;
         flex: 0;
     }
+
+    @import "footer.less";
 }
 
 @import "print-rules.less";

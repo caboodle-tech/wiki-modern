@@ -12,6 +12,9 @@ var WM = ( function() {
         // Watch the page for resize events and respond accoringly.
         window.addEventListener( 'resize', refreshLayout, true );
 
+        // Toggle reading mode.
+        document.getElementById( 'wm-dark-mode-toggle' ).addEventListener( 'change', toggleDarkMode );
+
         // Open print controls.
         elem = elems.topControls.querySelector( '.wm-print .wm-button' );
         elem.addEventListener( 'click', togglePrintMode, true );
@@ -19,6 +22,20 @@ var WM = ( function() {
         // Close print controls.
         elem = elems.printControls.querySelector( '.wm-close-button' );
         elem.addEventListener( 'click', togglePrintMode, true );
+
+        // Print document.
+        elem = elems.printControls.querySelector( '.wm-right-column .wm-print' );
+        elem.addEventListener( 'click', window.print.bind( window ), true );
+
+        // Print document.
+        elem = elems.printControls.querySelector( '.wm-right-column .wm-download' );
+        elem.addEventListener( 'click', downloadPdf, true );
+
+        // Print document.
+        elem = elems.printControls.querySelectorAll( '.wm-left-column input[type="checkbox"]' );
+        elem.forEach( function( toggle ) {
+            toggle.addEventListener( 'change', togglePrintSetting, true );
+        } );
 
         // Toggle right sidebar.
         elem = elems.topControls.querySelector( '.wm-right-toggle .wm-button' );
@@ -29,17 +46,16 @@ var WM = ( function() {
         elem.addEventListener( 'click', toggleSiderbar.bind( null, 'left' ), true );
 
         // Toggle right sidebar mobile button.
-        elem = elems.rightSidebar.querySelector( '.wm-close-button' );
+        elem = elems.rightSidebar.querySelector( '.wm-mobile-button .wm-close-button' );
         elem.addEventListener( 'click', toggleSiderbar.bind( null, 'right' ), true );
 
         // Toggle left sidebar mobile button.
-        elem = elems.leftSidebar.querySelector( '.wm-close-button' );
+        elem = elems.leftSidebar.querySelector( '.wm-mobile-button .wm-close-button' );
         elem.addEventListener( 'click', toggleSiderbar.bind( null, 'left' ), true );
 
         // Toggle reading mode.
         elem = elems.topControls.querySelector( '.wm-read .wm-button' );
         elem.addEventListener( 'click', toggleReadingMode, true );
-
     };
 
     /**
@@ -62,6 +78,10 @@ var WM = ( function() {
                 }
             });
         }
+    };
+
+    var downloadPdf = function() {
+        alert( 'Coming soon!' );
     };
 
     /**
@@ -179,8 +199,58 @@ var WM = ( function() {
 
     };
 
+    var toggleDarkMode = function() {
+        setTimeout( function() {
+            if ( Cookies.get( 'wm-dark-mode' ) ) {
+                Cookies.remove( 'wm-dark-mode' );
+            } else {
+                Cookies.set( 'wm-dark-mode', 'True', { expires: 90 } );
+            }
+            window.location.reload();
+        }, 750 );
+    };
+
     var togglePrintMode = function() {
+        // Is print mode already open?
+        if ( document.body.classList.contains( 'wm-print-mode' ) ) {
+            // Yes. Remove print classes from body.
+            document.body.classList.remove( 'wm-print-no-images' );
+            document.body.classList.remove( 'wm-print-no-media' );
+            document.body.classList.remove( 'wm-print-no-forms' );
+            document.body.classList.remove( 'wm-print-no-qr' );
+        } else {
+            // No. Add any disabled print classes to the body.
+            ops = elems.printControls.querySelectorAll( '.wm-left-column input[type="checkbox"]' );
+            ops.forEach( function( op ) {
+                if ( op.checked ) {
+                    document.body.classList.add( op.name.toLowerCase() );
+                }
+            } );
+        }
+        // Toggle print mode visually.
         document.body.classList.toggle( 'wm-print-mode' );
+    };
+
+    var togglePrintSetting = function() {
+        if ( this.name ) {
+            // Do we have an existing cookie?
+            var obj = Cookies.getJSON( 'wm-print-settings' );
+            if ( ! obj ) {
+                // No make it first.
+                obj = {
+                    'wm-print-no-images': false,
+                    'wm-print-no-media': false,
+                    'wm-print-no-forms': false,
+                    'wm-print-no-qr': false
+                }
+            }
+            // Update toggle on page.
+            var name = this.name.toLowerCase();
+            document.body.classList.toggle( name );
+            // Update print settings object and save/update cookie.
+            obj[ name ] = this.checked;
+            Cookies.set( 'wm-print-settings', obj, { expires: 90 } );
+        }
     };
 
     var toggleReadingMode = function() {

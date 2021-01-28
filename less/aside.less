@@ -1,6 +1,10 @@
 .wm-mobile-button {
     grid-column: 1;
     grid-row: 1;
+
+    svg {
+        fill: @content-color;
+    }
 }
 
 .wm-article-meta {
@@ -11,4 +15,13 @@
 .wm-module-area {
     grid-column: 1;
     grid-row: 3;
+}
+
+@media ( min-width: 1200px ) {
+    grid-template-rows: 0 auto 1fr;
+
+    .wm-mobile-button {
+        height: 0;
+        overflow: hidden;
+    }
 }

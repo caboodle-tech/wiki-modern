@@ -71,10 +71,10 @@ input[type="checkbox"] + span {
 main {
   z-index: 500;
   font-size: 1.15rem;
-  background-color: #ffffff;
-  color: #2a2a2a;
+  background-color: #393939;
+  color: #f2f2f3;
   padding: 15px;
-  border-bottom: 1px solid #c5c5c5;
+  border-bottom: 1px solid #54575a;
 }
 main #wm-top-controls-wrapper {
   display: flex;
@@ -86,19 +86,19 @@ main #wm-top-controls-wrapper .wm-button {
   line-height: 3rem;
   font-size: 2rem;
   text-align: center;
-  border: 1px solid #c5c5c5;
-  background-color: #fafafb;
+  border: 1px solid #54575a;
+  background-color: #2d2d2d;
   cursor: pointer;
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
-  box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
+  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
 }
 main #wm-top-controls-wrapper .wm-button svg {
   transform: scale(1.25);
-  fill: #2a2a2a;
+  fill: #f2f2f3;
 }
 main #wm-top-controls-wrapper .wm-button:hover {
-  border-color: rgba(197, 197, 197, 0.5);
+  border-color: rgba(84, 87, 90, 0.5);
 }
 main #wm-top-controls-wrapper #wm-search-wrapper {
   width: 100%;
@@ -106,15 +106,15 @@ main #wm-top-controls-wrapper #wm-search-wrapper {
 }
 main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input {
   position: relative;
-  border: 1px solid #c5c5c5;
-  background-color: #ffffff;
+  border: 1px solid #54575a;
+  background-color: #f2f2f3;
   margin-bottom: 15px;
   height: 3rem;
   padding: 0 7.5px;
   overflow: hidden;
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
-  box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
+  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
 }
 main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input #wm-search {
   width: 100%;
@@ -125,8 +125,8 @@ main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input #wm-search {
   padding-right: 2rem;
   border: 0;
   outline: none;
-  background-color: #ffffff;
-  color: #2a2a2a;
+  background-color: #f2f2f3;
+  color: #2d2d2d;
 }
 main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input #wm-search-icon {
   position: absolute;
@@ -141,7 +141,7 @@ main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input #wm-search-icon 
 }
 main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input #wm-search-icon svg {
   transform: scale(1.25);
-  fill: #2a2a2a;
+  fill: #2d2d2d;
 }
 main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input:focus-within,
 main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input:hover {
@@ -219,8 +219,8 @@ main #wm-top-controls-wrapper .wm-right-toggle .wm-button {
 }
 .wm-left-sidebar,
 .wm-right-sidebar {
-  background-color: #fafafb;
-  color: #2a2a2a;
+  background-color: #2d2d2d;
+  color: #f2f2f3;
   padding: 15px;
 }
 aside.wm-left-sidebar .wm-mobile-button,
@@ -235,11 +235,11 @@ header.wm-right-sidebar .wm-mobile-button .wm-close-button {
   line-height: 2rem;
   vertical-align: middle;
   padding: 7.5px 15px;
-  background-color: #ffffff;
-  border: 1px solid #c5c5c5;
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
-  box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
+  background-color: #393939;
+  border: 1px solid #54575a;
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
+  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
   cursor: pointer;
 }
 aside.wm-left-sidebar .wm-mobile-button svg,
@@ -248,7 +248,7 @@ header.wm-right-sidebar .wm-mobile-button svg {
 }
 aside.wm-left-sidebar .wm-mobile-button:hover,
 header.wm-right-sidebar .wm-mobile-button:hover {
-  border-color: rgba(197, 197, 197, 0.5);
+  border-color: rgba(84, 87, 90, 0.5);
 }
 aside.wm-left-sidebar {
   z-index: 1000;
@@ -259,7 +259,7 @@ aside.wm-left-sidebar {
   font-size: 1.15rem;
   min-width: 300px;
   max-width: 300px;
-  border-right: 1px solid #c5c5c5;
+  border-right: 1px solid #54575a;
 }
 aside.wm-left-sidebar.wm-closed {
   border-left: 0 transparent;
@@ -269,7 +269,7 @@ aside.wm-left-sidebar .wm-mobile-button {
   grid-row: 1;
 }
 aside.wm-left-sidebar .wm-mobile-button svg {
-  fill: #2a2a2a;
+  fill: #f2f2f3;
 }
 aside.wm-left-sidebar .wm-article-meta {
   grid-column: 1;
@@ -296,7 +296,7 @@ header.wm-right-sidebar {
   font-size: 1.15rem;
   min-width: 300px;
   max-width: 300px;
-  border-left: 1px solid #c5c5c5;
+  border-left: 1px solid #54575a;
 }
 header.wm-right-sidebar.wm-closed {
   border-left: 0 transparent;
@@ -306,7 +306,7 @@ header.wm-right-sidebar .wm-mobile-button {
   grid-row: 1;
 }
 header.wm-right-sidebar .wm-mobile-button svg {
-  fill: #2a2a2a;
+  fill: #f2f2f3;
 }
 header.wm-right-sidebar #wm-logo-wrapper {
   grid-column: 1;
@@ -348,12 +348,12 @@ header.wm-right-sidebar #wm-dark-mode-toggle span {
   width: 4.25rem;
   height: 2rem;
   border-radius: 4rem;
-  border: 1px solid #c5c5c5;
-  background: #ffffff;
+  border: 1px solid #54575a;
+  background: #393939;
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
-  box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
+  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
 }
 header.wm-right-sidebar #wm-dark-mode-toggle span:before {
   content: "☀";
@@ -364,8 +364,8 @@ header.wm-right-sidebar #wm-dark-mode-toggle span:before {
   height: 1.7rem;
   font-size: 1.6rem;
   border-radius: 50%;
-  color: #ffffff;
-  box-shadow: inset -2rem -2rem 0 0 #2a2a2a;
+  color: #393939;
+  box-shadow: inset -2rem -2rem 0 0 #f2f2f3;
   transition: all 0.5s cubic-bezier(0, 0.55, 0.45, 1);
 }
 @media (min-width: 1024px) {
@@ -382,17 +382,18 @@ footer {
   flex-direction: row;
   flex-wrap: wrap;
   font-size: 1.15rem;
-  background-color: #fafafb;
-  color: #2a2a2a;
+  background-color: #2d2d2d;
+  color: #f2f2f3;
+  padding: 15px;
 }
 footer.wm-row {
   position: relative;
   flex: 0;
 }
 footer .wm-column {
-  flex: 1 0 auto;
-  min-width: 100%;
-  padding: 15px;
+  flex: 1;
+  flex-basis: 100%;
+  margin-bottom: 15px;
 }
 footer #wm-copyright {
   width: 100%;
@@ -402,16 +403,10 @@ footer #wm-copyright {
 footer #wm-copyright svg {
   transform: scale(0.75);
   margin-bottom: -0.3rem;
-  fill: #2a2a2a;
 }
 footer #wm-copyright .wm-mobile-break {
   width: 100%;
   height: 1.15rem;
-}
-@media (min-width: 768px) {
-  footer .wm-column {
-    min-width: 50%;
-  }
 }
 @media (min-width: 1024px) {
   footer #wm-copyright .wm-mobile-break {
@@ -419,12 +414,7 @@ footer #wm-copyright .wm-mobile-break {
     width: 1px;
     height: 1.4375rem;
     margin: 0 15px -0.32857143rem 15px;
-    border: 1px solid #c5c5c5;
-  }
-}
-@media (min-width: 1200px) {
-  footer .wm-column {
-    min-width: 25%;
+    border: 1px solid #54575a;
   }
 }
 body.wm-print-mode header,
@@ -469,8 +459,8 @@ body.wm-print-mode.wm-print-no-qr #wm-print-controls-wrapper #wm-qr-option .wm-t
   flex-wrap: wrap;
   margin: -15px -15px 15px -15px;
   padding: 15px;
-  background-color: #fafafb;
-  border-bottom: 1px solid #c5c5c5;
+  background-color: #2d2d2d;
+  border-bottom: 1px solid #54575a;
 }
 #wm-print-controls-wrapper .wm-close-button {
   position: absolute;
@@ -482,19 +472,19 @@ body.wm-print-mode.wm-print-no-qr #wm-print-controls-wrapper #wm-qr-option .wm-t
   line-height: 2.25rem;
   vertical-align: middle;
   text-align: center;
-  border: 1px solid #c5c5c5;
-  background-color: #ffffff;
+  border: 1px solid #54575a;
+  background-color: #393939;
   cursor: pointer;
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
-  box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
+  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
 }
 #wm-print-controls-wrapper .wm-close-button svg {
   transform: scale(1.25);
-  fill: #2a2a2a;
+  fill: #f2f2f3;
 }
 #wm-print-controls-wrapper .wm-close-button:hover {
-  border-color: rgba(197, 197, 197, 0.5);
+  border-color: rgba(84, 87, 90, 0.5);
 }
 #wm-print-controls-wrapper .wm-left-column,
 #wm-print-controls-wrapper .wm-right-column {
@@ -529,7 +519,7 @@ body.wm-print-mode.wm-print-no-qr #wm-print-controls-wrapper #wm-qr-option .wm-t
 #wm-print-controls-wrapper .wm-left-column .wm-option .wm-icon svg,
 #wm-print-controls-wrapper .wm-right-column .wm-option .wm-icon svg {
   transform: scale(1.25);
-  fill: #2a2a2a;
+  fill: #f2f2f3;
 }
 #wm-print-controls-wrapper .wm-left-column .wm-option .wm-icon svg + svg,
 #wm-print-controls-wrapper .wm-right-column .wm-option .wm-icon svg + svg {
@@ -537,25 +527,25 @@ body.wm-print-mode.wm-print-no-qr #wm-print-controls-wrapper #wm-qr-option .wm-t
 }
 #wm-print-controls-wrapper .wm-left-column input[type="button"],
 #wm-print-controls-wrapper .wm-right-column input[type="button"] {
-  border: 1px solid #c5c5c5;
-  background-color: #ffffff;
-  color: #2a2a2a;
+  border: 1px solid #54575a;
+  background-color: #393939;
+  color: #f2f2f3;
   cursor: pointer;
   outline: none;
   padding: 5px 7.5px;
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
-  box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
+  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
 }
 #wm-print-controls-wrapper .wm-left-column input[type="button"]:focus,
 #wm-print-controls-wrapper .wm-right-column input[type="button"]:focus,
 #wm-print-controls-wrapper .wm-left-column input[type="button"]:active,
 #wm-print-controls-wrapper .wm-right-column input[type="button"]:active {
-  border: 1px solid #c5c5c5;
+  border: 1px solid #54575a;
 }
 #wm-print-controls-wrapper .wm-left-column input[type="button"]:hover,
 #wm-print-controls-wrapper .wm-right-column input[type="button"]:hover {
-  border-color: rgba(197, 197, 197, 0.5);
+  border-color: rgba(84, 87, 90, 0.5);
 }
 #wm-print-controls-wrapper .wm-left-column input[type="checkbox"] {
   display: none;
@@ -572,12 +562,12 @@ body.wm-print-mode.wm-print-no-qr #wm-print-controls-wrapper #wm-qr-option .wm-t
   width: 3.5rem;
   height: 1.65rem;
   border-radius: 4rem;
-  border: 1px solid #c5c5c5;
-  background: #ffffff;
+  border: 1px solid #54575a;
+  background: #393939;
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
-  box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
+  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.07);
 }
 #wm-print-controls-wrapper .wm-left-column span:before {
   content: "\2713";
@@ -590,8 +580,8 @@ body.wm-print-mode.wm-print-no-qr #wm-print-controls-wrapper #wm-qr-option .wm-t
   font-weight: bold;
   line-height: 1.3rem;
   border-radius: 50%;
-  color: #ffffff;
-  box-shadow: inset -2rem -2rem 0 0 #2a2a2a;
+  color: #393939;
+  box-shadow: inset -2rem -2rem 0 0 #f2f2f3;
   transition: all 0.5s cubic-bezier(0, 0.55, 0.45, 1);
 }
 #wm-print-controls-wrapper .wm-right-column {
