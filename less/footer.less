@@ -1,7 +1,36 @@
+a {
+    text-decoration: none;
+    color: @link-color;
+
+    svg {
+        fill: @link-color;
+    }
+
+    &:hover {
+        color: lighten( @link-color, 15% );
+
+        svg {
+            fill: lighten( @link-color, 15% );
+        }
+    }
+}
+
+svg {
+    fill: @content-color;
+}
+
 .wm-column {
     flex: 1 0 auto;
     min-width: 100%;
     padding:@spacing;
+
+    .wm-title {
+        display: block;
+        font-family: "Roboto Slab Semi Bold", serif;
+        border-bottom: 1px solid @border-color;
+        padding: 0 0 @spacing/3 0;
+        margin: 0 0 @spacing/2 0;
+    }
 }
 
 #wm-copyright {
@@ -12,7 +41,6 @@
     svg {
         transform: scale(0.75);
         margin-bottom: -0.30rem;
-        fill: @content-color;
     }
 
     .wm-mobile-break {
@@ -36,7 +64,7 @@
             width: 1px;
             height: @font-size * 1.25;
             margin: 0 @spacing -@font-size/3.5 @spacing;
-            border: 1px solid @border-color;
+            border-right: 1px solid @border-color;
         }
     }
 }

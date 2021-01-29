@@ -68,6 +68,15 @@ input[type="checkbox"] + span {
 .wm-col {
   flex: 1;
 }
+.wm-align-left {
+  text-align: left;
+}
+.wm-align-center {
+  text-align: center;
+}
+.wm-align-right {
+  text-align: right;
+}
 main {
   z-index: 500;
   font-size: 1.15rem;
@@ -107,7 +116,7 @@ main #wm-top-controls-wrapper #wm-search-wrapper {
 main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input {
   position: relative;
   border: 1px solid #54575a;
-  background-color: #f2f2f3;
+  background-color: #393939;
   margin-bottom: 15px;
   height: 3rem;
   padding: 0 7.5px;
@@ -125,8 +134,8 @@ main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input #wm-search {
   padding-right: 2rem;
   border: 0;
   outline: none;
-  background-color: #f2f2f3;
-  color: #2d2d2d;
+  background-color: #393939;
+  color: #f2f2f3;
 }
 main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input #wm-search-icon {
   position: absolute;
@@ -141,7 +150,7 @@ main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input #wm-search-icon 
 }
 main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input #wm-search-icon svg {
   transform: scale(1.25);
-  fill: #2d2d2d;
+  fill: #f2f2f3;
 }
 main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input:focus-within,
 main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input:hover {
@@ -264,6 +273,19 @@ aside.wm-left-sidebar {
 aside.wm-left-sidebar.wm-closed {
   border-left: 0 transparent;
 }
+aside.wm-left-sidebar a {
+  text-decoration: none;
+  color: #3ca4ff;
+}
+aside.wm-left-sidebar a svg {
+  fill: #3ca4ff;
+}
+aside.wm-left-sidebar a:hover {
+  color: #89c8ff;
+}
+aside.wm-left-sidebar a:hover svg {
+  fill: #89c8ff;
+}
 aside.wm-left-sidebar .wm-mobile-button {
   grid-column: 1;
   grid-row: 1;
@@ -274,6 +296,25 @@ aside.wm-left-sidebar .wm-mobile-button svg {
 aside.wm-left-sidebar .wm-article-meta {
   grid-column: 1;
   grid-row: 2;
+  margin-bottom: 15px;
+}
+aside.wm-left-sidebar .wm-article-meta .wm-title {
+  display: block;
+  font-size: 1.3rem;
+  font-family: "Roboto Slab Semi Bold", serif;
+  border-bottom: 1px solid #54575a;
+  padding: 0 0 5px 0;
+  margin: 0 0 7.5px 0;
+}
+aside.wm-left-sidebar .wm-article-meta .wm-content .wm-sub-title {
+  font-size: 1.05rem;
+  font-family: "Roboto Slab Semi Bold", serif;
+}
+aside.wm-left-sidebar .wm-article-meta .wm-content .wm-sub-title td {
+  padding-bottom: 7.5px;
+}
+aside.wm-left-sidebar .wm-article-meta .wm-content .wm-info td {
+  padding: 0 0 10px 15px;
 }
 aside.wm-left-sidebar .wm-module-area {
   grid-column: 1;
@@ -311,16 +352,53 @@ header.wm-right-sidebar .wm-mobile-button svg {
 header.wm-right-sidebar #wm-logo-wrapper {
   grid-column: 1;
   grid-row: 2;
-  display: inline-flex;
+  display: block;
+  text-align: center;
+  font-family: "Roboto Slab Semi Bold", serif;
 }
 header.wm-right-sidebar #wm-logo-wrapper #wm-logo {
-  margin: 0 7.5px;
-  width: 100%;
+  max-width: 100%;
   height: auto;
+  margin-bottom: 15px;
+}
+header.wm-right-sidebar #wm-logo-wrapper #wm-business-name {
+  font-size: 1.35rem;
+  margin-bottom: 15px;
+}
+header.wm-right-sidebar #wm-logo-wrapper #wm-business-tagline {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
 }
 header.wm-right-sidebar #wm-nav-wrapper {
   grid-column: 1;
   grid-row: 3;
+  border-top: 1px solid #54575a;
+  border-bottom: 1px solid #54575a;
+  margin: 15px 0 30px 0;
+  padding: 7.5px 0;
+  font-size: 1.25rem;
+}
+header.wm-right-sidebar #wm-nav-wrapper ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+header.wm-right-sidebar #wm-nav-wrapper ul li {
+  display: block;
+  padding: 7.5px 0;
+  color: #3ca4ff;
+  cursor: pointer;
+}
+header.wm-right-sidebar #wm-nav-wrapper ul li a {
+  display: block;
+  text-decoration: none;
+  color: #3ca4ff;
+}
+header.wm-right-sidebar #wm-nav-wrapper ul li a:hover {
+  color: #89c8ff;
+}
+header.wm-right-sidebar #wm-nav-wrapper ul li:hover {
+  color: #89c8ff;
 }
 header.wm-right-sidebar .wm-module-area {
   grid-column: 1;
@@ -381,19 +459,42 @@ footer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  padding-top: 15px;
   font-size: 1.15rem;
   background-color: #2d2d2d;
   color: #f2f2f3;
-  padding: 15px;
 }
 footer.wm-row {
   position: relative;
   flex: 0;
 }
+footer a {
+  text-decoration: none;
+  color: #3ca4ff;
+}
+footer a svg {
+  fill: #3ca4ff;
+}
+footer a:hover {
+  color: #89c8ff;
+}
+footer a:hover svg {
+  fill: #89c8ff;
+}
+footer svg {
+  fill: #f2f2f3;
+}
 footer .wm-column {
-  flex: 1;
-  flex-basis: 100%;
-  margin-bottom: 15px;
+  flex: 1 0 auto;
+  min-width: 100%;
+  padding: 15px;
+}
+footer .wm-column .wm-title {
+  display: block;
+  font-family: "Roboto Slab Semi Bold", serif;
+  border-bottom: 1px solid #54575a;
+  padding: 0 0 5px 0;
+  margin: 0 0 7.5px 0;
 }
 footer #wm-copyright {
   width: 100%;
@@ -408,13 +509,23 @@ footer #wm-copyright .wm-mobile-break {
   width: 100%;
   height: 1.15rem;
 }
+@media (min-width: 768px) {
+  footer .wm-column {
+    min-width: 50%;
+  }
+}
 @media (min-width: 1024px) {
   footer #wm-copyright .wm-mobile-break {
     display: inline-block;
     width: 1px;
     height: 1.4375rem;
     margin: 0 15px -0.32857143rem 15px;
-    border: 1px solid #54575a;
+    border-right: 1px solid #54575a;
+  }
+}
+@media (min-width: 1200px) {
+  footer .wm-column {
+    min-width: 25%;
   }
 }
 body.wm-print-mode header,

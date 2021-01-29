@@ -68,6 +68,15 @@ input[type="checkbox"] + span {
 .wm-col {
   flex: 1;
 }
+.wm-align-left {
+  text-align: left;
+}
+.wm-align-center {
+  text-align: center;
+}
+.wm-align-right {
+  text-align: right;
+}
 main {
   z-index: 500;
   font-size: 1.15rem;
@@ -264,6 +273,19 @@ aside.wm-left-sidebar {
 aside.wm-left-sidebar.wm-closed {
   border-left: 0 transparent;
 }
+aside.wm-left-sidebar a {
+  text-decoration: none;
+  color: #0064bd;
+}
+aside.wm-left-sidebar a svg {
+  fill: #0064bd;
+}
+aside.wm-left-sidebar a:hover {
+  color: #0b8cff;
+}
+aside.wm-left-sidebar a:hover svg {
+  fill: #0b8cff;
+}
 aside.wm-left-sidebar .wm-mobile-button {
   grid-column: 1;
   grid-row: 1;
@@ -274,6 +296,25 @@ aside.wm-left-sidebar .wm-mobile-button svg {
 aside.wm-left-sidebar .wm-article-meta {
   grid-column: 1;
   grid-row: 2;
+  margin-bottom: 15px;
+}
+aside.wm-left-sidebar .wm-article-meta .wm-title {
+  display: block;
+  font-size: 1.3rem;
+  font-family: "Roboto Slab Semi Bold", serif;
+  border-bottom: 1px solid #c5c5c5;
+  padding: 0 0 5px 0;
+  margin: 0 0 7.5px 0;
+}
+aside.wm-left-sidebar .wm-article-meta .wm-content .wm-sub-title {
+  font-size: 1.05rem;
+  font-family: "Roboto Slab Semi Bold", serif;
+}
+aside.wm-left-sidebar .wm-article-meta .wm-content .wm-sub-title td {
+  padding-bottom: 7.5px;
+}
+aside.wm-left-sidebar .wm-article-meta .wm-content .wm-info td {
+  padding: 0 0 10px 15px;
 }
 aside.wm-left-sidebar .wm-module-area {
   grid-column: 1;
@@ -311,16 +352,53 @@ header.wm-right-sidebar .wm-mobile-button svg {
 header.wm-right-sidebar #wm-logo-wrapper {
   grid-column: 1;
   grid-row: 2;
-  display: inline-flex;
+  display: block;
+  text-align: center;
+  font-family: "Roboto Slab Semi Bold", serif;
 }
 header.wm-right-sidebar #wm-logo-wrapper #wm-logo {
-  margin: 0 7.5px;
-  width: 100%;
+  max-width: 100%;
   height: auto;
+  margin-bottom: 15px;
+}
+header.wm-right-sidebar #wm-logo-wrapper #wm-business-name {
+  font-size: 1.35rem;
+  margin-bottom: 15px;
+}
+header.wm-right-sidebar #wm-logo-wrapper #wm-business-tagline {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
 }
 header.wm-right-sidebar #wm-nav-wrapper {
   grid-column: 1;
   grid-row: 3;
+  border-top: 1px solid #c5c5c5;
+  border-bottom: 1px solid #c5c5c5;
+  margin: 15px 0 30px 0;
+  padding: 7.5px 0;
+  font-size: 1.25rem;
+}
+header.wm-right-sidebar #wm-nav-wrapper ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+header.wm-right-sidebar #wm-nav-wrapper ul li {
+  display: block;
+  padding: 7.5px 0;
+  color: #0064bd;
+  cursor: pointer;
+}
+header.wm-right-sidebar #wm-nav-wrapper ul li a {
+  display: block;
+  text-decoration: none;
+  color: #0064bd;
+}
+header.wm-right-sidebar #wm-nav-wrapper ul li a:hover {
+  color: #0b8cff;
+}
+header.wm-right-sidebar #wm-nav-wrapper ul li:hover {
+  color: #0b8cff;
 }
 header.wm-right-sidebar .wm-module-area {
   grid-column: 1;
@@ -381,6 +459,7 @@ footer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  padding-top: 15px;
   font-size: 1.15rem;
   background-color: #fafafb;
   color: #2a2a2a;
@@ -389,10 +468,33 @@ footer.wm-row {
   position: relative;
   flex: 0;
 }
+footer a {
+  text-decoration: none;
+  color: #0064bd;
+}
+footer a svg {
+  fill: #0064bd;
+}
+footer a:hover {
+  color: #0b8cff;
+}
+footer a:hover svg {
+  fill: #0b8cff;
+}
+footer svg {
+  fill: #2a2a2a;
+}
 footer .wm-column {
   flex: 1 0 auto;
   min-width: 100%;
   padding: 15px;
+}
+footer .wm-column .wm-title {
+  display: block;
+  font-family: "Roboto Slab Semi Bold", serif;
+  border-bottom: 1px solid #c5c5c5;
+  padding: 0 0 5px 0;
+  margin: 0 0 7.5px 0;
 }
 footer #wm-copyright {
   width: 100%;
@@ -402,7 +504,6 @@ footer #wm-copyright {
 footer #wm-copyright svg {
   transform: scale(0.75);
   margin-bottom: -0.3rem;
-  fill: #2a2a2a;
 }
 footer #wm-copyright .wm-mobile-break {
   width: 100%;
@@ -419,7 +520,7 @@ footer #wm-copyright .wm-mobile-break {
     width: 1px;
     height: 1.4375rem;
     margin: 0 15px -0.32857143rem 15px;
-    border: 1px solid #c5c5c5;
+    border-right: 1px solid #c5c5c5;
   }
 }
 @media (min-width: 1200px) {
