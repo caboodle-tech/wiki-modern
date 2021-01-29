@@ -119,6 +119,7 @@ var WM = ( function() {
 
         // Get the pages width.
         var width = parseInt( elems.page.clientWidth + stats.scrollWidth );
+        
 
         if( width >= 1200 ){
             // Both sidebars showing.
@@ -131,71 +132,82 @@ var WM = ( function() {
             stats.device = 'mobile';
         }
 
+        // Update stats
+        stats.widthLast    = stats.widthCurrent;
+        stats.widthCurrent = width;
     };
 
     var refreshLayout = function(){
 
         recordDevice();
 
-        // Catch edge case where a sidebar is opening and the page resizes.
-        if ( timer.leftSidebar ) {
-            clearInterval( timer.leftSidebar );
-            timer.leftSidebar = null;
-        }
-        if ( timer.rightSidebar ) {
-            clearInterval( timer.rightSidebar );
-            timer.rightSidebar = null;
-        }
+        /**
+         * Prevent bug on mobile devices where resize is constantly triggered by
+         * the phones navigation controls going into hidden mode and then forced
+         * back on because the page resize.
+         */
+        if ( stats.widthLast != stats.widthCurrent ) {
 
-        // Reset the content areas margin.
-        elems.content.style.marginLeft = 0;
-        elems.content.style.marginRight = 0;
-
-        if ( elems.leftSidebar ) {
-
-            switch( stats.device ){
-                case 'laptop':
-                case 'mobile':
-                    // Mobile mode has been triggered hide the right sidebar.
-                    elems.leftSidebar.dataset.wmWidth = elems.leftSidebar.offsetWidth;
-                    elems.leftSidebar.dataset.wmOffset = ( -1 * elems.leftSidebar.offsetWidth );
-                    elems.leftSidebar.dataset.wmVisibility = 0;
-                    elems.leftSidebar.style.opacity = 0;
-                    elems.leftSidebar.style.marginLeft = ( -1 * elems.leftSidebar.offsetWidth ) + 'px';
-                    elems.leftSidebar.classList.add( 'wm-closed' );
-                    break;
-                default:
-                    // Show the right sidebar again.
-                    elems.leftSidebar.dataset.wmWidth = elems.leftSidebar.offsetWidth;
-                    elems.leftSidebar.dataset.wmOffset = 0;
-                    elems.leftSidebar.dataset.wmVisibility = 1;
-                    elems.leftSidebar.style.opacity = 1;
-                    elems.leftSidebar.style.marginLeft = 0 + 'px';
-                    elems.leftSidebar.classList.remove( 'wm-closed' );
-                    break;
+            // Catch edge case where a sidebar is opening and the page resizes.
+            if ( timer.leftSidebar ) {
+                clearInterval( timer.leftSidebar );
+                timer.leftSidebar = null;
             }
-        }
-
-        if ( elems.rightSidebar ) {
-
-            if( stats.device == 'mobile' ){
-                // Mobile mode has been triggered hide the left sidebar.
-                elems.rightSidebar.dataset.wmWidth = elems.rightSidebar.offsetWidth;
-                elems.rightSidebar.dataset.wmOffset = ( -1 * elems.rightSidebar.offsetWidth );
-                elems.rightSidebar.dataset.wmVisibility = 0;
-                elems.rightSidebar.style.opacity = 0;
-                elems.rightSidebar.style.marginRight = ( -1 * elems.rightSidebar.offsetWidth ) + 'px';
-                elems.rightSidebar.classList.add( 'wm-closed' );
-            } else {
-                // Show the left sidebar again.
-                elems.rightSidebar.dataset.wmWidth = elems.rightSidebar.offsetWidth;
-                elems.rightSidebar.dataset.wmOffset = 0;
-                elems.rightSidebar.dataset.wmVisibility = 1;
-                elems.rightSidebar.style.opacity = 1;
-                elems.rightSidebar.style.marginRight = 0 + 'px';
-                elems.rightSidebar.classList.remove( 'wm-closed' );
+            if ( timer.rightSidebar ) {
+                clearInterval( timer.rightSidebar );
+                timer.rightSidebar = null;
             }
-        }
+
+            // Reset the content areas margin.
+            elems.content.style.marginLeft = 0;
+            elems.content.style.marginRight = 0;
+
+            if ( elems.leftSidebar ) {
+
+                switch( stats.device ){
+                    case 'laptop':
+                    case 'mobile':
+                        // Mobile mode has been triggered hide the right sidebar.
+                        elems.leftSidebar.dataset.wmWidth = elems.leftSidebar.offsetWidth;
+                        elems.leftSidebar.dataset.wmOffset = ( -1 * elems.leftSidebar.offsetWidth );
+                        elems.leftSidebar.dataset.wmVisibility = 0;
+                        elems.leftSidebar.style.opacity = 0;
+                        elems.leftSidebar.style.marginLeft = ( -1 * elems.leftSidebar.offsetWidth ) + 'px';
+                        elems.leftSidebar.classList.add( 'wm-closed' );
+                        break;
+                    default:
+                        // Show the right sidebar again.
+                        elems.leftSidebar.dataset.wmWidth = elems.leftSidebar.offsetWidth;
+                        elems.leftSidebar.dataset.wmOffset = 0;
+                        elems.leftSidebar.dataset.wmVisibility = 1;
+                        elems.leftSidebar.style.opacity = 1;
+                        elems.leftSidebar.style.marginLeft = 0 + 'px';
+                        elems.leftSidebar.classList.remove( 'wm-closed' );
+                        break;
+                }
+            }
+
+            if ( elems.rightSidebar ) {
+
+                if( stats.device == 'mobile' ){
+                    // Mobile mode has been triggered hide the left sidebar.
+                    elems.rightSidebar.dataset.wmWidth = elems.rightSidebar.offsetWidth;
+                    elems.rightSidebar.dataset.wmOffset = ( -1 * elems.rightSidebar.offsetWidth );
+                    elems.rightSidebar.dataset.wmVisibility = 0;
+                    elems.rightSidebar.style.opacity = 0;
+                    elems.rightSidebar.style.marginRight = ( -1 * elems.rightSidebar.offsetWidth ) + 'px';
+                    elems.rightSidebar.classList.add( 'wm-closed' );
+                } else {
+                    // Show the left sidebar again.
+                    elems.rightSidebar.dataset.wmWidth = elems.rightSidebar.offsetWidth;
+                    elems.rightSidebar.dataset.wmOffset = 0;
+                    elems.rightSidebar.dataset.wmVisibility = 1;
+                    elems.rightSidebar.style.opacity = 1;
+                    elems.rightSidebar.style.marginRight = 0 + 'px';
+                    elems.rightSidebar.classList.remove( 'wm-closed' );
+                }
+            }
+        } 
 
     };
 
@@ -394,7 +406,8 @@ var WM = ( function() {
     domReady( initialize );
 
     return {
-        toggleSiderbar: toggleSiderbar
+        toggleSiderbar: toggleSiderbar,
+        stats: stats
     };
 
 } )();

@@ -13,6 +13,7 @@
     display: block;
     text-align: center;
     font-family: "Roboto Slab Semi Bold", serif;
+    margin-top: @spacing;
     
     #wm-logo {
         max-width: 100%;
@@ -78,7 +79,7 @@
     grid-row: 5;
     position: relative;
     text-align: center;
-    margin: @spacing 0;
+    margin: @spacing*2 0 @spacing 0;
 
     input[type="checkbox"] {
         display: none;
@@ -103,13 +104,15 @@
         .box-shadow();
 
         &:before {
-            content: "☀";
+            content: "\2600";
             position: absolute;
             top: 0.10rem;
             left: 0.22rem;
             width: 1.7rem;
             height: 1.7rem;
-            font-size: 1.6rem;
+            text-align: center;
+            font-size: 1.45rem;
+            line-height: 1.8rem;
             border-radius: 50%;
             color: @content-bg-color;
             box-shadow: inset -2rem -2rem 0 0 @content-color;

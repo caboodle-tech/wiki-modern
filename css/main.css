@@ -296,7 +296,7 @@ aside.wm-left-sidebar .wm-mobile-button svg {
 aside.wm-left-sidebar .wm-article-meta {
   grid-column: 1;
   grid-row: 2;
-  margin-bottom: 15px;
+  margin: 15px 0;
 }
 aside.wm-left-sidebar .wm-article-meta .wm-title {
   display: block;
@@ -355,6 +355,7 @@ header.wm-right-sidebar #wm-logo-wrapper {
   display: block;
   text-align: center;
   font-family: "Roboto Slab Semi Bold", serif;
+  margin-top: 15px;
 }
 header.wm-right-sidebar #wm-logo-wrapper #wm-logo {
   max-width: 100%;
@@ -409,7 +410,7 @@ header.wm-right-sidebar #wm-dark-mode-toggle {
   grid-row: 5;
   position: relative;
   text-align: center;
-  margin: 15px 0;
+  margin: 30px 0 15px 0;
 }
 header.wm-right-sidebar #wm-dark-mode-toggle input[type="checkbox"] {
   display: none;
@@ -434,13 +435,15 @@ header.wm-right-sidebar #wm-dark-mode-toggle span {
   box-shadow: 0px 1px 3px 1px rgba(42, 42, 42, 0.07);
 }
 header.wm-right-sidebar #wm-dark-mode-toggle span:before {
-  content: "☀";
+  content: "\2600";
   position: absolute;
   top: 0.1rem;
   left: 0.22rem;
   width: 1.7rem;
   height: 1.7rem;
-  font-size: 1.6rem;
+  text-align: center;
+  font-size: 1.45rem;
+  line-height: 1.8rem;
   border-radius: 50%;
   color: #ffffff;
   box-shadow: inset -2rem -2rem 0 0 #2a2a2a;
@@ -459,7 +462,7 @@ footer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding-top: 15px;
+  padding: 15px 0;
   font-size: 1.15rem;
   background-color: #fafafb;
   color: #2a2a2a;
@@ -499,7 +502,7 @@ footer .wm-column .wm-title {
 footer #wm-copyright {
   width: 100%;
   text-align: center;
-  margin: 15px 0;
+  margin: 15px;
 }
 footer #wm-copyright svg {
   transform: scale(0.75);
