@@ -1,4 +1,5 @@
 body.wm-print-mode {
+    overflow: visible;
 
     header, aside, footer {
         display: none;
@@ -15,7 +16,17 @@ body.wm-print-mode {
             display: none;
         }
 
+        .wm-pagination {
+            display: none;
+        }
+
         @media print {
+            font-size: @font-size/1.35;
+            line-height: @font-size/1.05;
+
+            #wm-page-content {
+                padding: 0;
+            }
     
             #wm-print-controls-wrapper {
                 display: none !important;

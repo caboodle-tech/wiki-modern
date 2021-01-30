@@ -1,5 +1,24 @@
-.box-shadow( @string: 0px 1px 3px 1px fade( @sidebar-color, 7% ) ){
+.box-shadow( @string: 0px 1px 3px 1px fade( @sidebar-color, 9% ) ){
 	-webkit-box-shadow: @string;
 	-moz-box-shadow:    @string;
 	box-shadow:         @string;
+}
+
+.image-shadow( @stroke-pos: 1px; @stroke-neg: -1px; @stroke-color: fade( @sidebar-color, 15% ) ) {
+	-webkit-filter: drop-shadow( @stroke-pos 0 0 @stroke-color ) 
+					drop-shadow( @stroke-neg 0 @stroke-color )
+					drop-shadow( 0 @stroke-pos 0 @stroke-color )
+					drop-shadow( 0 @stroke-neg 0 @stroke-color )
+					drop-shadow( @stroke-pos @stroke-pos 0 @stroke-color ) 
+					drop-shadow( @stroke-pos @stroke-neg 0 @stroke-color )
+					drop-shadow( @stroke-neg @stroke-pos 0 @stroke-color )
+					drop-shadow( @stroke-neg @stroke-neg 0 @stroke-color );
+	filter: drop-shadow( @stroke-pos 0 0 @stroke-color ) 
+			drop-shadow( @stroke-neg 0 @stroke-color )
+			drop-shadow( 0 @stroke-pos 0 @stroke-color )
+			drop-shadow( 0 @stroke-neg 0 @stroke-color )
+			drop-shadow( @stroke-pos @stroke-pos 0 @stroke-color ) 
+			drop-shadow( @stroke-pos @stroke-neg 0 @stroke-color )
+			drop-shadow( @stroke-neg @stroke-pos 0 @stroke-color )
+			drop-shadow( @stroke-neg @stroke-neg 0 @stroke-color );
 }

@@ -53,6 +53,22 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
 }
 
+h1 {
+    font-size: @font-size*1.8;
+}
+
+h2 {
+    font-size: @font-size*1.6;
+}
+
+h3 {
+    font-size: @font-size*1.5;
+}
+
+h4, h5, h6 {
+    font-size: @font-size*1.4;
+}
+
 *, :after, :before {
     box-sizing: border-box;
 }
@@ -98,12 +114,15 @@ input[type="checkbox"] + span {
 main {
     z-index: 500;
     font-size: @font-size;
+    line-height: @font-size*1.5;
     background-color: @content-bg-color;
     color: @content-color;
     padding: @spacing;
     border-bottom: 1px solid @border-color;
 
     @import "top-controls.less";
+    @import "page-content.less";
+    @import "pagination.less";
 }
 
 .wm-left-sidebar, .wm-right-sidebar {
@@ -179,7 +198,7 @@ footer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: @spacing 0;
+    padding: @spacing;
     font-size: @font-size;
     background-color: @footer-bg-color;
     color: @footer-color;

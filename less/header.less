@@ -1,3 +1,7 @@
+img {
+    .image-shadow( 1px, -1px, fade( @sidebar-color, 13% ) );
+}
+
 .wm-mobile-button {
     grid-column: 1;
     grid-row: 1;
@@ -22,12 +26,12 @@
     }
 
     #wm-business-name {
-        font-size: 1.35rem;
+        font-size: @font-size*1.30;
         margin-bottom: @spacing;
     }
 
     #wm-business-tagline {
-        font-size: 1.10rem;
+        font-size: @font-size*1.05;
         margin-bottom: @spacing;
     }
 }
@@ -72,6 +76,16 @@
 .wm-module-area {
     grid-column: 1;
     grid-row: 4;
+    margin: @spacing 0;
+
+    .wm-title {
+        display: block;
+        font-size: 1.30rem;
+        font-family: "Roboto Slab Semi Bold", serif;
+        border-bottom: 1px solid @border-color;
+        padding: 0 0 @spacing/3 0;
+        margin: 0 0 @spacing/2 0;
+    }
 }
 
 #wm-dark-mode-toggle {

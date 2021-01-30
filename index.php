@@ -195,6 +195,82 @@ unset( $checked );
                         </div>
                     </div>
                 </div>
+                <!--Top Pagination Controls -->
+                <div class="wm-pagination" id="wm-top-pagination">
+                    <div class="wm-page">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.744 8s1.522-8-3.335-8h-8.409v24h20v-13c0-3.419-5.247-3.745-8.256-3zm.256 11h-8v-1h8v1zm4-3h-12v-1h12v1zm0-3h-12v-1h12v1zm-3.432-12.925c2.202 1.174 5.938 4.883 7.432 6.881-1.286-.9-4.044-1.657-6.091-1.179.222-1.468-.185-4.534-1.341-5.702z"/></svg>
+                        Page
+                        <div class="wm-inline-dropdown">
+                            1
+                            <ul class="wm-inline-options" data-wm-cookie-name="wm_pagination_limit">
+                                <li onclick="WikiModern.dropdown();" data-wm-show-value="10">10</li><li onclick="WikiModern.dropdown();" data-wm-show-value="20">20</li><li onclick="WikiModern.dropdown();" data-wm-show-value="30">30</li><li onclick="WikiModern.dropdown();" data-wm-show-value="40">40</li><li onclick="WikiModern.dropdown();" data-wm-show-value="50">50</li>
+                            </ul>
+                        </div>
+                        of 1.
+                    </div>
+                    <div class="wm-sort">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 10v4h4l-6 7-6-7h4v-4h-4l6-7 6 7h-4zm16 5h-10v2h10v-2zm0 6h-10v-2h10v2zm0-8h-10v-2h10v2zm0-4h-10v-2h10v2zm0-4h-10v-2h10v2z"/></svg>
+                        <div class="wm-inline-dropdown">
+                            newest
+                            <ul class="wm-inline-options" data-wm-cookie-name="wm_pagination_limit">
+                                <li onclick="WikiModern.dropdown();" data-wm-show-value="10">10</li><li onclick="WikiModern.dropdown();" data-wm-show-value="20">20</li><li onclick="WikiModern.dropdown();" data-wm-show-value="30">30</li><li onclick="WikiModern.dropdown();" data-wm-show-value="40">40</li><li onclick="WikiModern.dropdown();" data-wm-show-value="50">50</li>
+                            </ul>
+                        </div>
+                        results first.
+                    </div>
+                    <div class="wm-limit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7 16h13v1h-13v-1zm13-3h-13v1h13v-1zm0-6h-5v1h5v-1zm0 3h-5v1h5v-1zm-17-8v17.199c0 .771-1 .771-1 0v-15.199h-2v15.98c0 1.115.905 2.02 2.02 2.02h19.958c1.117 0 2.022-.904 2.022-2.02v-17.98h-21zm19 17h-17v-15h17v15zm-9-12h-6v4h6v-4z"/></svg>
+                        <div class="wm-inline-dropdown">
+                            7
+                            <ul class="wm-inline-options" data-wm-cookie-name="wm_pagination_limit">
+                                <li onclick="WikiModern.dropdown();" data-wm-show-value="10">10</li><li onclick="WikiModern.dropdown();" data-wm-show-value="20">20</li><li onclick="WikiModern.dropdown();" data-wm-show-value="30">30</li><li onclick="WikiModern.dropdown();" data-wm-show-value="40">40</li><li onclick="WikiModern.dropdown();" data-wm-show-value="50">50</li>
+                            </ul>
+                        </div>
+                        results per page.
+                    </div>
+                </div>
+                <!-- Page Content -->
+                <div id="wm-page-content">
+<article class="wm-article" id="post-41"><h2 class="wm-article-title wm-link"><a href="https://caboodle.tech/2017/04/07/ultimate-member-plugin-403-forbidden-error/">Ultimate Member Plugin 403 Forbidden Error</a></h2><div class="wm-article-times">Published <time itemprop="datePublished" datetime="2017-04-07 20:04:49">April 7, 2017</time>. Last updated <time itemprop="dateModified" datetime="2019-10-10 20:11:02">October 10, 2019</time>.</div><div class="wm-article-wrapper"><div class="wm-article-content" onclick="WikiModern.navigate();" data-wm-navigation="https://caboodle.tech/2017/04/07/ultimate-member-plugin-403-forbidden-error/"><p>This post is dedicated to a simple but tricky gotcha in the&nbsp;<a rel="noreferrer noopener" href="https://wordpress.org/" target="_blank">WordPress</a>&nbsp;plugin&nbsp;<a rel="noreferrer noopener" href="https://ultimatemember.com/" target="_blank">Ultimate Member</a>. For those of you who may be unfamiliar with Ultimate Member it is a plugin that&nbsp;adds enhanced user account management abilities to your WordPress site. Put simply the plugin allows you to:</p><p>The list really could go on and on but suffice it to say that Ultimate Member adds a lot of free functionality to your WordPress site. If you manage a big WordPress site the paid extensions can take your site even further; I’m&nbsp;being serious, this is not a paid post, I really love what Ultimate Member is doing for WordPress.</p></div></div></article>
+<article class="wm-article" id="post-25"><h2 class="wm-article-title wm-link"><a href="https://caboodle.tech/2017/06/14/knowing-when-its-time-to-toss-code-out/">Knowing when it’s time to toss code out!</a></h2><div class="wm-article-times">Published <time itemprop="datePublished" datetime="2017-06-14 10:20:53">June 14, 2017</time>. Last updated <time itemprop="dateModified" datetime="2019-10-10 20:04:38">October 10, 2019</time>.</div><div class="wm-article-wrapper"><div class="wm-article-image-wrapper"><div class="wm-artilce-image wm-pointer" onclick="WikiModern.toggle('image-carousel')"><img loading="lazy" width="1024" height="576" src="https://caboodle.tech/wp-content/uploads/2019/10/notification-and-form-manager-scripts-1024x576.jpg" alt="" class="wp-image-26" srcset="https://caboodle.tech/wp-content/uploads/2019/10/notification-and-form-manager-scripts.jpg 1024w, https://caboodle.tech/wp-content/uploads/2019/10/notification-and-form-manager-scripts-300x169.jpg 300w, https://caboodle.tech/wp-content/uploads/2019/10/notification-and-form-manager-scripts-768x432.jpg 768w" sizes="(max-width: 250px) 50px, (max-width: 400px) 200px, (max-width: 868px) 668px, (max-width: 1124px) 924px, (max-width: 1636px) 1436px, (max-width: 2148px) 1948px, 100vw"></div><div class="wm-image-sources"><!--<img loading="lazy" width="1024" height="576" src="https://caboodle.tech/wp-content/uploads/2019/10/notification-and-form-manager-scripts-1024x576.jpg" alt="" class="wp-image-26" srcset="https://caboodle.tech/wp-content/uploads/2019/10/notification-and-form-manager-scripts.jpg 1024w, https://caboodle.tech/wp-content/uploads/2019/10/notification-and-form-manager-scripts-300x169.jpg 300w, https://caboodle.tech/wp-content/uploads/2019/10/notification-and-form-manager-scripts-768x432.jpg 768w" sizes="(max-width: 250px) 50px, (max-width: 400px) 200px, (max-width: 868px) 668px, (max-width: 1124px) 924px, (max-width: 1636px) 1436px, (max-width: 2148px) 1948px, 100vw" />--></div></div><div class="wm-article-content" onclick="WikiModern.navigate();" data-wm-navigation="https://caboodle.tech/2017/06/14/knowing-when-its-time-to-toss-code-out/"><p>Rounding up slightly I have spent 10 hours this week redesigning the notification and form submission system… Actually, I seriously just thought of something else I missed.</p><p>So now that I’ve spent 10 hours on the completed&nbsp;notification and form submission system I’ve come to the point where I want to toss out all the old code that is taking up space in my project. I’m happy to see it go because it really cleans up the project but I don’t want to actually delete it forever so this post will serve as it’s final resting place. Well this code is being saved primarily for nostalgia’s sake I feel some programmers, especially those that are just starting out, would like to pick these apart and see the not so beautiful development process in action. For starters let me share with you a picture showing the layout of events these scripts were trying to accomplish. Early on as I developed these scripts it hit me that things were getting way out of hand so I stopped and mocked everything up to come up with a new plan of attack.</p></div></div></article>
+<article class="wm-article" id="post-41"><h2 class="wm-article-title wm-link"><a href="https://caboodle.tech/2017/04/07/ultimate-member-plugin-403-forbidden-error/">Ultimate Member Plugin 403 Forbidden Error</a></h2><div class="wm-article-times">Published <time itemprop="datePublished" datetime="2017-04-07 20:04:49">April 7, 2017</time>. Last updated <time itemprop="dateModified" datetime="2019-10-10 20:11:02">October 10, 2019</time>.</div><div class="wm-article-wrapper"><div class="wm-article-content" onclick="WikiModern.navigate();" data-wm-navigation="https://caboodle.tech/2017/04/07/ultimate-member-plugin-403-forbidden-error/"><p>This post is dedicated to a simple but tricky gotcha in the&nbsp;<a rel="noreferrer noopener" href="https://wordpress.org/" target="_blank">WordPress</a>&nbsp;plugin&nbsp;<a rel="noreferrer noopener" href="https://ultimatemember.com/" target="_blank">Ultimate Member</a>. For those of you who may be unfamiliar with Ultimate Member it is a plugin that&nbsp;adds enhanced user account management abilities to your WordPress site. Put simply the plugin allows you to:</p><p>The list really could go on and on but suffice it to say that Ultimate Member adds a lot of free functionality to your WordPress site. If you manage a big WordPress site the paid extensions can take your site even further; I’m&nbsp;being serious, this is not a paid post, I really love what Ultimate Member is doing for WordPress.</p></div></div></article>
+<article class="wm-article" id="post-38"><h2 class="wm-article-title wm-link"><a href="https://caboodle.tech/2017/05/31/is-that-a-url-uri-or-urn/">Is that a URL, URI, or URN?</a></h2><div class="wm-article-times">Published <time itemprop="datePublished" datetime="2017-05-31 19:54:46">May 31, 2017</time>. Last updated <time itemprop="dateModified" datetime="2019-10-10 20:01:25">October 10, 2019</time>.</div><div class="wm-article-wrapper"><div class="wm-article-image-wrapper"><div class="wm-artilce-image wm-pointer" onclick="WikiModern.toggle('image-carousel')"><img loading="lazy" width="640" height="604" src="https://via.placeholder.com/600x600" alt="" class="wp-image-39"></div><div class="wm-image-sources"><!--<img loading="lazy" width="640" height="604" src="https://caboodle.tech/wp-content/uploads/2019/10/URI-vs-URL.png" alt="" class="wp-image-39" srcset="https://caboodle.tech/wp-content/uploads/2019/10/URI-vs-URL.png 640w, https://caboodle.tech/wp-content/uploads/2019/10/URI-vs-URL-300x283.png 300w" sizes="(max-width: 250px) 50px, (max-width: 400px) 200px, (max-width: 868px) 668px, (max-width: 1124px) 924px, (max-width: 1636px) 1436px, (max-width: 2148px) 1948px, 100vw" />--></div></div><div class="wm-article-content" onclick="WikiModern.navigate();" data-wm-navigation="https://caboodle.tech/2017/05/31/is-that-a-url-uri-or-urn/"><p>Today I learned that I have been using the term URI (Uniform Resource Identifier) incorrectly. Apparently so many people misuse the acronyms URL, URI, and URN that there is entire blog posts out there trying to clear up the confusion.</p><p>So why&nbsp;is this random piece of knowledge so important I felt like doing a blog post on it? Well put simply I believe that it’s important to try and learn all you can about your trade even those random snippets of knowledge that honestly most people will never need to know. Unless you deal with web based software or technologies that deal directly with internet protocols you probably will never care what people call that magic string of characters that takes you across the internet.</p><p>Keeping that explanation in mind you should stop reading this post and have a glance at&nbsp;<a rel="noreferrer noopener" href="https://danielmiessler.com/study/url-uri/#gs.iKUw=ww" target="_blank">Daniel Miessler’s&nbsp;<em>The Difference Between URLs and URIs</em></a>. In case of link rot I have copied the image from his post below since it does a good job at summarizing what he talks about.</p></div></div></article>
+                </div>
+                <!--Bottom Pagination Controls -->
+                <!--Top Pagination Controls -->
+                <div class="wm-pagination" id="wm-bottom-pagination">
+                    <div class="wm-page">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.744 8s1.522-8-3.335-8h-8.409v24h20v-13c0-3.419-5.247-3.745-8.256-3zm.256 11h-8v-1h8v1zm4-3h-12v-1h12v1zm0-3h-12v-1h12v1zm-3.432-12.925c2.202 1.174 5.938 4.883 7.432 6.881-1.286-.9-4.044-1.657-6.091-1.179.222-1.468-.185-4.534-1.341-5.702z"/></svg>
+                        Page
+                        <div class="wm-inline-dropdown">
+                            1
+                            <ul class="wm-inline-options" data-wm-cookie-name="wm_pagination_limit">
+                                <li onclick="WikiModern.dropdown();" data-wm-show-value="10">10</li><li onclick="WikiModern.dropdown();" data-wm-show-value="20">20</li><li onclick="WikiModern.dropdown();" data-wm-show-value="30">30</li><li onclick="WikiModern.dropdown();" data-wm-show-value="40">40</li><li onclick="WikiModern.dropdown();" data-wm-show-value="50">50</li>
+                            </ul>
+                        </div>
+                        of 1.
+                    </div>
+                    <div class="wm-sort">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 10v4h4l-6 7-6-7h4v-4h-4l6-7 6 7h-4zm16 5h-10v2h10v-2zm0 6h-10v-2h10v2zm0-8h-10v-2h10v2zm0-4h-10v-2h10v2zm0-4h-10v-2h10v2z"/></svg>
+                        <div class="wm-inline-dropdown">
+                            newest
+                            <ul class="wm-inline-options" data-wm-cookie-name="wm_pagination_limit">
+                                <li onclick="WikiModern.dropdown();" data-wm-show-value="10">10</li><li onclick="WikiModern.dropdown();" data-wm-show-value="20">20</li><li onclick="WikiModern.dropdown();" data-wm-show-value="30">30</li><li onclick="WikiModern.dropdown();" data-wm-show-value="40">40</li><li onclick="WikiModern.dropdown();" data-wm-show-value="50">50</li>
+                            </ul>
+                        </div>
+                        results first.
+                    </div>
+                    <div class="wm-limit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7 16h13v1h-13v-1zm13-3h-13v1h13v-1zm0-6h-5v1h5v-1zm0 3h-5v1h5v-1zm-17-8v17.199c0 .771-1 .771-1 0v-15.199h-2v15.98c0 1.115.905 2.02 2.02 2.02h19.958c1.117 0 2.022-.904 2.022-2.02v-17.98h-21zm19 17h-17v-15h17v15zm-9-12h-6v4h6v-4z"/></svg>
+                        <div class="wm-inline-dropdown">
+                            7
+                            <ul class="wm-inline-options" data-wm-cookie-name="wm_pagination_limit">
+                                <li onclick="WikiModern.dropdown();" data-wm-show-value="10">10</li><li onclick="WikiModern.dropdown();" data-wm-show-value="20">20</li><li onclick="WikiModern.dropdown();" data-wm-show-value="30">30</li><li onclick="WikiModern.dropdown();" data-wm-show-value="40">40</li><li onclick="WikiModern.dropdown();" data-wm-show-value="50">50</li>
+                            </ul>
+                        </div>
+                        results per page.
+                    </div>
+                </div>
             </main>
             <aside class="wm-col wm-left-sidebar">
                 <div class="wm-mobile-button">
@@ -212,7 +288,10 @@ unset( $checked );
                     </div>
                 </div>
                 <div class="wm-module-area">
-                    mod
+                    <div class="wm-title">
+                        Test
+                    </div>
+                    Test
                 </div>
             </aside>
             <header class="wm-col wm-right-sidebar">
@@ -247,7 +326,10 @@ unset( $checked );
                     </ul>
                 </nav>
                 <div class="wm-module-area">
-                    mod
+                    <div class="wm-title">
+                        Test
+                    </div>
+                    Test
                 </div>
                 <div id="wm-dark-mode-wrapper">
                     <div id="wm-dark-mode-toggle" title="Toggle dark mode">

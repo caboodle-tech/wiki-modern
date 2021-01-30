@@ -56,6 +56,22 @@ var WM = ( function() {
         // Toggle reading mode.
         elem = elems.topControls.querySelector( '.wm-read .wm-button' );
         elem.addEventListener( 'click', toggleReadingMode, true );
+
+        // Toggle an inline dropdown menu.
+        elem = elems.content.querySelectorAll( '.wm-inline-dropdown' );
+        elem.forEach( function( inline ) {
+            inline.addEventListener( 'click', toggleInlineDropdown );
+        } );
+
+        // Close open inline dropdowns when the user clicks elsewhere.
+        document.body.addEventListener( 'click', closeInlineDropdowns );
+    };
+
+    var closeInlineDropdowns = function() {
+        var elem = elems.content.querySelectorAll( '.wm-inline-dropdown.wm-open' );
+        elem.forEach( function( inline ) {
+            inline.classList.remove( 'wm-open' );
+        } );
     };
 
     /**
@@ -220,6 +236,17 @@ var WM = ( function() {
             }
             window.location.reload();
         }, 750 );
+    };
+
+    var toggleInlineDropdown = function() {
+        event.preventDefault();
+        event.stopPropagation();
+        if ( this.classList.contains( 'wm-open' ) ) {
+            this.classList.remove( 'wm-open' );
+        } else {
+            closeInlineDropdowns();
+            this.classList.add( 'wm-open' );
+        }        
     };
 
     var togglePrintMode = function() {

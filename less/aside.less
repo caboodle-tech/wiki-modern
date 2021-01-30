@@ -15,6 +15,10 @@ a {
     }
 }
 
+img {
+    .image-shadow( 1px, -1px, fade( @sidebar-color, 13% ) );
+}
+
 .wm-mobile-button {
     grid-column: 1;
     grid-row: 1;
@@ -61,6 +65,16 @@ a {
 .wm-module-area {
     grid-column: 1;
     grid-row: 3;
+    margin: @spacing 0;
+
+    .wm-title {
+        display: block;
+        font-size: 1.30rem;
+        font-family: "Roboto Slab Semi Bold", serif;
+        border-bottom: 1px solid @border-color;
+        padding: 0 0 @spacing/3 0;
+        margin: 0 0 @spacing/2 0;
+    }
 }
 
 @media ( min-width: 1200px ) {

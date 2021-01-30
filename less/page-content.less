@@ -1,0 +1,121 @@
+#wm-page-content {
+    padding: 0 @spacing;
+
+    .wm-article {
+        display: block;
+        width: 100%;
+        margin-bottom: @spacing*5;
+    
+        a, .wm-link {
+            color: @link-color;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    
+        .wm-disabled {
+            cursor: not-allowed;
+        }
+    
+        .wm-article-title {
+            display: block;
+            width: 100%;
+            margin-bottom: 0;
+        }
+    
+        .wm-article-times {
+            display: block;
+            width: 100%;
+            margin: .6rem 0 .8rem 0;
+            font-size: @font-size*0.9;
+        }
+    
+        .wm-article-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+    
+            .wm-article-image-wrapper {
+                position: relative;
+                width: 100%;
+    
+                figure {
+                    display: block;
+                    margin: 0;
+                    width: 100%;
+                }
+    
+                iframe {
+                    width: 100%;
+                }
+    
+                .wm-image-sources {
+                    display: none;
+                }
+    
+                .wm-control-btn {
+                    position: absolute;
+                    top: 4px;
+                    left: 4px;
+                }
+    
+                .wm-pointer {
+                    cursor: pointer;
+                }
+    
+                img {
+                    max-width: 100%;
+                    height: auto;
+                    margin: 0 auto;
+                    .image-shadow();
+                }
+            }
+    
+            .wm-article-content {
+                flex: 1;
+                cursor: pointer;
+    
+                p:first-of-type {
+                    margin-top: 0;
+                }
+    
+                p:last-of-type {
+                    margin-bottom: 0;
+                }
+            }
+    
+            .wm-article-password {
+                flex: 1;
+    
+                p:first-of-type {
+                    margin-top: 0;
+                }
+    
+                p:last-of-type {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    
+        &:last-of-type {
+            margin-bottom: 2.5rem;
+        }
+    }
+
+    @media ( min-width: 768px ) {
+        
+        .wm-article {
+
+            .wm-article-wrapper {
+                flex-wrap: nowrap;
+        
+                .wm-article-image-wrapper {
+                    flex: 0 0 30%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    margin-right: 2rem;
+                    padding-top: @spacing/3;
+                }
+            }
+        }
+    }
+}
