@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress">
+    <description>Force Wordpress coding standards for this project.</description>
+
+    <!-- This pulls in ALL possible WordPress sniffs, turn off contradicting rules. -->
+    <rule ref="WordPress">
+        <exclude name="Generic.WhiteSpace.DisallowSpaceIndent"/>
+        <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+        <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact"/>
+        <exclude name="Squiz.Commenting.BlockComment.HasEmptyLineBefore"/>
+        <exclude name="Squiz.Commenting.FunctionComment.WrongStyle"/>
+        <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+        <exclude name="Squiz.Commenting.VariableComment.Missing"/>
+        <exclude name="Squiz.Commenting.VariableComment.WrongStyle"/>
+        <exclude name="Squiz.PHP.CommentedOutCode.Found"/>
+        <exclude name="Squiz.PHP.NonExecutableCode.ReturnNotRequired]"/>
+        <exclude name="Squiz.WhiteSpace.ControlStructureSpacing"/>
+        <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine"/>
+        <exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+        <exclude name="WordPress.PHP.DontExtract.extract_extract"/>
+        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.BlankLineAfterEnd"/>
+    </rule>
+
+    <!-- Add extra rules we use at Caboodle Tech -->
+    <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
+
+    <!-- All PHP files MUST use the Unix LF (linefeed) line ending. -->
+    <rule ref="Generic.Files.LineEndings">
+        <properties>
+            <property name="eolChar" value="\n"/>
+        </properties>
+    </rule>
+
+    <!-- Code MUST use an indent of 4 spaces, and MUST NOT use tabs for indenting. -->
+    <rule ref="Generic.WhiteSpace.ScopeIndent">
+        <properties>
+            <property name="ignoreIndentationTokens" type="array" value="T_COMMENT,T_DOC_COMMENT_OPEN_TAG"/>
+            <property name="indent" type="int" value="4"/>
+        </properties>
+    </rule>
+
+</ruleset>
