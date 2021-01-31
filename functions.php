@@ -20,6 +20,8 @@ if ( isset( $_COOKIE['wm-dark-mode'] ) ) {
 }
 define( 'DARK_MODE', $dark_mode );
 
+require 'include/wm-get-image-widths.php';
+
 // Enqueue styles and scripts loaded with the built in wp_footer() function.
 function wm_enqueue_assets() {
 
@@ -51,7 +53,7 @@ function wm_enqueue_assets() {
 add_action( 'wp_enqueue_scripts', 'wm_enqueue_assets' );
 
 // Wiki Modern uses the WordPress Customizer, load that now.
-require 'customizer/customizer.php';
+require 'customizer/wm-customizer.php';
 
 /**
 * Register the fact that we want to allow a custom logo.
@@ -117,3 +119,13 @@ function wpb_change_search_url() {
     }
 }
 add_action( 'template_redirect', 'wpb_change_search_url' );
+
+// A simple cookie sanitization function to make WordPress happy.
+function wm_sanitize_cookie( $data ) {
+    $cleaned = htmlspecialchars( $data, ENT_NOQUOTES );
+    if ( strlen( $cleaned ) != strlen( $data ) ) {
+        return '';
+    }
+    return $data;
+}
+add_filter( 'sanitize_json_wm_cookie', 'wm_sanitize_cookie' );

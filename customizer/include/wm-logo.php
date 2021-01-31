@@ -52,16 +52,18 @@ function wm_change_logo_html( $html ) {
     // Replace HTML parts.
     $html = str_replace( 'custom-logo', 'wm-logo', $html );
     $html = str_replace( 'custom-logo-link', 'wm-logo-link', $html );
-    $html = str_replace( 'class="wm-logo"', 'class="wm-logo" title="' . $title . '"', $html );
+    $html = str_replace( 'class="wm-logo"', 'id="wm-logo" class="wm-logo" title="' . $title . '"', $html );
+
+    // Remove inline width and height.
+    // $html = preg_replace( '/height="[0-9]*"/', '', $html );
+    // $html = preg_replace( '/width="[0-9]*"/', '', $html );
 
     /**
     * Should the site logo be shown or hidden?
     * Also and the logo ID to the HTML.
     */
     if ( get_theme_mod( 'wm_toggle_logo' ) ) {
-        $html = str_replace( 'class="wm-logo"', 'id="wm-logo" class="wm-logo" style="display:none;" data-wm-hidden="1"', $html );
-    } else {
-        $html = str_replace( 'class="wm-logo"', 'id="wm-logo" class="wm-logo" data-wm-hidden="0"', $html );
+        $html = str_replace( 'class="wm-logo"', 'id="wm-logo" class="wm-logo" style="display:none;"', $html );
     }
     return $html;
 }

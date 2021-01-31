@@ -477,6 +477,14 @@ main .wm-pagination .wm-inline-dropdown:hover {
 main .wm-pagination#wm-bottom-pagination {
   margin-bottom: 0;
 }
+.wm-page main #wm-top-controls-wrapper .wm-left-toggle {
+  visibility: hidden;
+  pointer-events: none;
+}
+.wm-page main #wm-top-controls-wrapper .wm-read {
+  visibility: hidden;
+  pointer-events: none;
+}
 .wm-left-sidebar,
 .wm-right-sidebar {
   background-color: #fafafb;
@@ -807,6 +815,9 @@ footer #wm-copyright .wm-mobile-break {
   footer .wm-column {
     min-width: 25%;
   }
+}
+.wm-admin-bar-active footer {
+  padding-bottom: 2.5rem;
 }
 body.wm-print-mode {
   overflow: visible;

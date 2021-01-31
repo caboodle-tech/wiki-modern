@@ -17,6 +17,15 @@
         </div>
     </div>
     <div id="wm-logo-wrapper">
+        <?php
+            // Show the sites logo if the user uploaded one.
+            if ( function_exists( 'the_custom_logo' ) ) {
+                the_custom_logo();
+            }
+            // Show the site title and tagline if not empty and set to show.
+            require 'include/wm-title-and-tag.php';
+        ?>
+        <!--
         <img id="wm-logo" src="https://via.placeholder.com/250x250">
         <div id="wm-business-name">
             Caboodle Tech Inc.
@@ -24,6 +33,7 @@
         <div id="wm-business-tagline">
             Everything Technology &trade;
         </div>
+-->
     </div>
     <nav id="wm-nav-wrapper">
         <ul>
@@ -42,15 +52,24 @@
         </ul>
     </nav>
     <div class="wm-module-area">
-        <div class="wm-title">
-            Test
-        </div>
-        Test
+<?php
+    // Load right sidebar widget area.
+    dynamic_sidebar( 'right_sidebar_widget' );
+?>
     </div>
     <div id="wm-dark-mode-wrapper">
         <div id="wm-dark-mode-toggle" title="Toggle dark mode">
             <label>
-                <input type="checkbox" name="" <?php if( $dark_mode ) { echo 'checked="checked"'; } ?>>
+                <?php
+                $checked = '';
+                if ( DARK_MODE ) {
+                    $checked = 'checked="checked"';
+                }
+                ?>
+                <input type="checkbox" name="" <?php echo esc_attr( $checked ); ?>>
+                <?php
+                unset( $checked );
+                ?>
                 <span></span>
             </label>
         </div>

@@ -8,8 +8,27 @@
  *
  * @package Wiki Modern Theme
  */
+
 ?>
 <footer class="wm-row wm-footer">
+    <?php
+        // Display the amount of columns the user seleted in the customizer
+        $columns = intval( get_theme_mod( 'wm_footer_column_count' ) );
+        for ( $number = 1; $number <= $columns; $number++ ) {
+
+            // Get the text alignment setting for this column
+            $align = get_theme_mod( 'wm_col' . $number . '_alignment' );
+            if ( $align === 'centered' ) {
+                $align = 'center';
+            }
+
+            // Output the correct HTML and content for this column
+            echo '<div id="wm-footer-column-' . esc_attr( $number ) . '" class="wm-footer-column wm-align-' . esc_attr( $align ) . '">';
+            dynamic_sidebar( 'col' . esc_html( $number ) . '_footer_widget' );
+            echo '</div>';
+        }
+    ?>
+    <!--
     <div class="wm-column">
         <div class="wm-title">
             Test
@@ -28,6 +47,7 @@
     <div class="wm-column">
         4
     </div>
+    -->
     <div id="wm-copyright">
         <svg class="wm-copyright-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 15.781c-2.084 0-3.781-1.696-3.781-3.781s1.696-3.781 3.781-3.781c1.172 0 2.306.523 3.136 1.669l1.857-1.218c-1.281-1.826-3.133-2.67-4.993-2.67-3.308 0-6 2.692-6 6s2.691 6 6 6c1.881 0 3.724-.859 4.994-2.67l-1.857-1.218c-.828 1.14-1.959 1.669-3.137 1.669z"/></svg> 1990 &ndash; 2021 Caboodle Tech Inc. All Rights Reserved.
         <div class="wm-mobile-break"></div>

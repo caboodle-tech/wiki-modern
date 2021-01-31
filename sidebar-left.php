@@ -10,6 +10,7 @@
  * @package Wiki Modern Theme
  */
 
+if ( is_single() ) {
 ?>
 <aside class="wm-col wm-left-sidebar">
     <div class="wm-mobile-button">
@@ -33,3 +34,5 @@
         Test
     </div>
 </aside>
+<?php
+}

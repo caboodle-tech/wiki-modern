@@ -28,10 +28,10 @@ if ( is_admin_bar_showing() ) {
 // Output the correct body tag for the page.
 if ( is_single() ) {
     // This is a post (article) page.
-    echo '<body class="wm-post' . $admin_bar . '">';
+    echo '<body class="wm-post' . esc_attr( $admin_bar ) . '">';
     // global $WM_posts;
 } else {
     // This is an actual website page.
-    echo '<body class="wm-page' . $admin_bar . '">';
+    echo '<body class="wm-page' . esc_attr( $admin_bar ) . '">';
 }
 ?>

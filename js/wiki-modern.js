@@ -41,21 +41,25 @@ var WM = ( function() {
         elem = elems.topControls.querySelector( '.wm-right-toggle .wm-button' );
         elem.addEventListener( 'click', toggleSiderbar.bind( null, 'right' ), true );
 
-        // Toggle left sidebar.
-        elem = elems.topControls.querySelector( '.wm-left-toggle .wm-button' );
-        elem.addEventListener( 'click', toggleSiderbar.bind( null, 'left' ), true );
+        // Add listeners to leftsidebar if it exists.
+        if ( elems.leftSidebar ) {
+
+            // Toggle left sidebar.
+            elem = elems.topControls.querySelector( '.wm-left-toggle .wm-button' );
+            elem.addEventListener( 'click', toggleSiderbar.bind( null, 'left' ), true );
+
+            // Toggle left sidebar mobile button.
+            elem = elems.leftSidebar.querySelector( '.wm-mobile-button .wm-close-button' );
+            elem.addEventListener( 'click', toggleSiderbar.bind( null, 'left' ), true );
+
+            // Toggle reading mode.
+            elem = elems.topControls.querySelector( '.wm-read .wm-button' );
+            elem.addEventListener( 'click', toggleReadingMode, true );
+        }
 
         // Toggle right sidebar mobile button.
         elem = elems.rightSidebar.querySelector( '.wm-mobile-button .wm-close-button' );
         elem.addEventListener( 'click', toggleSiderbar.bind( null, 'right' ), true );
-
-        // Toggle left sidebar mobile button.
-        elem = elems.leftSidebar.querySelector( '.wm-mobile-button .wm-close-button' );
-        elem.addEventListener( 'click', toggleSiderbar.bind( null, 'left' ), true );
-
-        // Toggle reading mode.
-        elem = elems.topControls.querySelector( '.wm-read .wm-button' );
-        elem.addEventListener( 'click', toggleReadingMode, true );
 
         // Toggle an inline dropdown menu.
         elem = elems.content.querySelectorAll( '.wm-inline-dropdown' );
@@ -317,57 +321,59 @@ var WM = ( function() {
 
         switch( side.toUpperCase() ) {
             case 'LEFT':
-                // Do not allow multiple calls, abort if timer exists still.
-                if ( timer.leftSidebar ) {
-                    return;
-                }
-                if ( elems.leftSidebar.dataset.wmVisibility == '0' ) {
-                    // Open.
-                    if ( stats.device == 'mobile' && elems.rightSidebar.dataset.wmVisibility == '1' ) {
-                        toggleSiderbar( 'right' );
+                if ( elems.leftSidebar ) {
+                    // Do not allow multiple calls, abort if timer exists still.
+                    if ( timer.leftSidebar ) {
+                        return;
                     }
-                    elems.leftSidebar.classList.remove( 'wm-closed' );
-                    elems.leftSidebar.style.opacity = 1;
-                    elems.leftSidebar.dataset.wmVisibility = 1;
-                    timer.leftSidebar = setInterval( function() {
-                        var max = parseInt( elems.leftSidebar.dataset.wmWidth );
-                        var cur = parseInt( elems.leftSidebar.dataset.wmOffset );
-                        if ( cur < 0 ) {
-                            if ( stats.device == 'mobile' || stats.device == 'laptop' ) {
-                                elems.content.style.marginLeft = ( - ( max + cur + 15 ) ) + 'px';
-                            }
-                            elems.leftSidebar.dataset.wmOffset = cur + 15;
-                            elems.leftSidebar.style.marginLeft = ( cur + 15 ) + 'px';
-                        } else {
-                            if ( stats.device == 'mobile' || stats.device == 'laptop' ) {
-                                elems.content.style.marginLeft = ( - max ) + 'px';
-                            }
-                            clearInterval( timer.leftSidebar );
-                            timer.leftSidebar = null;
+                    if ( elems.leftSidebar.dataset.wmVisibility == '0' ) {
+                        // Open.
+                        if ( stats.device == 'mobile' && elems.rightSidebar.dataset.wmVisibility == '1' ) {
+                            toggleSiderbar( 'right' );
                         }
-                    }, 30 );
-                } else {
-                    // Close.
-                    elems.leftSidebar.dataset.wmVisibility = 0;
-                    timer.leftSidebar = setInterval( function() {
-                        var max = parseInt( elems.leftSidebar.dataset.wmWidth );
-                        var cur = parseInt( elems.leftSidebar.dataset.wmOffset );
-                        if ( cur > max * - 1 ) {
-                            if ( stats.device == 'mobile' || stats.device == 'laptop' ) {
-                                elems.content.style.marginLeft = ( - ( max + cur ) + 15 ) + 'px';
+                        elems.leftSidebar.classList.remove( 'wm-closed' );
+                        elems.leftSidebar.style.opacity = 1;
+                        elems.leftSidebar.dataset.wmVisibility = 1;
+                        timer.leftSidebar = setInterval( function() {
+                            var max = parseInt( elems.leftSidebar.dataset.wmWidth );
+                            var cur = parseInt( elems.leftSidebar.dataset.wmOffset );
+                            if ( cur < 0 ) {
+                                if ( stats.device == 'mobile' || stats.device == 'laptop' ) {
+                                    elems.content.style.marginLeft = ( - ( max + cur + 15 ) ) + 'px';
+                                }
+                                elems.leftSidebar.dataset.wmOffset = cur + 15;
+                                elems.leftSidebar.style.marginLeft = ( cur + 15 ) + 'px';
+                            } else {
+                                if ( stats.device == 'mobile' || stats.device == 'laptop' ) {
+                                    elems.content.style.marginLeft = ( - max ) + 'px';
+                                }
+                                clearInterval( timer.leftSidebar );
+                                timer.leftSidebar = null;
                             }
-                            elems.leftSidebar.dataset.wmOffset = cur - 15;
-                            elems.leftSidebar.style.marginLeft = ( cur - 15 ) + 'px';
-                        } else {
-                            if ( stats.device == 'mobile' || stats.device == 'laptop' ) {
-                                elems.content.style.marginLeft = '0px';
+                        }, 30 );
+                    } else {
+                        // Close.
+                        elems.leftSidebar.dataset.wmVisibility = 0;
+                        timer.leftSidebar = setInterval( function() {
+                            var max = parseInt( elems.leftSidebar.dataset.wmWidth );
+                            var cur = parseInt( elems.leftSidebar.dataset.wmOffset );
+                            if ( cur > max * - 1 ) {
+                                if ( stats.device == 'mobile' || stats.device == 'laptop' ) {
+                                    elems.content.style.marginLeft = ( - ( max + cur ) + 15 ) + 'px';
+                                }
+                                elems.leftSidebar.dataset.wmOffset = cur - 15;
+                                elems.leftSidebar.style.marginLeft = ( cur - 15 ) + 'px';
+                            } else {
+                                if ( stats.device == 'mobile' || stats.device == 'laptop' ) {
+                                    elems.content.style.marginLeft = '0px';
+                                }
+                                elems.leftSidebar.classList.add( 'wm-closed' );
+                                elems.leftSidebar.style.opacity = 0;
+                                clearInterval( timer.leftSidebar );
+                                timer.leftSidebar = null;
                             }
-                            elems.leftSidebar.classList.add( 'wm-closed' );
-                            elems.leftSidebar.style.opacity = 0;
-                            clearInterval( timer.leftSidebar );
-                            timer.leftSidebar = null;
-                        }
-                    }, 30 );
+                        }, 30 );
+                    }
                 }
                 break;
             case 'RIGHT':
@@ -377,8 +383,10 @@ var WM = ( function() {
                 }
                 if ( elems.rightSidebar.dataset.wmVisibility == '0' ) {
                     // Open.
-                    if ( stats.device == 'mobile' && elems.leftSidebar.dataset.wmVisibility == '1' ) {
-                        toggleSiderbar( 'left' );
+                    if ( stats.device == 'mobile' && elems.leftSidebar ) {
+                        if ( elems.leftSidebar.dataset.wmVisibility == '1' ) {
+                            toggleSiderbar( 'left' );
+                        }
                     }
                     elems.rightSidebar.classList.remove( 'wm-closed' );
                     elems.rightSidebar.style.opacity = 1;

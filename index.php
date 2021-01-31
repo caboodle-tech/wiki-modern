@@ -23,7 +23,7 @@ get_header();
         <!-- Print Controls -->
 <?php
 if ( isset( $_COOKIE['wm-print-settings'] ) ) {
-    $cookie         = wp_filter_post_kses( wp_unslash( $_COOKIE['wm-print-settings'] ) );
+    $cookie         = sanitize_meta( 'wm_cookie', wp_unslash( $_COOKIE['wm-print-settings'] ), 'json' );
     $print_settings = json_decode( $cookie, true );
 } else {
     $print_settings = array(
@@ -57,7 +57,7 @@ $checked = 'checked="checked"';
 ?>
                     <div class="wm-button">
                         <label>
-                            <input type="checkbox" name="wm-print-no-images" <?php echo sanitize_title( $checked ); ?>>
+                            <input type="checkbox" name="wm-print-no-images" <?php esc_attr( $checked ); ?>>
                             <span></span>
                         </label>
                     </div>
@@ -78,7 +78,7 @@ $checked = 'checked="checked"';
 ?>
                     <div class="wm-button">
                         <label>
-                            <input type="checkbox" name="wm-print-no-media" <?php echo sanitize_title( $checked ); ?>>
+                            <input type="checkbox" name="wm-print-no-media" <?php echo esc_attr( $checked ); ?>>
                             <span></span>
                         </label>
                     </div>
@@ -98,7 +98,7 @@ $checked = 'checked="checked"';
 ?>
                     <div class="wm-button">
                         <label>
-                            <input type="checkbox" name="wm-print-no-forms" <?php echo sanitize_title( $checked ); ?>>
+                            <input type="checkbox" name="wm-print-no-forms" <?php echo esc_attr( $checked ); ?>>
                             <span></span>
                         </label>
                     </div>
@@ -112,13 +112,13 @@ $checked = 'checked="checked"';
                     </div>
 <?php
 $checked = '';
-if( $print_settings['wm-print-no-qr'] ) {
+if ( $print_settings['wm-print-no-qr'] ) {
 $checked = 'checked="checked"';
 }
 ?>
                     <div class="wm-button">
                         <label>
-                            <input type="checkbox" name="wm-print-no-qr" <?php echo sanitize_title( $checked ); ?>>
+                            <input type="checkbox" name="wm-print-no-qr" <?php echo esc_attr( $checked ); ?>>
                             <span></span>
                         </label>
                     </div>

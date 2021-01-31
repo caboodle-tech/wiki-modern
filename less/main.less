@@ -125,6 +125,23 @@ main {
     @import "pagination.less";
 }
 
+.wm-page {
+    main {
+        #wm-top-controls-wrapper {
+
+            .wm-left-toggle {
+                visibility: hidden;
+                pointer-events: none;
+            }
+        
+            .wm-read {
+                visibility: hidden;
+                pointer-events: none;
+            }
+        }
+    }
+}
+
 .wm-left-sidebar, .wm-right-sidebar {
     background-color: @sidebar-bg-color;
     color: @sidebar-color;
@@ -209,6 +226,12 @@ footer {
     }
 
     @import "footer.less";
+}
+
+.wm-admin-bar-active {
+    footer {
+        padding-bottom: 2.5rem;
+    }
 }
 
 @import "print-rules.less";
