@@ -20,6 +20,9 @@ if ( isset( $_COOKIE['wm-dark-mode'] ) ) {
 }
 define( 'DARK_MODE', $dark_mode );
 
+require 'classes/class-wm-page-html.php';
+require 'classes/class-wm-pagination.php';
+
 require 'include/wm-get-image-widths.php';
 
 // Enqueue styles and scripts loaded with the built in wp_footer() function.
@@ -123,7 +126,7 @@ add_action( 'template_redirect', 'wpb_change_search_url' );
 // A simple cookie sanitization function to make WordPress happy.
 function wm_sanitize_cookie( $data ) {
     $cleaned = htmlspecialchars( $data, ENT_NOQUOTES );
-    if ( strlen( $cleaned ) != strlen( $data ) ) {
+    if ( strlen( $cleaned ) !== strlen( $data ) ) {
         return '';
     }
     return $data;

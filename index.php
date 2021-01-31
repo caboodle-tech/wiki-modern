@@ -155,11 +155,14 @@ unset( $checked );
                 </div>
             </div>
         </div>
+<?php
+$search_text = wp_strip_all_tags( urldecode( get_query_var( 's' ) ) );
+?>
         <!-- Page Controls -->
         <div id="wm-top-controls-wrapper">
             <div id="wm-search-wrapper">
                 <div id="wm-fake-input">
-                    <input type="text" placeholder="Search" aria-label="Search" id="wm-search">
+                    <input type="text" placeholder="Search" aria-label="Search" id="wm-search" value="<?php echo esc_html( $search_text ); ?>">
                     <div id="wm-search-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" transform="scale(-1, 1)"><path d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/></svg>
                     </div>
@@ -187,77 +190,12 @@ unset( $checked );
             </div>
         </div>
         <!--Top Pagination Controls -->
-        <div class="wm-pagination" id="wm-top-pagination">
-            <div class="wm-page">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.744 8s1.522-8-3.335-8h-8.409v24h20v-13c0-3.419-5.247-3.745-8.256-3zm.256 11h-8v-1h8v1zm4-3h-12v-1h12v1zm0-3h-12v-1h12v1zm-3.432-12.925c2.202 1.174 5.938 4.883 7.432 6.881-1.286-.9-4.044-1.657-6.091-1.179.222-1.468-.185-4.534-1.341-5.702z"/></svg>
-                Page
-                <div class="wm-inline-dropdown">
-                    1
-                    <ul class="wm-inline-options" data-wm-cookie-name="wm_pagination_limit">
-                        <li onclick="WikiModern.dropdown();" data-wm-show-value="10">10</li><li onclick="WikiModern.dropdown();" data-wm-show-value="20">20</li><li onclick="WikiModern.dropdown();" data-wm-show-value="30">30</li><li onclick="WikiModern.dropdown();" data-wm-show-value="40">40</li><li onclick="WikiModern.dropdown();" data-wm-show-value="50">50</li>
-                    </ul>
-                </div>
-                of 1.
-            </div>
-            <div class="wm-sort">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 10v4h4l-6 7-6-7h4v-4h-4l6-7 6 7h-4zm16 5h-10v2h10v-2zm0 6h-10v-2h10v2zm0-8h-10v-2h10v2zm0-4h-10v-2h10v2zm0-4h-10v-2h10v2z"/></svg>
-                <div class="wm-inline-dropdown">
-                    newest
-                    <ul class="wm-inline-options" data-wm-cookie-name="wm_pagination_limit">
-                        <li onclick="WikiModern.dropdown();" data-wm-show-value="10">10</li><li onclick="WikiModern.dropdown();" data-wm-show-value="20">20</li><li onclick="WikiModern.dropdown();" data-wm-show-value="30">30</li><li onclick="WikiModern.dropdown();" data-wm-show-value="40">40</li><li onclick="WikiModern.dropdown();" data-wm-show-value="50">50</li>
-                    </ul>
-                </div>
-                results first.
-            </div>
-            <div class="wm-limit">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7 16h13v1h-13v-1zm13-3h-13v1h13v-1zm0-6h-5v1h5v-1zm0 3h-5v1h5v-1zm-17-8v17.199c0 .771-1 .771-1 0v-15.199h-2v15.98c0 1.115.905 2.02 2.02 2.02h19.958c1.117 0 2.022-.904 2.022-2.02v-17.98h-21zm19 17h-17v-15h17v15zm-9-12h-6v4h6v-4z"/></svg>
-                <div class="wm-inline-dropdown">
-                    7
-                    <ul class="wm-inline-options" data-wm-cookie-name="wm_pagination_limit">
-                        <li onclick="WikiModern.dropdown();" data-wm-show-value="10">10</li><li onclick="WikiModern.dropdown();" data-wm-show-value="20">20</li><li onclick="WikiModern.dropdown();" data-wm-show-value="30">30</li><li onclick="WikiModern.dropdown();" data-wm-show-value="40">40</li><li onclick="WikiModern.dropdown();" data-wm-show-value="50">50</li>
-                    </ul>
-                </div>
-                results per page.
-            </div>
-        </div>
+        ...PAGE
         <!-- Page Content -->
         <div id="wm-page-content">
-            ...
-        </div>
-        <!--Bottom Pagination Controls -->
-        <!--Top Pagination Controls -->
-        <div class="wm-pagination" id="wm-bottom-pagination">
-            <div class="wm-page">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.744 8s1.522-8-3.335-8h-8.409v24h20v-13c0-3.419-5.247-3.745-8.256-3zm.256 11h-8v-1h8v1zm4-3h-12v-1h12v1zm0-3h-12v-1h12v1zm-3.432-12.925c2.202 1.174 5.938 4.883 7.432 6.881-1.286-.9-4.044-1.657-6.091-1.179.222-1.468-.185-4.534-1.341-5.702z"/></svg>
-                Page
-                <div class="wm-inline-dropdown">
-                    1
-                    <ul class="wm-inline-options" data-wm-cookie-name="wm_pagination_limit">
-                        <li onclick="WikiModern.dropdown();" data-wm-show-value="10">10</li><li onclick="WikiModern.dropdown();" data-wm-show-value="20">20</li><li onclick="WikiModern.dropdown();" data-wm-show-value="30">30</li><li onclick="WikiModern.dropdown();" data-wm-show-value="40">40</li><li onclick="WikiModern.dropdown();" data-wm-show-value="50">50</li>
-                    </ul>
-                </div>
-                of 1.
-            </div>
-            <div class="wm-sort">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 10v4h4l-6 7-6-7h4v-4h-4l6-7 6 7h-4zm16 5h-10v2h10v-2zm0 6h-10v-2h10v2zm0-8h-10v-2h10v2zm0-4h-10v-2h10v2zm0-4h-10v-2h10v2z"/></svg>
-                <div class="wm-inline-dropdown">
-                    newest
-                    <ul class="wm-inline-options" data-wm-cookie-name="wm_pagination_limit">
-                        <li onclick="WikiModern.dropdown();" data-wm-show-value="10">10</li><li onclick="WikiModern.dropdown();" data-wm-show-value="20">20</li><li onclick="WikiModern.dropdown();" data-wm-show-value="30">30</li><li onclick="WikiModern.dropdown();" data-wm-show-value="40">40</li><li onclick="WikiModern.dropdown();" data-wm-show-value="50">50</li>
-                    </ul>
-                </div>
-                results first.
-            </div>
-            <div class="wm-limit">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7 16h13v1h-13v-1zm13-3h-13v1h13v-1zm0-6h-5v1h5v-1zm0 3h-5v1h5v-1zm-17-8v17.199c0 .771-1 .771-1 0v-15.199h-2v15.98c0 1.115.905 2.02 2.02 2.02h19.958c1.117 0 2.022-.904 2.022-2.02v-17.98h-21zm19 17h-17v-15h17v15zm-9-12h-6v4h6v-4z"/></svg>
-                <div class="wm-inline-dropdown">
-                    7
-                    <ul class="wm-inline-options" data-wm-cookie-name="wm_pagination_limit">
-                        <li onclick="WikiModern.dropdown();" data-wm-show-value="10">10</li><li onclick="WikiModern.dropdown();" data-wm-show-value="20">20</li><li onclick="WikiModern.dropdown();" data-wm-show-value="30">30</li><li onclick="WikiModern.dropdown();" data-wm-show-value="40">40</li><li onclick="WikiModern.dropdown();" data-wm-show-value="50">50</li>
-                    </ul>
-                </div>
-                results per page.
-            </div>
+<?php
+require 'include/wm-page-manager.php';
+?>
         </div>
     </main>
 <?php

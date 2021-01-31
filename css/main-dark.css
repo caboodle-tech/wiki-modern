@@ -26,6 +26,7 @@ body {
   flex-direction: column;
   overflow-y: auto;
   font-size: 62.5%;
+  word-spacing: 1px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
 }
@@ -41,6 +42,20 @@ h5,
 h6 {
   font-family: 'Roboto Slab Semi Bold', sans-serif;
   font-weight: 600;
+}
+h1 {
+  font-size: 2.07rem;
+}
+h2 {
+  font-size: 1.84rem;
+}
+h3 {
+  font-size: 1.725rem;
+}
+h4,
+h5,
+h6 {
+  font-size: 1.61rem;
 }
 *,
 :after,
@@ -99,9 +114,9 @@ main #wm-top-controls-wrapper .wm-button {
   border: 1px solid #54575a;
   background-color: #2d2d2d;
   cursor: pointer;
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
 }
 main #wm-top-controls-wrapper .wm-button svg {
   transform: scale(1.25);
@@ -122,9 +137,9 @@ main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input {
   height: 3rem;
   padding: 0 7.5px;
   overflow: hidden;
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
 }
 main #wm-top-controls-wrapper #wm-search-wrapper #wm-fake-input #wm-search {
   width: 100%;
@@ -247,15 +262,13 @@ main #wm-page-content .wm-article .wm-disabled {
 main #wm-page-content .wm-article .wm-article-title {
   display: block;
   width: 100%;
-  font-weight: bold;
-  font-size: 1.8rem;
   margin-bottom: 0;
 }
 main #wm-page-content .wm-article .wm-article-times {
   display: block;
   width: 100%;
   margin: 0.6rem 0 0.8rem 0;
-  font-size: 1rem;
+  font-size: 1.035rem;
 }
 main #wm-page-content .wm-article .wm-article-wrapper {
   display: flex;
@@ -288,8 +301,8 @@ main #wm-page-content .wm-article .wm-article-wrapper .wm-article-image-wrapper 
   max-width: 100%;
   height: auto;
   margin: 0 auto;
-  -webkit-filter: drop-shadow(1px 0 0 rgba(242, 242, 243, 0.2)) drop-shadow(-1px 0 rgba(242, 242, 243, 0.2)) drop-shadow(0 1px 0 rgba(242, 242, 243, 0.2)) drop-shadow(0 -1px 0 rgba(242, 242, 243, 0.2)) drop-shadow(1px 1px 0 rgba(242, 242, 243, 0.2)) drop-shadow(1px -1px 0 rgba(242, 242, 243, 0.2)) drop-shadow(-1px 1px 0 rgba(242, 242, 243, 0.2)) drop-shadow(-1px -1px 0 rgba(242, 242, 243, 0.2));
-  filter: drop-shadow(1px 0 0 rgba(242, 242, 243, 0.2)) drop-shadow(-1px 0 rgba(242, 242, 243, 0.2)) drop-shadow(0 1px 0 rgba(242, 242, 243, 0.2)) drop-shadow(0 -1px 0 rgba(242, 242, 243, 0.2)) drop-shadow(1px 1px 0 rgba(242, 242, 243, 0.2)) drop-shadow(1px -1px 0 rgba(242, 242, 243, 0.2)) drop-shadow(-1px 1px 0 rgba(242, 242, 243, 0.2)) drop-shadow(-1px -1px 0 rgba(242, 242, 243, 0.2));
+  -webkit-filter: drop-shadow(1px 0 0 rgba(242, 242, 243, 0.15)) drop-shadow(-1px 0 rgba(242, 242, 243, 0.15)) drop-shadow(0 1px 0 rgba(242, 242, 243, 0.15)) drop-shadow(0 -1px 0 rgba(242, 242, 243, 0.15)) drop-shadow(1px 1px 0 rgba(242, 242, 243, 0.15)) drop-shadow(1px -1px 0 rgba(242, 242, 243, 0.15)) drop-shadow(-1px 1px 0 rgba(242, 242, 243, 0.15)) drop-shadow(-1px -1px 0 rgba(242, 242, 243, 0.15));
+  filter: drop-shadow(1px 0 0 rgba(242, 242, 243, 0.15)) drop-shadow(-1px 0 rgba(242, 242, 243, 0.15)) drop-shadow(0 1px 0 rgba(242, 242, 243, 0.15)) drop-shadow(0 -1px 0 rgba(242, 242, 243, 0.15)) drop-shadow(1px 1px 0 rgba(242, 242, 243, 0.15)) drop-shadow(1px -1px 0 rgba(242, 242, 243, 0.15)) drop-shadow(-1px 1px 0 rgba(242, 242, 243, 0.15)) drop-shadow(-1px -1px 0 rgba(242, 242, 243, 0.15));
 }
 main #wm-page-content .wm-article .wm-article-wrapper .wm-article-content {
   flex: 1;
@@ -398,9 +411,9 @@ main .wm-pagination .wm-inline-dropdown .wm-inline-options {
   background-color: #393939;
   list-style-type: none;
   z-index: 500;
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
 }
 main .wm-pagination .wm-inline-dropdown .wm-inline-options li {
   display: block;
@@ -465,6 +478,14 @@ main .wm-pagination .wm-inline-dropdown:hover {
 main .wm-pagination#wm-bottom-pagination {
   margin-bottom: 0;
 }
+.wm-page main #wm-top-controls-wrapper .wm-left-toggle {
+  visibility: hidden;
+  pointer-events: none;
+}
+.wm-page main #wm-top-controls-wrapper .wm-read {
+  visibility: hidden;
+  pointer-events: none;
+}
 .wm-left-sidebar,
 .wm-right-sidebar {
   background-color: #2d2d2d;
@@ -485,9 +506,9 @@ header.wm-right-sidebar .wm-mobile-button .wm-close-button {
   padding: 7.5px 15px;
   background-color: #393939;
   border: 1px solid #54575a;
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
   cursor: pointer;
 }
 aside.wm-left-sidebar .wm-mobile-button svg,
@@ -524,6 +545,10 @@ aside.wm-left-sidebar a:hover {
 }
 aside.wm-left-sidebar a:hover svg {
   fill: #89c8ff;
+}
+aside.wm-left-sidebar img {
+  -webkit-filter: drop-shadow(1px 0 0 rgba(242, 242, 243, 0.13)) drop-shadow(-1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(0 1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(0 -1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(1px 1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(1px -1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(-1px 1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(-1px -1px 0 rgba(242, 242, 243, 0.13));
+  filter: drop-shadow(1px 0 0 rgba(242, 242, 243, 0.13)) drop-shadow(-1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(0 1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(0 -1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(1px 1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(1px -1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(-1px 1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(-1px -1px 0 rgba(242, 242, 243, 0.13));
 }
 aside.wm-left-sidebar .wm-mobile-button {
   grid-column: 1;
@@ -590,6 +615,10 @@ header.wm-right-sidebar {
 header.wm-right-sidebar.wm-closed {
   border-left: 0 transparent;
 }
+header.wm-right-sidebar img {
+  -webkit-filter: drop-shadow(1px 0 0 rgba(242, 242, 243, 0.13)) drop-shadow(-1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(0 1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(0 -1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(1px 1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(1px -1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(-1px 1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(-1px -1px 0 rgba(242, 242, 243, 0.13));
+  filter: drop-shadow(1px 0 0 rgba(242, 242, 243, 0.13)) drop-shadow(-1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(0 1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(0 -1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(1px 1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(1px -1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(-1px 1px 0 rgba(242, 242, 243, 0.13)) drop-shadow(-1px -1px 0 rgba(242, 242, 243, 0.13));
+}
 header.wm-right-sidebar .wm-mobile-button {
   grid-column: 1;
   grid-row: 1;
@@ -610,11 +639,11 @@ header.wm-right-sidebar #wm-logo-wrapper #wm-logo {
   height: auto;
   margin-bottom: 15px;
 }
-header.wm-right-sidebar #wm-logo-wrapper #wm-business-name {
+header.wm-right-sidebar #wm-logo-wrapper #wm-site-title {
   font-size: 1.495rem;
   margin-bottom: 15px;
 }
-header.wm-right-sidebar #wm-logo-wrapper #wm-business-tagline {
+header.wm-right-sidebar #wm-logo-wrapper #wm-site-tagline {
   font-size: 1.2075rem;
   margin-bottom: 15px;
 }
@@ -687,9 +716,9 @@ header.wm-right-sidebar #wm-dark-mode-toggle span {
   border: 1px solid #54575a;
   background: #393939;
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
 }
 header.wm-right-sidebar #wm-dark-mode-toggle span:before {
   content: "\2600";
@@ -788,6 +817,9 @@ footer #wm-copyright .wm-mobile-break {
     min-width: 25%;
   }
 }
+.wm-admin-bar-active footer {
+  padding-bottom: 2.5rem;
+}
 body.wm-print-mode {
   overflow: visible;
 }
@@ -859,9 +891,9 @@ body.wm-print-mode.wm-print-no-qr #wm-print-controls-wrapper #wm-qr-option .wm-t
   border: 1px solid #54575a;
   background-color: #393939;
   cursor: pointer;
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
 }
 #wm-print-controls-wrapper .wm-close-button svg {
   transform: scale(1.25);
@@ -917,9 +949,9 @@ body.wm-print-mode.wm-print-no-qr #wm-print-controls-wrapper #wm-qr-option .wm-t
   cursor: pointer;
   outline: none;
   padding: 5px 7.5px;
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
 }
 #wm-print-controls-wrapper .wm-left-column input[type="button"]:focus,
 #wm-print-controls-wrapper .wm-right-column input[type="button"]:focus,
@@ -949,9 +981,9 @@ body.wm-print-mode.wm-print-no-qr #wm-print-controls-wrapper #wm-qr-option .wm-t
   border: 1px solid #54575a;
   background: #393939;
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
-  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.1);
+  -webkit-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  -moz-box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
+  box-shadow: 0px 1px 3px 1px rgba(242, 242, 243, 0.09);
 }
 #wm-print-controls-wrapper .wm-left-column span:before {
   content: "\2713";

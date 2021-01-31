@@ -181,6 +181,16 @@ $theme_options[] = array(
     'slug'        => 'wm_col4_alignment',
 );
 
+$theme_options[] = array(
+    'default'     => '',
+    'description' => __( 'The year your business was established.  This will display in the sites copyright footer.' ),
+    'label'       => __( 'Establishment Year' ),
+    'sanitize'    => 'wp_filter_nohtml_kses',
+    'section'     => 'title_tagline',
+    'slug'        => 'wm_establishment_year',
+    'type'        => 'text',
+);
+
 // Add the settings and controls for each option Wiki Modern has to the Customizer.
 $slug_counter = 0;
 foreach ( $theme_options as $option ) {

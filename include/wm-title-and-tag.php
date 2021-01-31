@@ -10,11 +10,11 @@ $business = htmlentities( get_bloginfo( 'name' ), ENT_QUOTES );
 $tagline  = htmlentities( get_bloginfo( 'description' ), ENT_QUOTES );
 
 if ( ! empty( $business ) && get_theme_mod( 'wm_toggle_site_title' ) ) {
-    $align = get_theme_mod( 'wm_site_business_alignment' );
+    $align = get_theme_mod( 'wm_site_title_alignment' );
     if ( $align === 'centered' ) {
         $align = 'center';
     }
-    echo '<div id="wm-business-name" class="wm-align-' . esc_attr( $align ) . '">' . esc_html( $business ) . '</div>';
+    echo '<div id="wm-site-title" class="wm-align-' . esc_attr( $align ) . '">' . esc_html( $business ) . '</div>';
 }
 
 if ( ! empty( $tagline ) && get_theme_mod( 'wm_toggle_tagline' ) ) {
@@ -22,5 +22,5 @@ if ( ! empty( $tagline ) && get_theme_mod( 'wm_toggle_tagline' ) ) {
     if ( $align === 'centered' ) {
         $align = 'center';
     }
-    echo '<div id="wm-business-tagline" class="wm-align-' . esc_attr( $align ) . '">' . esc_html( $tagline ) . '</div>';
+    echo '<div id="wm-site-tagline" class="wm-align-' . esc_attr( $align ) . '">' . esc_html( $tagline ) . '</div>';
 }

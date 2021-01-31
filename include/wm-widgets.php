@@ -12,7 +12,7 @@ register_sidebar(
         'description'   => 'Allows you to add widgets to the sites right sidebar under your sites navigation.',
         'before_widget' => '<div class="wm-widget">',
         'after_widget'  => '</div>',
-        'before_title'  => '<div class="wm-widget-title">',
+        'before_title'  => '<div class="wm-title">',
         'after_title'   => '</div>',
         'section'       => 'wm_theme_options_sidebar',
     )
@@ -25,7 +25,7 @@ register_sidebar(
         'description'   => 'Allows you to add widgets to the sites left sidebar under the blog posts information. Please keep in mind that the right sidebar is only visible on blog post pages.',
         'before_widget' => '<div class="wm-widget">',
         'after_widget'  => '</div>',
-        'before_title'  => '<div class="wm-widget-title">',
+        'before_title'  => '<div class="wm-title">',
         'after_title'   => '</div>',
         'section'       => 'wm_theme_options_sidebar',
     )
@@ -38,7 +38,7 @@ register_sidebar(
         'description'   => 'Allows you to add widgets to the sites footer in the first column. Please keep in mind that you may choose how many footer columns that show under Theme Options > Footer.',
         'before_widget' => '<div class="wm-widget">',
         'after_widget'  => '</div>',
-        'before_title'  => '<div class="wm-widget-title">',
+        'before_title'  => '<div class="wm-title">',
         'after_title'   => '</div>',
         'section'       => 'wm_theme_options_sidebar',
     )
@@ -51,7 +51,7 @@ register_sidebar(
         'description'   => 'Allows you to add widgets to the sites footer in the second column. Please keep in mind that you may choose how many footer columns that show under Theme Options > Footer.',
         'before_widget' => '<div class="wm-widget">',
         'after_widget'  => '</div>',
-        'before_title'  => '<div class="wm-widget-title">',
+        'before_title'  => '<div class="wm-title">',
         'after_title'   => '</div>',
         'section'       => 'wm_theme_options_sidebar',
     )
@@ -64,7 +64,7 @@ register_sidebar(
         'description'   => 'Allows you to add widgets to the sites footer in the third column. Please keep in mind that you may choose how many footer columns that show under Theme Options > Footer.',
         'before_widget' => '<div class="wm-widget">',
         'after_widget'  => '</div>',
-        'before_title'  => '<div class="wm-widget-title">',
+        'before_title'  => '<div class="wm-title">',
         'after_title'   => '</div>',
         'section'       => 'wm_theme_options_sidebar',
     )
@@ -77,7 +77,7 @@ register_sidebar(
         'description'   => 'Allows you to add widgets to the sites footer in the fourth column. Please keep in mind that you may choose how many footer columns that show under Theme Options > Footer.',
         'before_widget' => '<div class="wm-widget">',
         'after_widget'  => '</div>',
-        'before_title'  => '<div class="wm-widget-title">',
+        'before_title'  => '<div class="wm-title">',
         'after_title'   => '</div>',
         'section'       => 'wm_theme_options_sidebar',
     )

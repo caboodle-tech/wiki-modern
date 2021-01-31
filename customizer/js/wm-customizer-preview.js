@@ -2,7 +2,7 @@
 
 wp.customize( 'wm_toggle_logo', function( value ) {
     value.bind( function( val ) {
-        var elem = $('#wm-identity-container');
+        var elem = $('#wm-logo');
         if( elem ){
             if( $( elem ).attr( 'data-wm-hidden' ) == '1' ){
                 $( elem ).attr( 'data-wm-hidden', '0' );
@@ -30,6 +30,7 @@ wp.customize( 'wm_toggle_site_title', function( value ) {
 } );
 wp.customize( 'wm_site_title_alignment', function( value ) {
     value.bind( function( val ) {
+        alert(val+" >>> "+value);
         var elem = $('#wm-site-title');
         if( elem ){
             $( elem ).removeClass('wm-align-left');
@@ -68,7 +69,7 @@ wp.customize( 'wm_site_tagline_alignment', function( value ) {
 } );
 wp.customize( 'wm_col1_alignment', function( value ) {
     value.bind( function( val ) {
-        var elem = $('#wm-footer-column-1');
+        var elem = $('#wm-column-1');
         if( elem ){
             $( elem ).removeClass('wm-align-left');
             $( elem ).removeClass('wm-align-center');
@@ -80,7 +81,7 @@ wp.customize( 'wm_col1_alignment', function( value ) {
 } );
 wp.customize( 'wm_col2_alignment', function( value ) {
     value.bind( function( val ) {
-        var elem = $('#wm-footer-column-2');
+        var elem = $('#wm-column-2');
         if( elem ){
             $( elem ).removeClass('wm-align-left');
             $( elem ).removeClass('wm-align-center');
@@ -92,7 +93,7 @@ wp.customize( 'wm_col2_alignment', function( value ) {
 } );
 wp.customize( 'wm_col3_alignment', function( value ) {
     value.bind( function( val ) {
-        var elem = $('#wm-footer-column-3');
+        var elem = $('#wm-column-3');
         if( elem ){
             $( elem ).removeClass('wm-align-left');
             $( elem ).removeClass('wm-align-center');
@@ -104,7 +105,7 @@ wp.customize( 'wm_col3_alignment', function( value ) {
 } );
 wp.customize( 'wm_col4_alignment', function( value ) {
     value.bind( function( val ) {
-        var elem = $('#wm-footer-column-4');
+        var elem = $('#wm-column-4');
         if( elem ){
             $( elem ).removeClass('wm-align-left');
             $( elem ).removeClass('wm-align-center');

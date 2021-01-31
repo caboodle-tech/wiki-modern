@@ -26,6 +26,7 @@ body {
   flex-direction: column;
   overflow-y: auto;
   font-size: 62.5%;
+  word-spacing: 1px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
 }
@@ -344,34 +345,6 @@ main .wm-pagination {
   flex-wrap: wrap;
   margin: 30px 0;
   font-size: 1.4375rem;
-  /*
-    .wm-position-bottom {
-    
-        .wm-inline-dropdown {
-    
-            .wm-inline-options {
-                bottom: 2rem;
-            }
-    
-            &:after {
-                content: '';
-                position: absolute;
-                right: 1px;
-                top: 37%;
-                width: 0;
-                height: 0;
-                border-left: 6px solid transparent;
-                border-right: 6px solid transparent;
-                border-bottom: 10px solid @content-color;
-                border-top: none;
-            }
-    
-            &:hover {
-                cursor: pointer;
-            }
-        }
-    }
-    */
 }
 main .wm-pagination svg {
   fill: #2a2a2a;
@@ -439,6 +412,27 @@ main .wm-pagination .wm-inline-dropdown:after {
 main .wm-pagination .wm-inline-dropdown:hover {
   cursor: pointer;
 }
+main .wm-pagination#wm-bottom-pagination {
+  margin-bottom: 0;
+}
+main .wm-pagination#wm-bottom-pagination .wm-inline-dropdown .wm-inline-options {
+  bottom: 2rem;
+}
+main .wm-pagination#wm-bottom-pagination .wm-inline-dropdown:after {
+  content: '';
+  position: absolute;
+  right: 1px;
+  top: 37%;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 10px solid #2a2a2a;
+  border-top: none;
+}
+main .wm-pagination#wm-bottom-pagination .wm-inline-dropdown:hover {
+  cursor: pointer;
+}
 @media (min-width: 768px) {
   main .wm-pagination .wm-page {
     flex: 1 0 auto;
@@ -473,9 +467,6 @@ main .wm-pagination .wm-inline-dropdown:hover {
     width: auto;
     text-align: right;
   }
-}
-main .wm-pagination#wm-bottom-pagination {
-  margin-bottom: 0;
 }
 .wm-page main #wm-top-controls-wrapper .wm-left-toggle {
   visibility: hidden;
@@ -638,11 +629,11 @@ header.wm-right-sidebar #wm-logo-wrapper #wm-logo {
   height: auto;
   margin-bottom: 15px;
 }
-header.wm-right-sidebar #wm-logo-wrapper #wm-business-name {
+header.wm-right-sidebar #wm-logo-wrapper #wm-site-title {
   font-size: 1.495rem;
   margin-bottom: 15px;
 }
-header.wm-right-sidebar #wm-logo-wrapper #wm-business-tagline {
+header.wm-right-sidebar #wm-logo-wrapper #wm-site-tagline {
   font-size: 1.2075rem;
   margin-bottom: 15px;
 }
