@@ -12,6 +12,9 @@ if ( ! class_exists( 'WM_page_html' ) ) {
      */
     class WM_Page_Html {
 
+        // Required variables for WM_Pagination.
+        private $post_id = 1000;
+
         /**
          * Empty construct function for this class.
          */
@@ -40,22 +43,82 @@ if ( ! class_exists( 'WM_page_html' ) ) {
             $author = get_the_author_meta( 'display_name', $post->post_author );
             return '<div><span class="wm-title">Author:</span> ' . $author . '</div>';
         }
-
+        
         /**
-         * Return the HTML for the post or page title.
+         * Return the HTML for the post/page title.
          *
          * @param WP_Post $post The current WordPress post object.
+         * @param bool    $summary Is this header for a post summary; default is true (yes).
          * @param bool    $link_flag Should the result be built as a link; default is true (yes).
-         * @return string The HTML for the post or page title.
+         * @return string The HTML for the post/page title.
          */
-        public function get_html_title( $post, $link_flag = true ) {
+        public function get_post_header_html( $post, $summary = true, $link_flag = true ) {
+
+            // Set correct heading level.
+            $level = 1;
+            if ( $summary ) {
+                $level = 2;
+            }
 
             if ( post_password_required( $post->ID ) && $link_flag ) {
-                return '<h1 class="wm-article-title wm-link wm-disabled">' . apply_filters( 'protected_title_format', $post->post_title ) . '</h1>';
+                // Password protected post.
+                return '<h' . $level . ' class="wm-article-title wm-link wm-disabled">' . apply_filters( 'protected_title_format', $post->post_title ) . '</h' . $level . '>';
             } elseif ( $link_flag ) {
-                return '<h1 class="wm-article-title wm-link"><a href="' . get_permalink( $post->ID ) . '">' . apply_filters( 'the_title', $post->post_title ) . '</a></h1>';
+                // Unlocked post, link to full post.
+                return '<h' . $level . ' class="wm-article-title wm-link"><a href="' . get_permalink( $post->ID ) . '">' . apply_filters( 'the_title', $post->post_title ) . '</a></h' . $level . '>';
             } else {
-                return '<h1 class="wm-article-title' . $disabled . '">' . apply_filters( 'the_title', $post->post_title ) . '</h1>';
+                // Unlocked post, no link.
+                return '<h' . $level . ' class="wm-article-title' . $disabled . '">' . apply_filters( 'the_title', $post->post_title ) . '</h' . $level . '>';
+            }
+
+        }
+
+        public function get_post_image_html( $post, $raw_html ) {
+
+            if ( ! post_password_required( $post->ID ) ) {
+
+                // Capture all figure blocks.
+                preg_match_all( '/(?:<figure.*?>(?:.*?|\n)*?<\/figure>)/', $raw_html, $figures );
+
+                // Process figure blocks and keep only the video ones.
+                if ( ! empty( $figures[0] ) ) {
+                    $replacment = array();
+                    foreach ( $figures[0] as $val ) {
+                        if ( stripos( $val, 'wp-block-video' ) || stripos( $val, 'is-type-video' ) ) {
+                            array_push( $replacment, $val );
+                        }
+                    }
+                    unset( $val );
+                    // Overwrite the $figures array with the items we decided to keep.
+                    $figures = $replacment;
+                }
+
+                // Capture all images.
+                preg_match_all( '/<img.*?>/', $raw_html, $images );
+
+                // TODO: Remove the figure (video) check and combine with the images.
+
+                if ( ! empty( $figures[0] ) ) {
+
+                    $html = '<div class="wm-article-image-wrapper"><div class="wm-artilce-image">' . $figures[0] . '</div></div>';
+
+                } elseif ( count( $images[0] ) > 0 ) {
+
+                    $html = '<div class="wm-article-image-wrapper"><div class="wm-artilce-image">' . $images[0][0] . '</div></div><div class="wm-image-sources"><!--';
+
+                    foreach ( $images[0] as $image ) {
+                        $html .= $image . '||';
+                    }
+                    $html = substr( $html, 0, -2 ) . '--></div>';
+
+                } else {
+                    $html .= '';
+                }
+
+                return $html;
+
+            } else {
+                return '';
             }
         }
 
@@ -104,6 +167,75 @@ if ( ! class_exists( 'WM_page_html' ) ) {
         }
 
         /**
+         * Build the summary HTML for a post.
+         *
+         * @param WP_Post $post The current WordPress post object.
+         * @param integer $id The ID to use for this post summary. One will be provided if ommitted.
+         * @return string HTML.
+         */
+        public function get_post_summary( $post, $id = false ) {
+
+            // TODO: Add cache to this step. Load from cache.
+
+            if ( empty( $id ) ) {
+                $id = $this->post_id++;
+            }
+
+            $raw_html = get_the_content( null, false, $post->ID );
+            $raw_html = apply_filters( 'the_content', $raw_html );
+
+            $html = $this->post_summary_template();
+            $html = str_replace( '{{post-id}}', $id, $html );
+            $html = str_replace( '{{post-header}}', $this->get_post_header_html( $post ), $html );
+            $html = str_replace( '{{post-time}}', $this->get_post_time_html( $post ), $html );
+            $html = str_replace( '{{post-image}}', $this->get_post_image_html( $post, $raw_html ), $html );
+            $html = str_replace( '{{post-link}}', get_permalink( $post->ID ), $html );
+            $html = str_replace( '{{post-content}}', 'FAKE CONTENT', $html );
+
+            return $html;
+
+            /*
+            <article class="wm-article" id="post-{{article-id}}">`
+    {{article-header}}`
+    <div class="wm-article-times">
+        {{artile-time}}
+    </div>
+    <div class="wm-article-flex-wrapper">
+        {{article-image}}
+        <div class="wm-article-content" data-wm-navigation="{{article-link}}">
+            {{article-content}}
+        </div>
+    </div>
+</article>
+*/
+        }
+
+        /**
+         * Build the time HTML for a post.
+         *
+         * @param WP_Post $post The current WordPress post object.
+         * @return string HTML
+         */
+        public function get_post_time_html( $post ) {
+
+            // Get raw dates and their formatted versions.
+            $published_raw = $post->post_date;
+            $updated_raw   = $post->post_modified;
+            $published     = gmdate( get_option( 'date_format' ), strtotime( $published_raw ) );
+            $updated       = gmdate( get_option( 'date_format' ), strtotime( $updated_raw ) );
+
+            // Check if we need to show the updated time.
+            if ( $published === $updated ) {
+                $updated = '';
+            } else {
+                $updated = ' Last updated <time itemprop="dateModified" datetime="' . $updated_raw . '">' . $updated . '</time>.';
+            }
+            
+            return '<div class="wm-article-times">Published <time itemprop="datePublished" datetime="' . $published_raw . '">' . $published . '</time>.' . $updated . '</div>';
+
+        }
+
+        /**
          * Return an array with the original and updated dates for this post.
          *
          * @param int $id (Optional) The ID of the post you want to get the dates for.
@@ -118,7 +250,7 @@ if ( ! class_exists( 'WM_page_html' ) ) {
         }
 
         /**
-         * Build the HTMl for any page showing multiple posts
+         * Build the HTML for any page showing multiple posts; post summaries.
          *
          * @return string HTML for the page.
          */
@@ -130,11 +262,13 @@ if ( ! class_exists( 'WM_page_html' ) ) {
 
             $html = $pagination->get_top();
 
+            $counter = 1;
+
             foreach ( $wp_query->posts as $post ) {
 
                 setup_postdata( $post );
 
-                $html .= $this->prep_result_html( $post );
+                $html .= $this->get_post_summary( $post, $counter++ );
             }
 
             $html .= $pagination->get_bottom();
@@ -272,6 +406,26 @@ if ( ! class_exists( 'WM_page_html' ) ) {
             }
 
             return $html;
+        }
+
+        /**
+         * The post summary template for the Wiki Modern theme.
+         */
+        private function post_summary_template() {
+return <<<HTML
+<article class="wm-article" id="post-{{post-id}}">
+    {{post-header}}
+    <div class="wm-article-times">
+        {{post-time}}
+    </div>
+    <div class="wm-article-wrapper">
+        {{post-image}}
+        <div class="wm-article-content" data-wm-navigation="{{post-link}}">
+            {{post-content}}
+        </div>
+    </div>
+</article>
+HTML;
         }
 
         /**

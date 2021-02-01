@@ -189,8 +189,6 @@ $search_text = wp_strip_all_tags( urldecode( get_query_var( 's' ) ) );
                 </div>
             </div>
         </div>
-        <!--Top Pagination Controls -->
-        ...PAGE
         <!-- Page Content -->
         <div id="wm-page-content">
 <?php
