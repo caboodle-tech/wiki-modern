@@ -10,7 +10,7 @@ if ( is_main_query() ) {
 
     $page_html    = '';
     $comment_html = '';
-    $wm_page_html = new WM_Page_Html();
+    $wm_page_html = new Caboodletech\WM_Page_Html();
 
     // Determine what type of page load we are dealing with
     if ( is_home() || is_archive() || is_search() ) {

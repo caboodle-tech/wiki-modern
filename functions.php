@@ -20,8 +20,9 @@ if ( isset( $_COOKIE['wm-dark-mode'] ) ) {
 }
 define( 'DARK_MODE', $dark_mode );
 
-require 'classes/class-wm-page-html.php';
-require 'classes/class-wm-pagination.php';
+require 'autoload.php';
+//require 'classes/class-wm-page-html.php';
+//require 'classes/class-wm-pagination.php';
 
 require 'include/wm-get-image-widths.php';
 

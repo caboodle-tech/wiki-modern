@@ -5,6 +5,8 @@
  * @package Wiki Modern Theme 
  */
 
+namespace Caboodletech;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
     exit;

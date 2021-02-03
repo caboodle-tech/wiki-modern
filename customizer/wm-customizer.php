@@ -19,10 +19,10 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
     require 'include/wm-sanitization.php';
 
     // Load custom classes for Wiki Modern.
-    require 'classes/class-wm-customizer-accordion.php';
-    require 'classes/class-wm-customizer-notice.php';
-    require 'classes/class-wm-customizer-text-radio-control.php';
-    require 'classes/class-wm-customizer-toggle-control.php';
+    //require 'classes/class-wm-customizer-accordion.php';
+    //require 'classes/class-wm-customizer-notice.php';
+    //require 'classes/class-wm-customizer-text-radio-control.php';
+    //require 'classes/class-wm-customizer-toggle-control.php';
 
     // Customizer (panel) JavaScript and CSS files.
     function wm_customizer_panel_enqueue_assets() {
