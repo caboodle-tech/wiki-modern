@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author   maddisondesigns
  * @link     https://github.com/maddisondesigns/customizer-custom-controls Original author of this class core code.
  */
-class WM_Customizer_Text_Radio_Control extends WP_Customize_Control {
+class WM_Customizer_Text_Radio_Control extends \WP_Customize_Control {
 
     /**
      * Add a radio control to WordPress' Customizer.
@@ -62,4 +62,4 @@ class WM_Customizer_Text_Radio_Control extends WP_Customize_Control {
 }
 
 // Register the custom control type.
-$wp_customize->register_control_type( 'WM_Customizer_Text_Radio_Control' );
+//$wp_customize->register_control_type( 'WM_Customizer_Text_Radio_Control' );

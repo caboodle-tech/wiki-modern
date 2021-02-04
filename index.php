@@ -192,6 +192,7 @@ $search_text = wp_strip_all_tags( urldecode( get_query_var( 's' ) ) );
         <!-- Page Content -->
         <div id="wm-page-content">
 <?php
+\Kint\Kint::dump( get_template_directory() . '/classes/Kint' );
 require 'include/wm-page-manager.php';
 ?>
         </div>

@@ -13,6 +13,10 @@
  * > Dynamically set the post per page based on the users cookie if present.
  */
 
+require 'wm-autoload.php';
+require 'include/wm-get-image-widths.php';
+require 'include/wm-kint-fake.php';
+
 // Check if dark mode is enabled for this user.
 $dark_mode = false;
 if ( isset( $_COOKIE['wm-dark-mode'] ) ) {
@@ -20,17 +24,11 @@ if ( isset( $_COOKIE['wm-dark-mode'] ) ) {
 }
 define( 'DARK_MODE', $dark_mode );
 
-require 'autoload.php';
-//require 'classes/class-wm-page-html.php';
-//require 'classes/class-wm-pagination.php';
-
-require 'include/wm-get-image-widths.php';
-
 // Enqueue styles and scripts loaded with the built in wp_footer() function.
 function wm_enqueue_assets() {
 
     // TODO: Fix $ctime.
-    $ctime = random_bytes( 12 );
+    $ctime = random_bytes( 10 );
 
     /**
     * Theme's primary (default) style.css file. This file is not used by Wiki

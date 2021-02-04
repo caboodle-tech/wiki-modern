@@ -27,7 +27,7 @@ $wp_customize->add_section(
 
 /** Toggle Logo. */
 $theme_options[] = array(
-    'class'       => 'WM_Customizer_Toggle_Control',
+    'class'       => 'Caboodletech\WM_Customizer_Toggle_Control',
     'default'     => false,
     'description' => __( 'If there is a site logo hide it from showing.' ),
     'label'       => __( 'Hide Logo' ),
@@ -38,7 +38,7 @@ $theme_options[] = array(
 
 /** Toggle Site Title. */
 $theme_options[] = array(
-    'class'       => 'WM_Customizer_Toggle_Control',
+    'class'       => 'Caboodletech\WM_Customizer_Toggle_Control',
     'default'     => true,
     'description' => __( 'When the Site Title is not empty display it.' ),
     'label'       => __( 'Show Site Title' ),
@@ -49,7 +49,7 @@ $theme_options[] = array(
 
 // Align Site Title
 $theme_options[] = array(
-    'class'       => 'WM_Customizer_Text_Radio_Control',
+    'class'       => 'Caboodletech\WM_Customizer_Text_Radio_Control',
     'default'     => 'centered',
     'description' => __( 'How would you like the site title aligned?' ),
     'label'       => __( 'Site Title Alignment' ),
@@ -65,7 +65,7 @@ $theme_options[] = array(
 
 // Toggle Site Tagline.
 $theme_options[] = array(
-    'class'       => 'WM_Customizer_Toggle_Control',
+    'class'       => 'Caboodletech\WM_Customizer_Toggle_Control',
     'default'     => true,
     'description' => __( 'When the Site Tagline is not empty display it.' ),
     'label'       => __( 'Show Site Tagline' ),
@@ -76,7 +76,7 @@ $theme_options[] = array(
 
 // Align Site Title
 $theme_options[] = array(
-    'class'       => 'WM_Customizer_Text_Radio_Control',
+    'class'       => 'Caboodletech\WM_Customizer_Text_Radio_Control',
     'default'     => 'centered',
     'description' => __( 'How would you like the site tagline aligned?' ),
     'label'       => __( 'Site Tagline Alignment' ),
@@ -119,7 +119,7 @@ $theme_options[] = array(
 
 // Column 1 alignment
 $theme_options[] = array(
-    'class'       => 'WM_Customizer_Text_Radio_Control',
+    'class'       => 'Caboodletech\WM_Customizer_Text_Radio_Control',
     'default'     => 'left',
     'description' => __( 'How would you like column 1 aligned?' ),
     'label'       => __( 'Column 1 Alignment' ),
@@ -135,7 +135,7 @@ $theme_options[] = array(
 
 // Column 2 alignment
 $theme_options[] = array(
-    'class'       => 'WM_Customizer_Text_Radio_Control',
+    'class'       => 'Caboodletech\WM_Customizer_Text_Radio_Control',
     'default'     => 'left',
     'description' => __( 'How would you like column 2 aligned?' ),
     'label'       => __( 'Column 2 Alignment' ),
@@ -151,7 +151,7 @@ $theme_options[] = array(
 
 // Column 3 alignment
 $theme_options[] = array(
-    'class'       => 'WM_Customizer_Text_Radio_Control',
+    'class'       => 'Caboodletech\WM_Customizer_Text_Radio_Control',
     'default'     => 'left',
     'description' => __( 'How would you like column 3 aligned?' ),
     'label'       => __( 'Column 3 Alignment' ),
@@ -167,7 +167,7 @@ $theme_options[] = array(
 
 // Column 4 alignment
 $theme_options[] = array(
-    'class'       => 'WM_Customizer_Text_Radio_Control',
+    'class'       => 'Caboodletech\WM_Customizer_Text_Radio_Control',
     'default'     => 'left',
     'description' => __( 'How would you like column 4 aligned?' ),
     'label'       => __( 'Column 4 Alignment' ),

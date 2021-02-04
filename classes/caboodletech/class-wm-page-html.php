@@ -123,8 +123,51 @@ class WM_Page_Html {
     }
 
     public function get_post_intro_html( $html ) {
-        $html5 = new \Masterminds\HTML5();
-        $dom = $html5->loadHTML($html);
+
+        // Array of elements to keep in the summary.
+        $keep = array( 'p', 'blockquote', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'pre', 'ul' );
+
+        // Wrap the post HTML in a document.
+        $html = '<!doctype html><html><head><meta charset="utf-8"></head><body>' . $html . '</body></html>';
+
+        // Parse the HTML into a PHP DOM so we can choose nodes for the post summary
+        $html5   = new \Masterminds\HTML5();
+        $dom     = $html5->loadHTML( $html );
+        $elems   = $dom->getElementsByTagName( '*' );
+        $summary = '';
+        $count   = 0;
+
+        // Loop through the nodes and add ones from the $keep list into the post $summary.
+        foreach ( $elems as $node ) {
+            // Is this a node we want to keep?
+            if ( in_array( $node->nodeName, $keep, true ) ) {
+                // Yes. Get the HTML for this node but handle headlines differently.
+                if ( $node->nodeName[0] === 'h' ) {
+                    $node_html = '<div class="wm-headline">' . $node->nodeValue . '</div>';
+                } else {
+                    $node_html = $dom->saveHTML( $node );
+                }
+
+                // Remove all references to images and figures.
+                $node_html = preg_replace( '/(<figure(.+\n.+|.)+<\/figure>)/', '', $node_html );
+                $node_html = preg_replace( '/<img.*?>/', '', $node_html );
+                
+                // TODO: Remove audio and video as well.
+
+                // Save this node only if it is not empty.
+                if ( strlen( $node_html ) > 50 ) {
+                    // Save this node (HTML) in the post $summary and increment the counter.
+                    $summary .= $node_html;
+                    $count++;
+                }
+            }
+            // Stop after we have 4 nodes of HTML.
+            if ( $count === 4 ) {
+                break;
+            }
+        }
+
+        return $summary;
     }
 
     /**

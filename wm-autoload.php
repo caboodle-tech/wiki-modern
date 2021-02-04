@@ -17,22 +17,30 @@ function wm_autoloader( $class ) {
 
         // Is this a WordPress class?
         if ( substr( $class, 0, 2 ) === 'WP' ) {
+            // Yes. WordPress handles itself, ignore this class call.
+            return;
+        // No. How about a Customizer class?
+        } elseif ( strpos( $class, 'Customizer' ) !== false ) {
             // Yes.
-            $filename = str_replace( '_', '-', strtolower( $class ) ) . '.php';
-            $file     = ABSPATH . 'wp-includes/class-' . $filename;
-            // Is this a normal include?
+            $filename = str_replace( array( '_', '\\' ), array( '-', '/' ), strtolower( $class ) );
+            $filename = substr( $filename, 0, strrpos( $filename, '/' ) ) . '/class-' .
+                        substr( $filename, strrpos( $filename, '/' ) + 1 ) . '.php';
+            $file     = get_template_directory() . '/customizer/classes/' . $filename;
+            // Did we find the WordPress’ procedural style class?
             if ( file_exists( $file ) ) {
                 // Yes.
                 require $file;
             } else {
-                // No, try admin.
-                $file = ABSPATH . 'wp-admin/includes/class-' . $filename;
-                require $file;
+                // No. Try to load this class PSR style.
+                $filename = str_replace( array( '_', '\\' ), array( '-', '/' ), $class );
+                $filename = substr( $filename, 0, strrpos( $filename, '/' ) ) .
+                            substr( $filename, strrpos( $filename, '/' ) ) . '.php';
+                $file     = get_template_directory() . '/classes/' . $filename;
+                if ( file_exists( $file ) ) {
+                    wm_autoload_use( $file );
+                    require $file;
+                }
             }
-        // No. How about a Customizer class?
-        } elseif ( strpos( $class, 'Customizer' ) !== false ) {
-            // Yes.
-            echo 'CUSTOMIZER';
         } else {
             // No. This is a plain 'ol class.
             $filename = str_replace( array( '_', '\\' ), array( '-', '/' ), strtolower( $class ) );
@@ -49,9 +57,13 @@ function wm_autoloader( $class ) {
                 $filename = substr( $filename, 0, strrpos( $filename, '/' ) ) .
                             substr( $filename, strrpos( $filename, '/' ) ) . '.php';
                 $file     = get_template_directory() . '/classes/' . $filename;
+                // Do not allow the real Kint class to load in production.
+                if ( ! WP_DEBUG && strpos( $file, 'Kint' ) !== false ) {
+                    $file = str_replace( 'Kint.php', 'KintFake.php', $file );
+                }
                 if ( file_exists( $file ) ) {
-                    wm_autoload_use( $file );
                     require $file;
+                    wm_autoload_use( $file );
                 }
             }
         }
@@ -69,7 +81,6 @@ function wm_autoload_use( $file ) {
     preg_match_all( '/use (.*);\n/', $contents, $uses );
     if ( $uses[1] ) {
         foreach ( $uses[1] as $use ) {
-            echo "[$use]";
             wm_autoloader( $use );
         }
     }

@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @access public
  * @author Caboodle Tech Inc. <source@caboodle.tech>
  */
-class WM_Customizer_Accordion extends WP_Customize_Control {
+class WM_Customizer_Accordion extends \WP_Customize_Control {
 
     /**
      * The type of control being rendered.

@@ -308,10 +308,15 @@ main #wm-page-content .wm-article .wm-article-wrapper .wm-article-content {
   flex: 1;
   cursor: pointer;
 }
-main #wm-page-content .wm-article .wm-article-wrapper .wm-article-content p:first-of-type {
+main #wm-page-content .wm-article .wm-article-wrapper .wm-article-content .wm-headline {
+  font-weight: bold;
+  font-size: 1.38rem;
+  margin: 15px 0;
+}
+main #wm-page-content .wm-article .wm-article-wrapper .wm-article-content > :first-child {
   margin-top: 0;
 }
-main #wm-page-content .wm-article .wm-article-wrapper .wm-article-content p:last-of-type {
+main #wm-page-content .wm-article .wm-article-wrapper .wm-article-content > :last-child {
   margin-bottom: 0;
 }
 main #wm-page-content .wm-article .wm-article-wrapper .wm-article-password {

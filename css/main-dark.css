@@ -308,10 +308,15 @@ main #wm-page-content .wm-article .wm-article-wrapper .wm-article-content {
   flex: 1;
   cursor: pointer;
 }
-main #wm-page-content .wm-article .wm-article-wrapper .wm-article-content p:first-of-type {
+main #wm-page-content .wm-article .wm-article-wrapper .wm-article-content .wm-headline {
+  font-weight: bold;
+  font-size: 1.38rem;
+  margin: 15px 0;
+}
+main #wm-page-content .wm-article .wm-article-wrapper .wm-article-content > :first-child {
   margin-top: 0;
 }
-main #wm-page-content .wm-article .wm-article-wrapper .wm-article-content p:last-of-type {
+main #wm-page-content .wm-article .wm-article-wrapper .wm-article-content > :last-child {
   margin-bottom: 0;
 }
 main #wm-page-content .wm-article .wm-article-wrapper .wm-article-password {
@@ -345,34 +350,6 @@ main .wm-pagination {
   flex-wrap: wrap;
   margin: 30px 0;
   font-size: 1.4375rem;
-  /*
-    .wm-position-bottom {
-    
-        .wm-inline-dropdown {
-    
-            .wm-inline-options {
-                bottom: 2rem;
-            }
-    
-            &:after {
-                content: '';
-                position: absolute;
-                right: 1px;
-                top: 37%;
-                width: 0;
-                height: 0;
-                border-left: 6px solid transparent;
-                border-right: 6px solid transparent;
-                border-bottom: 10px solid @content-color;
-                border-top: none;
-            }
-    
-            &:hover {
-                cursor: pointer;
-            }
-        }
-    }
-    */
 }
 main .wm-pagination svg {
   fill: #f2f2f3;
@@ -440,6 +417,27 @@ main .wm-pagination .wm-inline-dropdown:after {
 main .wm-pagination .wm-inline-dropdown:hover {
   cursor: pointer;
 }
+main .wm-pagination#wm-bottom-pagination {
+  margin-bottom: 0;
+}
+main .wm-pagination#wm-bottom-pagination .wm-inline-dropdown .wm-inline-options {
+  bottom: 2rem;
+}
+main .wm-pagination#wm-bottom-pagination .wm-inline-dropdown:after {
+  content: '';
+  position: absolute;
+  right: 1px;
+  top: 37%;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 10px solid #f2f2f3;
+  border-top: none;
+}
+main .wm-pagination#wm-bottom-pagination .wm-inline-dropdown:hover {
+  cursor: pointer;
+}
 @media (min-width: 768px) {
   main .wm-pagination .wm-page {
     flex: 1 0 auto;
@@ -474,9 +472,6 @@ main .wm-pagination .wm-inline-dropdown:hover {
     width: auto;
     text-align: right;
   }
-}
-main .wm-pagination#wm-bottom-pagination {
-  margin-bottom: 0;
 }
 .wm-page main #wm-top-controls-wrapper .wm-left-toggle {
   visibility: hidden;

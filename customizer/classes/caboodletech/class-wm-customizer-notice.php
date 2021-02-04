@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @license  http://www.gnu.org/licenses/gpl-2.0.html
  * @link     https://github.com/maddisondesigns/customizer-custom-controls/blob/master/inc/custom-controls.php Original source of this class.
  */
-class WM_Customizer_Notice extends WP_Customize_Control {
+class WM_Customizer_Notice extends \WP_Customize_Control {
 
     /**
      * The type of control being rendered.
