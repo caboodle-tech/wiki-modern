@@ -49,6 +49,7 @@ function wm_enqueue_assets() {
 
     // Wiki Modern's primary JavaScript files.
     wp_enqueue_script( 'wm-polyfill-js', get_template_directory_uri() . '/js/polyfills.js', array(), $ctime, true );
+    wp_enqueue_script( 'wm-qr-code-js', get_template_directory_uri() . '/js/qr-code-styling.js', array(), $ctime, true );
     wp_enqueue_script( 'wm-cookie-js', get_template_directory_uri() . '/js/cookie.js', array(), $ctime, true );
     wp_enqueue_script( 'wm-wikimodern-js', get_template_directory_uri() . '/js/wiki-modern.js', array(), $ctime, true );
 }

@@ -183,32 +183,17 @@ class WM_Page_Html {
 
         if ( ! post_password_required( $post->ID ) ) {
 
-            // [TODO][BP20F4836] PULL IN ALL THE $WM_posts FUNCTIONS AND DELETE THAT CLASS.
+            $raw_html = get_the_content( null, false, $post->ID );
+            $raw_html = apply_filters( 'the_content', $raw_html );
+    
+            $html = $this->post_template();
+            $html = str_replace( '{{post-header}}', $this->get_post_header_html( $post ), $html );
+            $html = str_replace( '{{post-time}}', $this->get_post_time_html( $post ), $html );
+            $html = str_replace( '{{post-author}}', 'MAKE THIS', $html );
+            $html = str_replace( '{{post-content}}', $raw_html, $html );
 
-            $dates     = $this->get_raw_dates( $post->ID );
-            $published = date_create_from_format( get_option( 'date_format' ), $dates[0] );
-            $published = $published->format( 'Y-m-d' ) . ' 00:00';
-
-            $html  = '<article class="wm-article-content"><div id="wm-article-header-wrapper"><div id="wm-article-header"><div class="wm-article-title">';
-            $html .= $this->get_html_title( $post, false );
-            $html .= '</div><div class="wm-article-meta"><div>Published <time datetime="' . $published . '" title="published">' . $dates[0] . '</time>.';
-
-            if ( $dates[1] ) {
-                $updated = date_create_from_format( get_option( 'date_format' ), $dates[1] );
-                $updated = $updated->format( 'Y-m-d' ) . ' 00:00';
-
-                $html .= ' Updated <time datetime="' . $updated . '" title="updated">' . $dates[1] . '</time>.';
-            }
-
-            $html .= '</div>';
-            $html .= $this->get_author_meta( $post );
-            $html .= '</div><canvas id="wm-article-qrcode" width="100" height="100"></canvas></div></div>';
-            $html .= apply_filters( 'the_content', $post->post_content );
-            $html .= '</article>';
         } else {
-            $html  = '<article class="wm-article" id="post-' . $post->ID . '">' . $this->get_html_title( $post, false );
-            $html .= get_the_password_form( $post->ID );
-            $html .= '</article>';
+            $html = 'Password Protected';
         }
 
         return $html;
@@ -454,6 +439,47 @@ class WM_Page_Html {
         }
 
         return $html;
+    }
+
+    /**
+     * The post template for the Wiki Modern theme.
+     */
+    private function post_template() {
+return <<<HTML
+<article class="wm-article-content">
+    <div id="wm-article-header">
+        <div class="wm-article-title">
+            {{post-header}}
+        </div>
+        <div class="wm-article-meta">
+            <div class="wm-time">
+                {{post-time}}
+            </div>
+            <div class="wm-author">
+                {{post-author}}
+            </div>
+        </div>
+    </div>
+    {{post-content}}
+    <div id="wm-article-cite">
+        <div id="wm-qr-code-wrapper"></div>
+        <div class="wm-article-meta">
+            <div class="wm-title">
+                {{cite-header}}
+            </div>
+            <div class="wm-time">
+                {{cite-time}}
+            </div>
+            <div class="wm-author">
+                {{cite-author}}
+            </div>
+            <div class="wm-message">
+                {{cite-message}}
+            </div>
+        </div>
+    </div>
+</article>
+HTML;
     }
 
     /**

@@ -69,6 +69,11 @@ var WM = ( function() {
 
         // Close open inline dropdowns when the user clicks elsewhere.
         document.body.addEventListener( 'click', closeInlineDropdowns );
+
+        elem = elems.content.querySelectorAll( '[data-wm-navigation]' );
+        elem.forEach( function( post ) {
+            post.addEventListener( 'click', openPost );
+        } );
     };
 
     var closeInlineDropdowns = function() {
@@ -130,6 +135,39 @@ var WM = ( function() {
 
         attachEvents();
 
+        // Make the citation QR code on a post page.
+        makeQrCode();
+
+    };
+
+    var makeQrCode = function() {
+        var qrCanvas = document.getElementById( 'wm-qr-code-wrapper' );
+        if ( qrCanvas ) {
+            var qrCode = new QRCodeStyling( {
+                width: 125,
+                height: 125,
+                margin: 15,
+                data: "https://www.facebook.com/",
+                qrOptions: {
+                    errorCorrectionLevel: 'Q'
+                },
+                dotsOptions: {
+                    color: "#000000",
+                    type: "square"
+                },
+                backgroundOptions: {
+                    color: "#ffffff",
+                }
+            } );
+            qrCode.append( qrCanvas );
+        }
+    };
+
+    var openPost = function() {
+        var link = this.dataset.wmNavigation;
+        if ( link ) {
+            document.location = link;
+        }
     };
 
     var recordDevice = function() {
