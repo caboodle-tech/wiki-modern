@@ -1,6 +1,22 @@
 #wm-page-content {
     padding: 0 @spacing;
 
+    a {
+        text-decoration: none;
+        color: @link-color;
+        cursor: pointer;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    figure, img {
+        &.size-full {
+            margin: @spacing -@spacing * 2;
+        }
+    }
+
     .wm-article {
         display: block;
         width: 100%;

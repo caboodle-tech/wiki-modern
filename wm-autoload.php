@@ -8,7 +8,7 @@
 /**
  * Wiki Modern Theme autoloader.
  *
- * @param class $class The class to attemt to autoload.
+ * @param class $class The class to attempt to autoload.
  * @return void
  */
 function wm_autoloader( $class ) {

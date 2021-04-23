@@ -42,6 +42,22 @@ body {
     word-spacing: 1px;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 400;
+
+    &.wm-admin-bar-active {
+
+        main.wm-main-content, aside.wm-left-sidebar, header.wm-right-sidebar {
+            padding-top: @spacing + 46px;
+        } 
+    }
+
+    @media ( min-width: 782px ) {
+
+        &.wm-admin-bar-active {
+            main.wm-main-content, aside.wm-left-sidebar, header.wm-right-sidebar {
+                padding-top: @spacing + 32px;
+            } 
+        }
+    }
 }
 
 code {
@@ -112,7 +128,7 @@ input[type="checkbox"] + span {
     text-align: right;
 }
 
-main {
+main.wm-main-content {
     z-index: 500;
     font-size: @font-size;
     line-height: @font-size*1.5;
@@ -127,7 +143,7 @@ main {
 }
 
 .wm-page {
-    main {
+    main.wm-main-content {
         #wm-top-controls-wrapper {
 
             .wm-left-toggle {
@@ -212,7 +228,7 @@ header.wm-right-sidebar {
     @import "header.less";
 }
 
-footer {
+footer.wm-footer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -227,12 +243,6 @@ footer {
     }
 
     @import "footer.less";
-}
-
-.wm-admin-bar-active {
-    footer {
-        padding-bottom: 2.5rem;
-    }
 }
 
 @import "print-rules.less";

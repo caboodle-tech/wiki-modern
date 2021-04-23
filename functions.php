@@ -132,3 +132,10 @@ function wm_sanitize_cookie( $data ) {
     return $data;
 }
 add_filter( 'sanitize_json_wm_cookie', 'wm_sanitize_cookie' );
+
+add_action(
+    'after_setup_theme',
+    function () {
+        add_theme_support( 'admin-bar', array( 'callback' => '__return_false' ) );
+    }
+);

@@ -1,3 +1,13 @@
+a {
+    text-decoration: none;
+    color: @link-color;
+    cursor: pointer;
+
+    &:hover {
+        color: lighten( @link-color, 15% );
+    }
+}
+
 img {
     .image-shadow( 1px, -1px, fade( @sidebar-color, 13% ) );
 }

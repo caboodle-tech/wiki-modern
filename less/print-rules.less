@@ -1,11 +1,11 @@
 body.wm-print-mode {
     overflow: visible;
 
-    header, aside, footer {
+    header.wm-right-sidebar, aside.wm-left-sidebar, footer.wm-footer {
         display: none;
     }
 
-    main {
+    main.wm-main-content {
         border: 0px !important;
 
         #wm-print-controls-wrapper {
@@ -21,11 +21,13 @@ body.wm-print-mode {
         }
 
         @media print {
+            color: #000000;
             font-size: @font-size/1.35;
             line-height: @font-size/1.05;
 
             #wm-page-content {
                 padding: 0;
+                color: #000000;
             }
     
             #wm-print-controls-wrapper {
